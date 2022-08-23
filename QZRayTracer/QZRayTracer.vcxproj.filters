@@ -13,12 +13,18 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="ext">
+      <UniqueIdentifier>{0428a510-d0f9-4e33-9ca3-2bd0a1ad9da0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\core\api.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\geometry.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,6 +40,12 @@
     </ClInclude>
     <ClInclude Include="src\core\stb_image_write.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\geometry.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ext\logging.h">
+      <Filter>ext</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

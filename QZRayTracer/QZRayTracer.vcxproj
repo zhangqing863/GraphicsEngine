@@ -129,12 +129,15 @@
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp" />
     <ClCompile Include="src\core\api.cpp" />
+    <ClCompile Include="src\core\geometry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h" />
+    <ClInclude Include="src\core\geometry.h" />
     <ClInclude Include="src\core\QZRayTracer.h" />
     <ClInclude Include="src\core\stb_image.h" />
     <ClInclude Include="src\core\stb_image_write.h" />
+    <ClInclude Include="src\ext\logging.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
