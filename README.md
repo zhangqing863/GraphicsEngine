@@ -42,14 +42,17 @@ Point3f Color(const Ray& ray) {
 
 ---
 $$t=0.5\times(\mathbf{dir}_y + 1.0)$$
+
  ![Chapter-03-1 picture](./QZRayTracer/output-chapter03-1.png)
 
 ---
 $$t=0.25\times(\mathbf{dir}_x + 2.0)$$
+
  ![Chapter-03-2 picture](./QZRayTracer/output-chapter03-2.png)
 
 ---
  $$t=\mathbf{dir}_z + 2.0$$
+
  ![Chapter-03-3 picture](./QZRayTracer/output-chapter03-3.png)
 
 至于 $t$ 为什么要这么计算，目的主要是为了将其区间映射至 $[0,1]$ .
