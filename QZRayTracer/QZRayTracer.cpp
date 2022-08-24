@@ -34,8 +34,10 @@ bool HitSphere(const Point3f& center, Float radius, const Ray& ray, Float& t) {
 Point3f Color(const Ray& ray) {
 	Float t;
 	if (HitSphere(sphereCenter, sphereRadius, ray, t)) {
-		t = exp(-t); // 将 t 映射至 (0, 1] 以此获得远近颜色过渡的效果
-		return Lerp(t, Point3f(0.2, 0.2, 0.2), Point3f(0.6, 0.4, 0.5));
+		// Chapter-05:击中就求其击中点的法线，球的法线直接就是击中点连接球中心的交点
+		Vector3f N = Normalize(ray(t) - sphereCenter); 
+		Vector3f normalColor = (N + Vector3f(1.0, 1.0, 1.0)) * 0.5;
+		return Point3f(normalColor.x, normalColor.y, normalColor.z);
 	}
 	// 没击中就画个背景
 	Vector3f dir = Normalize(ray.d);
@@ -78,7 +80,7 @@ int main()
 		}
 	}
 	// 写入图像
-	stbi_write_png("output-chapter04.png", width, height, channel, data, 0);
+	stbi_write_png("output-chapter05-1.png", width, height, channel, data, 0);
 	cout << "生成成功！" << endl;
 	stbi_image_free(data);
 }

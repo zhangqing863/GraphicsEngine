@@ -39,12 +39,16 @@ Point3f Color(const Ray& ray) {
 ```
 
 我分别测试了三种分量来获得不同的效果。
+
+---
 $$t=0.5\times(\mathbf{dir}_y + 1.0)$$
  ![Chapter-03-1 picture](./QZRayTracer/output-chapter03-1.png)
 
+---
 $$t=0.25\times(\mathbf{dir}_x + 2.0)$$
  ![Chapter-03-2 picture](./QZRayTracer/output-chapter03-2.png)
 
+---
  $$t=\mathbf{dir}_z + 2.0$$
  ![Chapter-03-3 picture](./QZRayTracer/output-chapter03-3.png)
 
@@ -94,3 +98,31 @@ Point3f Color(const Ray& ray) {
 效果图：
 
 ![Chapter-04 picture](./QZRayTracer/output-chapter04.png)
+
+### Chapter-05
+本章主要引入了法线的概念，并且简单实现了球体的法线。在图形学中法线是必不可少的一个概念，后面不管是任何的渲染公式都会用到，包括后面的 **半程向量(halfDir)，视角向量(viewDir)** 都是重要的概念。
+
+本节主要将球体的法线可视化出来，这里是相当于直接使用世界坐标轴下的法线向量输出成rgb，相对来说还没有涉及到在**切线空间**下的表示，后面会慢慢加入这些功能。另外将这些几何体抽象成一个单独的类，目前还只有球的表示，后面应该会结合 **pbrt** 中的几何章节加入不同的几何体表示。
+
+法线可视化：
+
+```cpp
+// Chapter03-04 : simple color function
+Point3f Color(const Ray& ray) {
+	Float t;
+	if (HitSphere(sphereCenter, sphereRadius, ray, t)) {
+		// Chapter-05:击中就求其击中点的法线，球的法线直接就是击中点连接球中心的交点
+		Vector3f N = Normalize(ray(t) - sphereCenter); 
+		Vector3f normalColor = (N + Vector3f(1.0, 1.0, 1.0)) * 0.5;
+		return Point3f(normalColor.x, normalColor.y, normalColor.z);
+	}
+	// 没击中就画个背景
+	Vector3f dir = Normalize(ray.d);
+	t = 0.5 * (dir.y + 1.0);
+	return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
+}
+```
+![Chapter-05-1 picture](./QZRayTracer/output-chapter05-1.png)
+
+这里解释一下为什么会出现这样的效果，设置法线表示 $\mathbf{N}$ .
+首先从世界坐标的角度去理解，朝屏幕上方的 $\mathbf{N} \to [0.0,1.0,0.0]$，故其颜色分量 $rgb \to [0.0,1.0,0.0]$，因此造成朝上的方向会更绿，原因就是其 $green$ 分量的值更大；同理屏幕左边和右边也可以这样去理解。
