@@ -919,7 +919,27 @@ namespace raytracer {
         return Normal3<T>(std::abs(v.x), std::abs(v.y), std::abs(v.z));
     }
 
-}
+    class Ray {
+    public:
+        // Ray Public Methods
+        Ray() : tMax(Infinity), time(0.f) {}
+        Ray(const Point3f& o, const Vector3f& d, Float tMax = Infinity,
+            Float time = 0.f)
+            : o(o), d(d), tMax(tMax), time(time) {}
+        Point3f operator()(Float t) const { return o + d * t; }
+        bool HasNaNs() const { return (o.HasNaNs() || d.HasNaNs() || isNaN(tMax)); }
+        friend std::ostream& operator<<(std::ostream& os, const Ray& r) {
+            os << "[o=" << r.o << ", d=" << r.d << ", tMax=" << r.tMax
+                << ", time=" << r.time << "]";
+            return os;
+        }
 
+        // Ray Public Data
+        Point3f o;
+        Vector3f d;
+        mutable Float tMax; // 突破const的限制，即使是 const Ray &r，也能更改tMax
+        Float time;
+    };
+}
 
 #endif  // QZRT_CORE_GEOMETRY_H

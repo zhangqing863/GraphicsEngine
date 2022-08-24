@@ -1,2 +1,25 @@
 ﻿  QZRayTracer.cpp
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(47,56): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(48,59): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(49,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(50,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(51,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(52,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(53,59): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(81,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(88,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(199,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(206,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(325,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(331,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(444,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(450,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(543,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(550,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(15,10): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(16,62): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
   QZRayTracer.vcxproj -> E:\Study\CG\Works\GraphicsEngine\x64\Debug\QZRayTracer.exe
