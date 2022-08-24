@@ -12,7 +12,7 @@ using namespace std;
 // Chapter03 : simple color function
 Point3f Color(const Ray& ray) {
 	Vector3f dir = Normalize(ray.d);
-	Float t = 0.5 * (dir.x + 1.0);
+	Float t = 0.5 * (dir.y + 1.0);
 	return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
 }
 
