@@ -9,16 +9,44 @@
 using namespace raytracer;
 using namespace std;
 
-// Chapter03 : simple color function
+static Point3f sphereCenter(0, 0, -1); // 设置圆的中心
+static Float sphereRadius = 0.5; // 设置圆的半径
+
+// Chapter04 : simple sphere
+bool HitSphere(const Point3f& center, Float radius, const Ray& ray, Float& t) {
+	Vector3f oc = ray.o - center;
+	Float a = Dot(ray.d, ray.d);
+	Float b = 2.0 * Dot(oc, ray.d);
+	Float c = Dot(oc, oc) - radius * radius;
+	Float discriminant = b * b - 4 * a * c;
+	// 判断有根与否并求根，取小的根作为击中点所需要的时间(可以把t抽象成时间)
+	if (discriminant > 0) {
+		Float invA = 1.0 / (2.0 * a);
+		Float t0 = (-b + sqrt(discriminant)) * invA;
+		Float t1 = (-b - sqrt(discriminant)) * invA;
+		t = min(t0, t1);
+		return true;
+	}
+	return false;
+}
+
+// Chapter03-04 : simple color function
 Point3f Color(const Ray& ray) {
+	Float t;
+	if (HitSphere(sphereCenter, sphereRadius, ray, t)) {
+		t = exp(-t); // 将 t 映射至 (0, 1] 以此获得远近颜色过渡的效果
+		return Lerp(t, Point3f(0.2, 0.2, 0.2), Point3f(0.6, 0.4, 0.5));
+	}
+	// 没击中就画个背景
 	Vector3f dir = Normalize(ray.d);
-	Float t = 0.5 * (dir.y + 1.0);
+	t = 0.5 * (dir.y + 1.0);
 	return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
 }
 
+
 int main()
 {
-    int width = 1920, height = 1080, channel = 3;
+    int width = 2000, height = 1000, channel = 3;
 
     auto* data = (unsigned char*)malloc(width * height * channel);
 
@@ -50,7 +78,7 @@ int main()
 		}
 	}
 	// 写入图像
-	stbi_write_png("output-chapter03-1.png", width, height, channel, data, 0);
+	stbi_write_png("output-chapter04.png", width, height, channel, data, 0);
 	cout << "生成成功！" << endl;
 	stbi_image_free(data);
 }
