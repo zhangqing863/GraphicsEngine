@@ -5,8 +5,10 @@
 
 #include "geometry.h"
 #include "shape.h"
+#include "camera.h"
 #include "../shape/sphere.h"
 #include "../shape/shapeList.h"
+
 
 namespace raytracer {
 

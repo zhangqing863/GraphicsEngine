@@ -4,10 +4,10 @@
 #include "../core/shape.h"
 namespace raytracer {
 
-	class ShapeList:public Shape {
+	class ShapeList :public Shape {
 	public:
 		ShapeList() {}
-		ShapeList(std::vector<std::shared_ptr<Shape>> shapes):shapes(shapes) {}
+		ShapeList(std::vector<std::shared_ptr<Shape>> shapes) :shapes(shapes) {}
 		// Í¨¹ý Shape ¼Ì³Ð
 		virtual bool hit(const Ray& ray, HitRecord& rec) const override;
 		std::vector<std::shared_ptr<Shape>> shapes;
@@ -16,4 +16,4 @@ namespace raytracer {
 	std::shared_ptr<Shape> CreateShapeList(std::vector<std::shared_ptr<Shape>> shapes);
 }
 
-#endif QZRT_CORE_SHAPELIST_H
+#endif // QZRT_CORE_SHAPELIST_H

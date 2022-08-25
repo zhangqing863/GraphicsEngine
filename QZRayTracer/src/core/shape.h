@@ -5,18 +5,18 @@
 #include "QZRayTracer.h"
 #include "geometry.h"
 namespace raytracer {
-	
 
-struct HitRecord {
-	Float t; // time
-	Point3f p; // 击中点
-	Normal3f normal; // 法线
-};
 
-class Shape{
-public:
+	struct HitRecord {
+		Float t; // time
+		Point3f p; // 击中点
+		Normal3f normal; // 法线
+	};
+
+	class Shape {
+	public:
 		virtual bool hit(const Ray& ray, HitRecord& rec)const = 0;
-};
+	};
 
 }
 

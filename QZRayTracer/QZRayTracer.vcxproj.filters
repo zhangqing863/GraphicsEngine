@@ -39,6 +39,9 @@
     <ClCompile Include="src\shape\shapeList.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\camera.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -66,6 +69,9 @@
       <Filter>shape</Filter>
     </ClInclude>
     <ClInclude Include="src\shape\shapeList.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\camera.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

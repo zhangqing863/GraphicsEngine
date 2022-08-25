@@ -140,25 +140,40 @@ Point3f Color(const Ray& ray) {
 **纠正代码：**
  ```cpp
  for (int sy = height - 1; sy >= 0; sy--)
+{
+	for (int sx = 0; sx < width; sx++)
 	{
-		for (int sx = 0; sx < width; sx++)
-		{
-			Float u = Float(sx) / Float(width);
-			Float v = Float(height - sy - 1) / Float(height);
-			
-			Ray ray(origin, lowerLeftCorner + u * horizontal + v * vertical);
-			
-			Point3f color = Color(ray, world);
-			
-			int ir = int(255.99 * color[0]);
-			int ig = int(255.99 * color[1]);
-			int ib = int(255.99 * color[2]);
-			
-			int shadingPoint = (sy * width + sx) * 3;
-			data[shadingPoint] = ir;
-			data[shadingPoint + 1] = ig;
-			data[shadingPoint + 2] = ib;
-		}
+		Float u = Float(sx) / Float(width);
+		Float v = Float(height - sy - 1) / Float(height);
+		
+		Ray ray(origin, lowerLeftCorner + u * horizontal + v * vertical);
+		
+		Point3f color = Color(ray, world);
+		
+		int ir = int(255.99 * color[0]);
+		int ig = int(255.99 * color[1]);
+		int ib = int(255.99 * color[2]);
+		
+		int shadingPoint = (sy * width + sx) * 3;
+		data[shadingPoint] = ir;
+		data[shadingPoint + 1] = ig;
+		data[shadingPoint + 2] = ib;
 	}
+}
  ```
  前面使用按照书中的方式，但是计算 **v** 感觉有点违背直觉，因此我将计算的结果与视角相联系了起来，修改了 **v, shadingPoint** 的计算过程。
+
+ ### Chapter-06
+ 本章主要是将摄像机抽象成了一个类，毕竟现代编程，OOP(面向对象)是一个基本的常识。此外引入了采样数量的概念，主要是用来抗锯齿，本章中实现的效果相当于 **SSAA** ，效果很好，但是太费时了。这里先给自己定些小目标！后面自己去实现 **MSAA** 等抗锯齿技术，
+
+具体代码和书中大同小异，就不在本文中细述了。主要看其效果：
+
+![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp1.png)
+
+$$spp=1,time=4271ms$$
+
+![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp16-info.png)
+
+$$spp=16,time=59097ms$$
+
+可以看出，渲染时间几乎是以 **spp** 的倍数增长。后面测试就需要调低分辨率了，这里设置的都是 $2000\times 1000$ 。
