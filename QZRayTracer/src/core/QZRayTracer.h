@@ -4,6 +4,7 @@
 
 
 #include <iostream>
+#include <vector>
 #include "../ext/logging.h"
 
 #define QZRT_CONSTEXPR constexpr
@@ -26,7 +27,7 @@ class Point2;
 template <typename T>
 class Normal3;
 class Ray;
-
+class Shape;
 
 
 // Global Constants

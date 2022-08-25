@@ -16,6 +16,9 @@
     <Filter Include="ext">
       <UniqueIdentifier>{0428a510-d0f9-4e33-9ca3-2bd0a1ad9da0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shape">
+      <UniqueIdentifier>{e4334664-5e19-474e-b57a-9fd082b2c392}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp">
@@ -26,6 +29,15 @@
     </ClCompile>
     <ClCompile Include="src\core\geometry.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\shape.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\sphere.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\shapeList.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +58,15 @@
     </ClInclude>
     <ClInclude Include="src\ext\logging.h">
       <Filter>ext</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\shape.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\sphere.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\shapeList.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

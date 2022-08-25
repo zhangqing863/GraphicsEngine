@@ -107,7 +107,7 @@ Point3f Color(const Ray& ray) {
 
 本节主要将球体的法线可视化出来，这里是相当于直接使用世界坐标轴下的法线向量输出成rgb，相对来说还没有涉及到在**切线空间**下的表示，后面会慢慢加入这些功能。另外将这些几何体抽象成一个单独的类，目前还只有球的表示，后面应该会结合 **pbrt** 中的几何章节加入不同的几何体表示。
 
-法线可视化：
+**法线可视化**：
 
 ```cpp
 // Chapter03-04 : simple color function
@@ -129,3 +129,36 @@ Point3f Color(const Ray& ray) {
 
 这里解释一下为什么会出现这样的效果，设置法线表示 $\mathbf{N}$ .
 首先从世界坐标的角度去理解，朝屏幕上方的 $\mathbf{N} \to [0.0,1.0,0.0]$，故其颜色分量 $rgb \to [0.0,1.0,0.0]$，因此造成朝上的方向会更绿，原因就是其 $green$ 分量的值更大；同理屏幕左边和右边也可以这样去理解。
+
+**抽象类**：
+通过 **Shape** 作为基类，派生出 **Sphere, ShapeList** 类，其中我自己实现的方式和书中有一些不同，比如命名方式，以及使用了智能指针和vector容器来实现 **ShapeList** 。
+
+最终实现本节的两个球体效果。
+
+![Chapter-05-2 picture](./QZRayTracer/output-chapter05-2.png)
+
+**纠正代码：**
+ ```cpp
+ for (int sy = height - 1; sy >= 0; sy--)
+	{
+		for (int sx = 0; sx < width; sx++)
+		{
+			Float u = Float(sx) / Float(width);
+			Float v = Float(height - sy - 1) / Float(height);
+			
+			Ray ray(origin, lowerLeftCorner + u * horizontal + v * vertical);
+			
+			Point3f color = Color(ray, world);
+			
+			int ir = int(255.99 * color[0]);
+			int ig = int(255.99 * color[1]);
+			int ib = int(255.99 * color[2]);
+			
+			int shadingPoint = (sy * width + sx) * 3;
+			data[shadingPoint] = ir;
+			data[shadingPoint + 1] = ig;
+			data[shadingPoint + 2] = ib;
+		}
+	}
+ ```
+ 前面使用按照书中的方式，但是计算 **v** 感觉有点违背直觉，因此我将计算的结果与视角相联系了起来，修改了 **v, shadingPoint** 的计算过程。

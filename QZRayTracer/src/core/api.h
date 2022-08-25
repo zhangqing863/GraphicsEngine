@@ -4,6 +4,9 @@
 
 
 #include "geometry.h"
+#include "shape.h"
+#include "../shape/sphere.h"
+#include "../shape/shapeList.h"
 
 namespace raytracer {
 
