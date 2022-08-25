@@ -55,7 +55,6 @@ namespace raytracer {
 	static QZRT_CONSTEXPR Float PiOver2 = 1.57079632679489661923;
 	static QZRT_CONSTEXPR Float PiOver4 = 0.78539816339744830961;
 	static QZRT_CONSTEXPR Float Sqrt2 = 1.41421356237309504880;
-
 	// Global Inline Functions
 	
 }

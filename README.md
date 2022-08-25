@@ -177,3 +177,73 @@ $$spp=1,time=4271ms$$
 $$spp=16,time=59097ms$$
 
 可以看出，渲染时间几乎是以 **spp** 的倍数增长。后面测试就需要调低分辨率了，这里设置的都是 $2000\times 1000$ 。
+
+### Chapter-07
+本章实现了一下 **Diffuse** 的材质，这里实现的非常简洁，并且都没有涉及到光源，材质的颜色也没有涉及到，纯粹是通过判断光线与物体是否有交点，有就返回其多次弹射到背景上的颜色，并且每次弹射颜色都会衰减一半，这就会出现下图中的情况。
+
+![Chapter-07-spp picture](./QZRayTracer/output-chapter07-spp16.png)
+
+可以看到两球靠近的地方会更加容易使光线弹射多次，这就造成采样到的颜色值不断衰减，形成了阴影般的效果。
+
+另外由于显示器都会默认颜色值是经过 **gamma矫正**的，但实际上我们获得的颜色值并未矫正，造成其效果会偏暗，但实际上我感觉生成出来也不像书上那么暗。为了以结果来证明，修改代码以矫正颜色，这里我采用的就是比较准确的伽马矫正，与书中有些微差别。
+
+```cpp
+void Renderer(const char* savePath) {
+	// 参数设置
+	int width = 1000, height = 500, channel = 3;
+	Float gamma = 1.0 / 2.2;
+
+
+	// 采样值，一个像素内采多少次样
+	int spp = 4;
+	Float invSpp = 1.0 / Float(spp);
+
+	auto* data = (unsigned char*)malloc(width * height * channel);
+
+	// 构建一个简单的相机
+	Camera camera;
+
+	// 搭建一个简单的场景
+	vector<std::shared_ptr<Shape>> shapes;
+	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5));
+	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100));
+
+	// 构建随机数
+	// std::default_random_engine seeds;
+	// seeds.seed(time(0));
+	std::uniform_real_distribution<Float> randomNum(0, 1); // 左闭右闭区间
+
+
+	std::shared_ptr<Shape> world = CreateShapeList(shapes);
+	for (auto sy = height - 1; sy >= 0; sy--) {
+		for (auto sx = 0; sx < width; sx++) {
+			Point3f color;
+			// 采样计算
+			for (auto s = 0; s < spp; s++) {
+				Float u = Float(sx + randomNum(seeds)) / Float(width);
+				Float v = Float(height - sy - 1 + randomNum(seeds)) / Float(height);
+				Ray ray = camera.GenerateRay(u, v);
+				color += Color(ray, world);
+			}
+			color *= invSpp; // 求平均值
+			color = Point3f(pow(color.x, gamma), pow(color.y, gamma), pow(color.z, gamma)); // gamma矫正
+			int ir = int(255.99 * color[0]);
+			int ig = int(255.99 * color[1]);
+			int ib = int(255.99 * color[2]);
+
+			int shadingPoint = (sy * width + sx) * 3;
+			data[shadingPoint] = ir;
+			data[shadingPoint + 1] = ig;
+			data[shadingPoint + 2] = ib;
+		}
+	}
+	// 写入图像
+	stbi_write_png(savePath, width, height, channel, data, 0);
+	cout << "渲染完成！" << endl;
+	stbi_image_free(data);
+}
+```
+
+确实要亮些了，果然什么都得实践！！！
+
+![Chapter-07-spp picture](./QZRayTracer/output-chapter07-spp4-gamma.png)

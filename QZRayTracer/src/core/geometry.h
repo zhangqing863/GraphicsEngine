@@ -136,6 +136,7 @@ namespace raytracer {
         Vector3(T x, T y, T z) : x(x), y(y), z(z) { DCHECK(!HasNaNs()); }
         bool HasNaNs() const { return isNaN(x) || isNaN(y) || isNaN(z); }
         explicit Vector3(const Point3<T>& p);
+        
 #ifndef NDEBUG
         // The default versions of these are fine for release builds; for debug
         // we define them so that we can add the Assert checks.
@@ -371,10 +372,13 @@ namespace raytracer {
             : x((T)p.x), y((T)p.y), z((T)p.z) {
             DCHECK(!HasNaNs());
         }
+        explicit Point3(const Vector3<T>& v);
+        explicit Point3(const Normal3<T>& v);
         template <typename U>
         explicit operator Vector3<U>() const {
             return Vector3<U>(x, y, z);
         }
+
 #ifndef NDEBUG
         Point3(const Point3<T>& p) {
             DCHECK(!p.HasNaNs());
@@ -617,6 +621,12 @@ namespace raytracer {
         DCHECK(!HasNaNs());
     }
 
+    template <typename T>
+    inline Point3<T>::Point3(const Vector3<T>& v)
+        : x(v.x), y(v.y), z(v.z) {
+        DCHECK(!HasNaNs());
+    }
+
     template <typename T, typename U>
     inline Vector3<T> operator*(U s, const Vector3<T>& v) {
         return v * s;
@@ -854,6 +864,12 @@ namespace raytracer {
 
     template <typename T>
     inline Vector3<T>::Vector3(const Normal3<T>& n)
+        : x(n.x), y(n.y), z(n.z) {
+        DCHECK(!n.HasNaNs());
+    }
+
+    template <typename T>
+    inline Point3<T>::Point3(const Normal3<T>& n)
         : x(n.x), y(n.y), z(n.z) {
         DCHECK(!n.HasNaNs());
     }

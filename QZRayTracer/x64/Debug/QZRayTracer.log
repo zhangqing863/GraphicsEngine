@@ -8,39 +8,25 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(56,62): warn
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(57,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(81,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(88,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(199,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(206,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(325,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(331,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(444,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(450,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(543,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(550,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(200,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(207,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(326,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(332,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(448,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(454,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(547,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(554,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\shape\sphere.h(13,90): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(18,77): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(39,11): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(40,63): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(18,57): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(18,37): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(22,10): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(23,62): warning C4305: “参数”: 从“double”到“T”截断
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(32,15): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(46,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(433,46): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(48,25): warning C4305: “初始化”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(53,15): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(105,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(437,46): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
           with
           [
               U=double
@@ -49,22 +35,22 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(433,46): warnin
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(762): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::Point3<raytracer::Float>::operator *<U>(U) const”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(772): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::Point3<raytracer::Float>::operator *<U>(U) const”的引用
           with
           [
               U=double
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(764): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::Point3<raytracer::Float>::operator *<U>(U) const”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(774): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::Point3<raytracer::Float>::operator *<U>(U) const”的引用
           with
           [
               U=double
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(18): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::operator *<raytracer::Float,double>(U,const raytracer::Point3<raytracer::Float> &)”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(34): message : 查看对正在编译的函数 模板 实例化“raytracer::Point3<raytracer::Float> raytracer::operator *<raytracer::Float,double>(U,const raytracer::Point3<raytracer::Float> &)”的引用
           with
           [
               U=double
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(433,39): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(437,39): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
           with
           [
               U=double
@@ -73,7 +59,7 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(433,39): warnin
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(433,32): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(437,32): warning C4244: “参数”: 从“U”转换到“T”，可能丢失数据
           with
           [
               U=double
