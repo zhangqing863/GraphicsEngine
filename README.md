@@ -168,7 +168,7 @@ Point3f Color(const Ray& ray) {
 
 具体代码和书中大同小异，就不在本文中细述了。主要看其效果：
 
-![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp1.png)
+![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp1-info.png)
 
 $$spp=1,time=4271ms$$
 
