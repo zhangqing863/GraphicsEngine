@@ -11,6 +11,7 @@
 #include "../shape/shapeList.h"
 #include "../material/lambertian.h"
 #include "../material/metal.h"
+#include "../material/dielectric.h"
 #include "../tool/progressbar.h"
 
 

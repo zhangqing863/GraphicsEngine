@@ -13,7 +13,7 @@
 #include "../ext/logging.h"
 
 #define QZRT_CONSTEXPR constexpr
-
+// #define PBRT_FLOAT_AS_DOUBLE
 namespace raytracer {
 
 #ifdef PBRT_FLOAT_AS_DOUBLE
@@ -52,7 +52,7 @@ namespace raytracer {
 	static QZRT_CONSTEXPR Float MachineEpsilon =
 		std::numeric_limits<Float>::epsilon() * 0.5;
 #endif
-	static constexpr Float ShadowEpsilon = 0.0001f;
+	static constexpr Float ShadowEpsilon = 0.00001f;
 	static QZRT_CONSTEXPR Float Pi = 3.14159265358979323846;
 	static QZRT_CONSTEXPR Float InvPi = 0.31830988618379067154;
 	static QZRT_CONSTEXPR Float Inv2Pi = 0.15915494309189533577;

@@ -279,3 +279,209 @@ void Renderer(const char* savePath) {
 ![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-fuzz-1000x500-2.png)
 
 上图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。
+
+
+### Chapter-09
+
+解决前面留下的一个问题，**精度问题**，在判断是否击中的时候，由于计算机中的浮点值具有浮点误差，导致有些可以击中的点被判断为没击中，因此改动了一下代码：
+
+```cpp
+// 判断有根与否并求根，取小的根作为击中点所需要的时间(可以把t抽象成时间)
+// ShadowEpsilon = 0.0001
+if (discriminant > 0) {
+	Float invA = 1.0 / (2.0 * a);
+	Float temp = (-b - sqrt(discriminant)) * invA;
+	if (temp < ShadowEpsilon) {
+		temp = (-b + sqrt(discriminant)) * invA;
+	}
+	if (temp < ray.tMax && temp > ShadowEpsilon) {
+		rec.t = temp;
+		rec.p = ray(temp);
+		rec.normal = Normal3f((rec.p - center) * invRadius);
+		rec.mat = material;
+		return true;
+	}
+}
+```
+
+成像差别：
+
+(1) 未修改
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc-1000x500.png)
+
+(2) 第一次修改后
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(wrong)-1000x500.png)
+
+巨难受。。。左边这个球的黑边就是作者出现的那种效果，我真的是服了，花了半个下午的时间才发现作者在实现折射函数时里面有个问题。一切尽在注释中，我还回头看了一下作者实现Vec3的代码，他归一化时返回的是一个新向量，并没有改变原来的向量，因此这里确实会造成错误。
+
+```cpp
+inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector3f& refracted){
+	Vector3f uv = Normalize(v);
+	Float dt = Dot(uv, n);
+	// 这里主要是判断能不能折射出来
+	Float discriminant = 1.0 - niOverNo * niOverNo * (1 - dt * dt);
+	if (discriminant > 0) {
+		// 这里应该是（uv - n * dt）
+		// 错误：（这里的 v 没有归一化）refracted = niOverNo * (v - n * dt) - n * sqrt(discriminant);
+		refracted = niOverNo * (uv - n * dt) - n * sqrt(discriminant);
+		return true;
+	}
+	return false;
+}
+```
+
+(3) 第二次修改后
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(right)-1000x500.png)
+
+痛，太痛了，伊苏尔德😭！！！
+
+**实现另一个性质**，比方说我们看窗子，视角越垂直表面，就越透明，越靠经边边角角就有镜子的效果，眼镜也是这样。
+
+**实现Schlick的近似公式**
+(1) 一个玻璃球
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-schlick-1000x500.png)
+
+(2) 一个玻璃球里面再放一个玻璃球，但是里面那个设置的半径是负数，这会使得其生成的法线朝球体内部，这个效果就相当于是一个中空的玻璃球。
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass-1000x500.png)
+
+(3) 尝试一下在中空的玻璃球里再放一个球
+
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass2-1000x500.png)
+
+<center> 磨砂材质球 </center>
+
+   
+![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass3-1000x500.png)
+
+<center> 金属材质球 </center>
+
+**折射原理以及公式推导：**
+
+首先看图，我仿照原书画的：
+
+![Chapter-08 picture](./QZRayTracer/pic/Chapter8概念图.png)
+
+$\mathbf{n,n'}$ 是不同方向的法线向量且都做了归一化处理；
+$\mathbf{v_i,v_o}$ 分别是入射向量和折射向量，且都是单位向量；
+$\mathbf{\theta,\theta'}$ 分别是两面的夹角；
+$\mathbf{n_i,n_o}$ 是不同面的折射率；
+
+了解了基本概念后，我们需要求解的是 $\mathbf{v_o}$
+
+首先是 **Snell** 公式:
+
+$$
+\begin{aligned}
+n_i\sin\theta=n_o\sin\theta' 
+\end{aligned}
+$$
+
+先判断是否能够折射出去，因为你想，如果从折射率大的一面折射出去，当夹角 $\theta$ 很大的时候，比如 $\theta=90, n_i=1.5,n_o=1.0$，那么要想满足上式则 $\sin\theta' > 1$ 才行，这显然是不可能的，故这里当出现这种情况的时候将不产生折射，而是反射全部光线，这种现象叫做**全反射**。 
+
+如何判断呢？
+$$
+\begin{aligned}
+\sin^2\theta' &= \left(\frac{n_i}{n_o}\right)^2\sin^2\theta \\
+&=\left(\frac{n_i}{n_o}\right)^2(1-\cos^2\theta) < 1.0
+\end{aligned}
+$$
+
+对应代码就是：
+```cpp
+Float dt = Dot(uv, n); // cosθ < 0
+// 这里主要是判断能不能折射出来
+Float discriminant = 1.0 - niOverNo * niOverNo * (1 - dt * dt);
+if (discriminant > 0) {
+	// To do...
+}
+```
+
+接下来判断完就可以去求解 $\mathbf{v_o}$
+如下图：
+
+![Chapter-08 picture](./QZRayTracer/pic/Chapter8概念图2.png)
+
+我们可以将 $\mathbf{v_i,v_o}$ 分解
+$$
+\mathbf{v_i} = \mathbf{v_{i\|}} + \mathbf{v_{i\perp}} \\
+\mathbf{v_o} = \mathbf{v_{o\|}} + \mathbf{v_{o\perp}} \\
+$$
+其中
+$$
+\begin{aligned}
+\mathbf{v_{i\|}} &= (\mathbf{v_i}\cdot (\mathbf{-n}))(\mathbf{-n})\\
+&= (|\mathbf{v_i}||\mathbf{\mathbf{-n}}|\cos\theta)(\mathbf{-n}) \\
+&= -\cos\theta(\mathbf{n})
+\end{aligned}
+$$
+同理
+$$
+\begin{aligned}
+\mathbf{v_{o\|}} = \cos\theta'(\mathbf{n'})
+\end{aligned}
+$$
+解析 $\mathbf{v_{i\perp}}$
+$$
+\begin{aligned}
+\sin\theta = \frac{|\mathbf{v_{i\perp}}|}{|\mathbf{v_i}|} = |\mathbf{v_{i\perp}}|, \\
+\sin\theta' = \frac{|\mathbf{v_{o\perp}}|}{|\mathbf{v_o}|} = |\mathbf{v_{o\perp}}|,
+\end{aligned}
+$$
+
+注意，这里 $\mathbf{v_{i\perp}},\mathbf{v_{o\perp}}$ 的方向相同，故
+
+$$
+\begin{aligned}
+\frac{\mathbf{v_{i\perp}}}{|\mathbf{v_{i\perp}}|} = 
+\frac{\mathbf{v_{o\perp}}}{|\mathbf{v_{o\perp}}|}
+\end{aligned}
+$$
+
+由上式可得：
+
+$$
+\begin{aligned}
+\mathbf{v_{o\perp}} &= \frac{{|\mathbf{v_{o\perp}}|}}{|\mathbf{v_{i\perp}}|}\mathbf{v_{i\perp}} 
+= \frac{\sin\theta'}{\sin\theta}\mathbf{v_{i\perp}} = \frac{n_i}{n_o} \mathbf{v_{i\perp}} = 
+\frac{n_i}{n_o} (\mathbf{v_{i}}+ |\mathbf{v_{i}}|\cos\theta(\mathbf{n})) \\
+\mathbf{v_{o\|}} &= \cos\theta'(\mathbf{n'}) = -\cos\theta'(\mathbf{n}) = - \sqrt{1-\sin^2\theta'}(\mathbf{n}) = -\sqrt{1-|\mathbf{v_{o\perp}}|^2}(\mathbf{n})
+\end{aligned}
+$$
+
+最终：
+$$
+\begin{aligned}
+\mathbf{v_o} &= \mathbf{v_{o\|}} + \mathbf{v_{o\perp}} \\
+&= \frac{n_i}{n_o} (\mathbf{v_{i}}+ \cos\theta(\mathbf{n})) - \sqrt{1-|\mathbf{v_{o\perp}}|^2}(\mathbf{n})
+\end{aligned}
+$$
+
+对应代码:
+```cpp
+// cos(theta) < 0，因为没有点乘 -n，但是并不影响
+// 只有下式中 (uv - n * dt) 本来推导式应该是 (uv + n * dt) 
+refracted = niOverNo * (uv - n * dt) - n * sqrt(discriminant);
+```
+
+其次真实的玻璃反射率会随着视角变化，因此还需要用一个公式来获得真实的效果，但原始方程太复杂了，这里采用的是 Christophe Schlick 使用多项式近似简化过的方程：
+$$
+F(F_0,\theta_i) = F_0+(1-F_0)(1-\cos\theta_i)^5, \\
+F_0=\left(\frac{n_i - n_o}{n_i + n_o}\right)^2
+=\left(\frac{\frac{n_i}{n_o} - 1}{\frac{n_i}{n_o} + 1}\right)^2
+$$
+
+代码：
+```cpp
+inline Float Schlick(Float cosine, Float refIdx) {
+	Float r0 = (1 - refIdx) / (1 + refIdx);
+	r0 *= r0;
+	return r0 + (1 - r0) * pow((1 - cosine), 5);
+}
+```
+
+到此整个推导就结束了，不仅要得到效果，还要了解背后的原理，前路漫漫啊，还好头发多🤡

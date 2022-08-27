@@ -25,6 +25,12 @@
     <Filter Include="tool">
       <UniqueIdentifier>{a14b2a7c-371f-4f55-91c8-87a81fae83e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{bf4f2bb7-bdd8-4d46-a747-bea61687c656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\scene">
+      <UniqueIdentifier>{3b2bf0ca-f028-47e8-ad1c-3d602a42dda1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp">
@@ -56,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="src\shape\shapeList.cpp">
       <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\dielectric.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,5 +110,13 @@
     <ClInclude Include="src\tool\progressbar.h">
       <Filter>tool</Filter>
     </ClInclude>
+    <ClInclude Include="src\material\dielectric.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="resource\scene\Scene-RayTracingInOneWeekend.txt">
+      <Filter>resource\scene</Filter>
+    </Text>
   </ItemGroup>
 </Project>

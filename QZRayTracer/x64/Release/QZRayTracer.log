@@ -16,7 +16,10 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(454,13): warnin
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(460,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(553,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(560,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\material.h(43,22): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\shape\sphere.h(15,20): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\material\dielectric.h(14,80): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\tool\progressbar.h(142,32): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(37,11): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(38,63): warning C4305: “参数”: 从“double”到“T”截断
@@ -26,42 +29,49 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(38,63): warning C43
           ]
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(47,25): warning C4305: “初始化”: 从“double”到“raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(52,15): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(61,87): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(61,91): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(62,95): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(62,97): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(63,92): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(63,99): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(64,91): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(64,103): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(65,93): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(65,91): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(66,94): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(66,93): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(67,89): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(67,94): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(128,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(68,89): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(74,70): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(75,75): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(124,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\xutility(149,77): warning C4244: “参数”: 从“_Ty”转换到“raytracer::Float”，可能丢失数据
           with
           [
@@ -82,7 +92,7 @@ D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(27
           [
               _Ty=raytracer::Point3f
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(64): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Metal> std::make_shared<raytracer::Metal,raytracer::Point3f,int>(raytracer::Point3f &&,int &&)”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(65): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Metal> std::make_shared<raytracer::Metal,raytracer::Point3f,int>(raytracer::Point3f &&,int &&)”的引用
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\xutility(149,77): warning C4244: “参数”: 从“_Ty”转换到“raytracer::Float”，可能丢失数据
           with
           [
@@ -103,10 +113,10 @@ D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(27
           [
               _Ty=raytracer::Point3f
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(65): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Metal> std::make_shared<raytracer::Metal,raytracer::Point3f,double>(raytracer::Point3f &&,double &&)”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(66): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Metal> std::make_shared<raytracer::Metal,raytracer::Point3f,double>(raytracer::Point3f &&,double &&)”的引用
   正在生成代码
-  6 of 429 functions ( 1.4%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    39 functions had inline decision re-evaluated but remain unchanged
+  4 of 458 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   QZRayTracer.vcxproj -> E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer.exe

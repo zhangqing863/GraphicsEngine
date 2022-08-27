@@ -1,0 +1,38 @@
+/*
+ 目前仅用作代码中手动添加
+*/
+-----------------------------------------------------------------------------------------------------------------------------------
+/* Chapter-08
+vector<std::shared_ptr<Shape>> shapes;
+std::shared_ptr<Material> redMat = std::make_shared<Lambertian>(Point3f(0.8, 0.3, 0.3));
+std::shared_ptr<Material> purpleMat = std::make_shared<Lambertian>(Point3f(0.557, 0.27, 0.678)); 
+std::shared_ptr<Material> redgreenMat = std::make_shared<Lambertian>(Point3f(0.8, 0.8, 0.0));
+std::shared_ptr<Material> metalGreenMat = std::make_shared<Metal>(Point3f(0.1, 0.74, 0.61), 0);
+std::shared_ptr<Material> metalBlueMat = std::make_shared<Metal>(Point3f(0.2, 0.596, 0.8588), 0.3);
+std::shared_ptr<Material> metalGlassGreenMat = std::make_shared<Metal>(Point3f(0.8, 0.6, 0.2), 0.6);
+std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
+shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, purpleMat));
+shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, redgreenMat));
+shapes.push_back(CreateSphereShape(Point3f(0.75, 0, -1), 0.25, metalGreenMat));
+shapes.push_back(CreateSphereShape(Point3f(-0.75, 0, -1), 0.25, metalBlueMat));
+shapes.push_back(CreateSphereShape(Point3f(1.25, -0.25, -1), 0.25, metalGlassGreenMat));
+shapes.push_back(CreateSphereShape(Point3f(-1.25, -0.25, -1), 0.25, metalWhiteMat));
+*/ 
+-----------------------------------------------------------------------------------------------------------------------------------
+/* Chapter-09
+vector<std::shared_ptr<Shape>> shapes;
+std::shared_ptr<Material> redMat = std::make_shared<Lambertian>(Point3f(0.8, 0.3, 0.3));
+std::shared_ptr<Material> purpleMat = std::make_shared<Lambertian>(Point3f(0.557, 0.27, 0.678)); 
+std::shared_ptr<Material> redgreenMat = std::make_shared<Lambertian>(Point3f(0.8, 0.8, 0.0));
+std::shared_ptr<Material> metalGreenMat = std::make_shared<Metal>(Point3f(0.1, 0.74, 0.61), 0);
+std::shared_ptr<Material> metalBlueMat = std::make_shared<Metal>(Point3f(0.2, 0.596, 0.8588), 0.3);
+std::shared_ptr<Material> metalGlassGreenMat = std::make_shared<Metal>(Point3f(0.8, 0.6, 0.2), 0.6);
+std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
+std::shared_ptr<Material> dlcMat = std::make_shared<Dielectric>( 1.5);
+shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, purpleMat));
+shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, redgreenMat));
+shapes.push_back(CreateSphereShape(Point3f(0.75, 0, -1), 0.25, metalGreenMat));
+shapes.push_back(CreateSphereShape(Point3f(-0.75, 0, -1), 0.25, metalBlueMat));
+shapes.push_back(CreateSphereShape(Point3f(1.25, -0.25, -1), 0.25, metalGlassGreenMat));
+shapes.push_back(CreateSphereShape(Point3f(-1.25, -0.25, -1), 0.25, metalWhiteMat));
+*/ 

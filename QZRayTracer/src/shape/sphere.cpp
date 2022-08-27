@@ -11,10 +11,10 @@ namespace raytracer {
 		if (discriminant > 0) {
 			Float invA = 1.0 / (2.0 * a);
 			Float temp = (-b - sqrt(discriminant)) * invA;
-			if (temp < 0) {
+			if (temp < ShadowEpsilon) {
 				temp = (-b + sqrt(discriminant)) * invA;
 			}
-			if (temp < ray.tMax && temp > 0) {
+			if (temp < ray.tMax && temp > ShadowEpsilon) {
 				rec.t = temp;
 				rec.p = ray(temp);
 				rec.normal = Normal3f((rec.p - center) * invRadius);

@@ -9,7 +9,7 @@
 using namespace raytracer;
 using namespace std;
 
-#define MAXBOUNDTIME 5
+#define MAXBOUNDTIME 10
 #define ELEGANT // 用来在控制台展示进度
 /// <summary>
 /// 着色器
@@ -48,7 +48,7 @@ void Renderer(const char* savePath) {
 
 
 	// 采样值，一个像素内采多少次样
-	int spp = 1000;
+	int spp = 100;
 	Float invSpp = 1.0 / Float(spp);
 
 	auto* data = (unsigned char*)malloc(width * height * channel);
@@ -58,27 +58,23 @@ void Renderer(const char* savePath) {
 
 	// 搭建一个简单的场景
 	vector<std::shared_ptr<Shape>> shapes;
-	std::shared_ptr<Material> redMat = std::make_shared<Lambertian>(Point3f(0.8, 0.3, 0.3));
-	std::shared_ptr<Material> purpleMat = std::make_shared<Lambertian>(Point3f(0.557, 0.27, 0.678)); 
-	std::shared_ptr<Material> redgreenMat = std::make_shared<Lambertian>(Point3f(0.8, 0.8, 0.0));
+	std::shared_ptr<Material> lambRedMat = std::make_shared<Lambertian>(Point3f(0.8, 0.3, 0.3));
+	std::shared_ptr<Material> lambBlueMat = std::make_shared<Lambertian>(Point3f(0.2, 0.596, 0.8588));
+	std::shared_ptr<Material> lambPurpleMat = std::make_shared<Lambertian>(Point3f(0.557, 0.27, 0.678));
+	std::shared_ptr<Material> lambGlassGreengreenMat = std::make_shared<Lambertian>(Point3f(0.8, 0.8, 0.0));
 	std::shared_ptr<Material> metalGreenMat = std::make_shared<Metal>(Point3f(0.1, 0.74, 0.61), 0);
 	std::shared_ptr<Material> metalBlueMat = std::make_shared<Metal>(Point3f(0.2, 0.596, 0.8588), 0.3);
 	std::shared_ptr<Material> metalGlassGreenMat = std::make_shared<Metal>(Point3f(0.8, 0.6, 0.2), 0.6);
 	std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
-	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, purpleMat));
-	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, redgreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(0.75, 0, -0.75), 0.25, metalGreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(-0.75, 0, -0.75), 0.25, metalBlueMat));
-	shapes.push_back(CreateSphereShape(Point3f(1.25, -0.25, -0.75), 0.25, metalGlassGreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(-1.25, -0.25, -0.75), 0.25, metalWhiteMat));
+	std::shared_ptr<Material> dlcMat = std::make_shared<Dielectric>(1.5);
+	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, lambBlueMat));
+	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, lambGlassGreengreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(1, 0, -1), 0.5, metalGlassGreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), 0.5, dlcMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), -0.45, dlcMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), 0.3, metalGreenMat));
 
-	// 构建随机数
-	// std::default_random_engine seeds;
-	// seeds.seed(time(0));
-	// std::normal_distribution<Float> randomNum(0, 1); // 左闭右闭区间
-	
-
-
+	// 包含所有Shape的场景
 	std::shared_ptr<Shape> world = CreateShapeList(shapes);
 
 #ifdef ELEGANT
@@ -135,7 +131,7 @@ int main() {
 	std::cout << " /,-. |'. `--' .`  )/  -'    `-'. `---' .`(/  \\)     (   `-.-'    `-/,-. | ||  ||'.   \\) \\'. `---\\) \\(_/\\_) ||  ||'.   \\) \\" << std::endl;
 	std::cout << "-'   ''  `-..-'   (              `-...-'   )          `--.._)      -'   ''(_/  \\_) `-.(_.'  `-...(_.'      (_/  \\_) `-.(_.' " << std::endl << std::endl;
 
-	const char* savePath = "output-chapter08-spp1000-fuzz-1000x500-2.png";
+	const char* savePath = "./output/output-chapter09-spp100-hollowglass3-1000x500.png";
 
 	Renderer(savePath);
 
