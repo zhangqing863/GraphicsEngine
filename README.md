@@ -468,7 +468,7 @@ $$
 refracted = niOverNo * (uv - n * dt) - n * sqrt(discriminant);
 ```
 
-其次真实的玻璃反射率会随着视角变化，因此还需要用一个公式来获得真实的效果，但原始方程太复杂了，这里采用的是 Christophe Schlick 使用多项式近似简化过的方程：
+其次真实的玻璃反射率会随着视角变化，其实就是**菲涅尔反射**效应，因此还需要用一个公式来获得真实的效果，但原始方程太复杂了（菲涅尔公式），这里采用的是 Christophe Schlick 使用多项式近似简化过的方程：
 $$
 F(F_0,\theta_i) = F_0+(1-F_0)(1-\cos\theta_i)^5, \\
 F_0=\left(\frac{n_i - n_o}{n_i + n_o}\right)^2
