@@ -261,16 +261,21 @@ void Renderer(const char* savePath) {
 接下来就该展现成果图了，虽然渲染时间长一点，但还是会花久一点得到更好看的结果来奖励自己。。。
 
 ![Chapter-08-spp picture](./QZRayTracer/output-chapter08-spp16-gamma-1000x500.png)
-这张图的 $spp=16, size=1000\times500$，感觉噪声有点明显，这是还没实现 $fuzz$ 的效果，中间漫反射，左右两个球镜面反射。
+
+上图的 $spp=16, size=1000\times500$，感觉噪声有点明显，这是还没实现 $fuzz$ 的效果，中间漫反射，左右两个球镜面反射。
 
 ![Chapter-08 picture](./QZRayTracer/output-chapter08-spp100-gamma-600x300.png)
-这张图的 $spp=100, size=600\times300$，感觉稍微好些了，但是这种采样率感觉效果不太对，给我感觉应该还是随机数的问题。
+
+上图的 $spp=100, size=600\times300$，感觉稍微好些了，但是这种采样率感觉效果不太对，给我感觉应该还是随机数的问题。
 
 ![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-gamma-600x300.png)
-这张图的 $spp=1000, size=600\times300$，随着采样率的提高，整体噪点变少了，但是图像感觉也变模糊了，因为采样越多，后面对颜色的处理其实类似于图像中的均值模糊了。
+
+上图的 $spp=1000, size=600\times300$，随着采样率的提高，整体噪点变少了，但是图像感觉也变模糊了，因为采样越多，后面对颜色的处理其实类似于图像中的均值模糊了。
 
 ![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500.png)
-这张图的 $spp=1000, size=1000\times500$，这个是加入了 $fuzz$ 的效果，确实有 **铜镜** 那味了，但是看细节可以发现图像两边有那种噪点过渡的边界，感觉很奇怪，原因大抵是随机数或者数值精度的毛病。
+
+上图的 $spp=1000, size=1000\times500$，这个是加入了 $fuzz$ 的效果，确实有 **铜镜** 那味了，但是看细节可以发现图像两边有那种噪点过渡的边界，感觉很奇怪，原因大抵是随机数或者数值精度的毛病。
 
 ![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500-2.png)
-这张图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。
+
+上图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。
