@@ -3,7 +3,7 @@ The implementation of "RayTracing, RealTime Rendering, Rasterization Rendering"
 
 ## Implementation of 《Ray Tracing In One Weekend》
 ### Chapter-01
-![Chapter-01 picture](./QZRayTracer/output-chapter01.png)
+![Chapter-01 picture](./QZRayTracer/output/output-chapter01.png)
 ---
 使用了一个图像处理库，"stb_image_write.h",
 大概操作如下：
@@ -24,7 +24,7 @@ stbi_image_free(data);
 
 相比于上一章，主要是用 Vector 来承载RGB颜色并输出。
 
-![Chapter-02 picture](./QZRayTracer/output-chapter02.png)
+![Chapter-02 picture](./QZRayTracer/output/output-chapter02.png)
 ### Chapter-03
 设计一个简单的光线类(Ray)，同时用简单的方式来测试光线的值，转化为一种简便的颜色，可以用来当作背景。这里因为看过pbrt，再加上后面也会以此为基础添加更多的功能，因此直接将pbrt中的光线类代码搬了过来使用。毕竟有更好的轮胎🤣
 
@@ -43,17 +43,17 @@ Point3f Color(const Ray& ray) {
 ---
 $$t=0.5\times(\mathbf{dir}_y + 1.0)$$
 
- ![Chapter-03-1 picture](./QZRayTracer/output-chapter03-1.png)
+ ![Chapter-03-1 picture](./QZRayTracer/output/output-chapter03-1.png)
 
 ---
 $$t=0.25\times(\mathbf{dir}_x + 2.0)$$
 
- ![Chapter-03-2 picture](./QZRayTracer/output-chapter03-2.png)
+ ![Chapter-03-2 picture](./QZRayTracer/output/output-chapter03-2.png)
 
 ---
  $$t=\mathbf{dir}_z + 2.0$$
 
- ![Chapter-03-3 picture](./QZRayTracer/output-chapter03-3.png)
+ ![Chapter-03-3 picture](./QZRayTracer/output/output-chapter03-3.png)
 
 至于 $t$ 为什么要这么计算，目的主要是为了将其区间映射至 $[0,1]$ .
 
@@ -100,7 +100,7 @@ Point3f Color(const Ray& ray) {
 
 效果图：
 
-![Chapter-04 picture](./QZRayTracer/output-chapter04.png)
+![Chapter-04 picture](./QZRayTracer/output/output-chapter04.png)
 
 ### Chapter-05
 本章主要引入了法线的概念，并且简单实现了球体的法线。在图形学中法线是必不可少的一个概念，后面不管是任何的渲染公式都会用到，包括后面的 **半程向量(halfDir)，视角向量(viewDir)** 都是重要的概念。
@@ -125,7 +125,7 @@ Point3f Color(const Ray& ray) {
 	return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
 }
 ```
-![Chapter-05-1 picture](./QZRayTracer/output-chapter05-1.png)
+![Chapter-05-1 picture](./QZRayTracer/output/output-chapter05-1.png)
 
 这里解释一下为什么会出现这样的效果，设置法线表示 $\mathbf{N}$ .
 首先从世界坐标的角度去理解，朝屏幕上方的 $\mathbf{N} \to [0.0,1.0,0.0]$，故其颜色分量 $rgb \to [0.0,1.0,0.0]$，因此造成朝上的方向会更绿，原因就是其 $green$ 分量的值更大；同理屏幕左边和右边也可以这样去理解。
@@ -135,7 +135,7 @@ Point3f Color(const Ray& ray) {
 
 最终实现本节的两个球体效果。
 
-![Chapter-05-2 picture](./QZRayTracer/output-chapter05-2.png)
+![Chapter-05-2 picture](./QZRayTracer/output/output-chapter05-2.png)
 
 **纠正代码：**
  ```cpp
@@ -168,11 +168,11 @@ Point3f Color(const Ray& ray) {
 
 具体代码和书中大同小异，就不在本文中细述了。主要看其效果：
 
-![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp1-info.png)
+![Chapter-06-spp picture](./QZRayTracer/output/output-chapter06-spp1-info.png)
 
 $$spp=1,time=4271ms$$
 
-![Chapter-06-spp picture](./QZRayTracer/output-chapter06-spp16-info.png)
+![Chapter-06-spp picture](./QZRayTracer/output/output-chapter06-spp16-info.png)
 
 $$spp=16,time=59097ms$$
 
@@ -181,7 +181,7 @@ $$spp=16,time=59097ms$$
 ### Chapter-07
 本章实现了一下 **Diffuse** 的材质，这里实现的非常简洁，并且都没有涉及到光源，材质的颜色也没有涉及到，纯粹是通过判断光线与物体是否有交点，有就返回其多次弹射到背景上的颜色，并且每次弹射颜色都会衰减一半，这就会出现下图中的情况。
 
-![Chapter-07-spp picture](./QZRayTracer/output-chapter07-spp16.png)
+![Chapter-07-spp picture](./QZRayTracer/output/output-chapter07-spp16.png)
 
 可以看到两球靠近的地方会更加容易使光线弹射多次，这就造成采样到的颜色值不断衰减，形成了阴影般的效果。
 
@@ -246,7 +246,7 @@ void Renderer(const char* savePath) {
 
 确实要亮些了，果然什么都得实践！！！
 
-![Chapter-07-spp picture](./QZRayTracer/output-chapter07-spp4-gamma.png)
+![Chapter-07-spp picture](./QZRayTracer/output/output-chapter07-spp4-gamma.png)
 
 
 ### Chapter-08
@@ -260,22 +260,22 @@ void Renderer(const char* savePath) {
 
 接下来就该展现成果图了，虽然渲染时间长一点，但还是会花久一点得到更好看的结果来奖励自己。。。
 
-![Chapter-08-spp picture](./QZRayTracer/output-chapter08-spp16-gamma-1000x500.png)
+![Chapter-08-spp picture](./QZRayTracer/output/output-chapter08-spp16-gamma-1000x500.png)
 
 上图的 $spp=16, size=1000\times500$，感觉噪声有点明显，这是还没实现 $fuzz$ 的效果，中间漫反射，左右两个球镜面反射。
 
-![Chapter-08 picture](./QZRayTracer/output-chapter08-spp100-gamma-600x300.png)
+![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp100-gamma-600x300.png)
 
 上图的 $spp=100, size=600\times300$，感觉稍微好些了，但是这种采样率感觉效果不太对，给我感觉应该还是随机数的问题。
 
-![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-gamma-600x300.png)
+![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-gamma-600x300.png)
 
 上图的 $spp=1000, size=600\times300$，随着采样率的提高，整体噪点变少了，但是图像感觉也变模糊了，因为采样越多，后面对颜色的处理其实类似于图像中的均值模糊了。
 
-![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500.png)
+![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-fuzz-1000x500.png)
 
 上图的 $spp=1000, size=1000\times500$，这个是加入了 $fuzz$ 的效果，确实有 **铜镜** 那味了，但是看细节可以发现图像两边有那种噪点过渡的边界，感觉很奇怪，原因大抵是随机数或者数值精度的毛病。
 
-![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500-2.png)
+![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-fuzz-1000x500-2.png)
 
 上图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。
