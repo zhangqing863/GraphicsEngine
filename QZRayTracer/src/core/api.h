@@ -5,12 +5,17 @@
 
 #include "geometry.h"
 #include "shape.h"
+#include "material.h"
 #include "camera.h"
 #include "../shape/sphere.h"
 #include "../shape/shapeList.h"
+#include "../material/lambertian.h"
+#include "../material/metal.h"
+#include "../tool/progressbar.h"
 
 
 namespace raytracer {
+
 
 }
 

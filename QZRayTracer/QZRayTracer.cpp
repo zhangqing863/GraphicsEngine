@@ -9,29 +9,27 @@
 using namespace raytracer;
 using namespace std;
 
-// 设置随机种子
-std::default_random_engine seeds;
-
-// Chapter07
-Point3f RandomInUnitSphere() {
-	Vector3f p;
-	// 构建随机数
-	std::uniform_real_distribution<Float> randomNum(0, 1); // 左闭右闭区间
-	do {
-		p = Vector3f(randomNum(seeds), randomNum(seeds), randomNum(seeds));
-	} while (Dot(p, p) >= 1.0);
-	
-	
-	return Point3f(p);
-}
-
-// Chapter03-04 : simple color function
-Point3f Color(const Ray& ray, shared_ptr<Shape> world) {
+#define MAXBOUNDTIME 5
+#define ELEGANT // 用来在控制台展示进度
+/// <summary>
+/// 着色器
+/// </summary>
+/// <param name="ray">光线</param>
+/// <param name="world">渲染的对象</param>
+/// <param name="depth">光线弹射次数</param>
+/// <returns></returns>
+Point3f Color(const Ray& ray, shared_ptr<Shape> world, int depth) {
 	HitRecord rec;
 
-	if (world->hit(ray, rec)) {
-		Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere();
-		return 0.5 * Color(Ray(rec.p, target - rec.p), world);
+	if (world->Hit(ray, rec)) {
+		Ray wo;
+		Point3f attenuation;
+		if (depth < MAXBOUNDTIME && rec.mat->Scatter(ray, rec, attenuation, wo)) {
+			return attenuation * Color(wo, world, depth + 1);
+		}
+		else {
+			return Point3f();
+		}
 	}
 	else {
 		// 没击中就画个背景
@@ -44,12 +42,13 @@ Point3f Color(const Ray& ray, shared_ptr<Shape> world) {
 
 void Renderer(const char* savePath) {
 	// 参数设置
+	int depth = 0;
 	int width = 1000, height = 500, channel = 3;
 	Float gamma = 1.0 / 2.2;
 
 
 	// 采样值，一个像素内采多少次样
-	int spp = 4;
+	int spp = 1000;
 	Float invSpp = 1.0 / Float(spp);
 
 	auto* data = (unsigned char*)malloc(width * height * channel);
@@ -59,16 +58,36 @@ void Renderer(const char* savePath) {
 
 	// 搭建一个简单的场景
 	vector<std::shared_ptr<Shape>> shapes;
-	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5));
-	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100));
+	std::shared_ptr<Material> redMat = std::make_shared<Lambertian>(Point3f(0.8, 0.3, 0.3));
+	std::shared_ptr<Material> purpleMat = std::make_shared<Lambertian>(Point3f(0.557, 0.27, 0.678)); 
+	std::shared_ptr<Material> redgreenMat = std::make_shared<Lambertian>(Point3f(0.8, 0.8, 0.0));
+	std::shared_ptr<Material> metalGreenMat = std::make_shared<Metal>(Point3f(0.1, 0.74, 0.61), 0);
+	std::shared_ptr<Material> metalBlueMat = std::make_shared<Metal>(Point3f(0.2, 0.596, 0.8588), 0.3);
+	std::shared_ptr<Material> metalGlassGreenMat = std::make_shared<Metal>(Point3f(0.8, 0.6, 0.2), 0.6);
+	std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
+	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, purpleMat));
+	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, redgreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(0.75, 0, -0.75), 0.25, metalGreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(-0.75, 0, -0.75), 0.25, metalBlueMat));
+	shapes.push_back(CreateSphereShape(Point3f(1.25, -0.25, -0.75), 0.25, metalGlassGreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1.25, -0.25, -0.75), 0.25, metalWhiteMat));
 
 	// 构建随机数
 	// std::default_random_engine seeds;
 	// seeds.seed(time(0));
-	std::uniform_real_distribution<Float> randomNum(0, 1); // 左闭右闭区间
+	// std::normal_distribution<Float> randomNum(0, 1); // 左闭右闭区间
+	
 
 
 	std::shared_ptr<Shape> world = CreateShapeList(shapes);
+
+#ifdef ELEGANT
+	ProgressBar bar(height);
+	bar.set_todo_char(" ");
+	bar.set_done_char("█");
+	bar.set_opening_bracket_char("Rendering:[");
+	bar.set_closing_bracket_char("]");
+#endif // ELEGANT
 	for (auto sy = height - 1; sy >= 0; sy--) {
 		for (auto sx = 0; sx < width; sx++) {
 			Point3f color;
@@ -77,7 +96,7 @@ void Renderer(const char* savePath) {
 				Float u = Float(sx + randomNum(seeds)) / Float(width);
 				Float v = Float(height - sy - 1 + randomNum(seeds)) / Float(height);
 				Ray ray = camera.GenerateRay(u, v);
-				color += Color(ray, world);
+				color += Color(ray, world, depth);
 			}
 			color *= invSpp; // 求平均值
 			color = Point3f(pow(color.x, gamma), pow(color.y, gamma), pow(color.z, gamma)); // gamma矫正
@@ -90,26 +109,38 @@ void Renderer(const char* savePath) {
 			data[shadingPoint + 1] = ig;
 			data[shadingPoint + 2] = ib;
 		}
+
+#ifdef ELEGANT
+		bar.update();
+#endif // ELEGANT		
 	}
+
 	// 写入图像
 	stbi_write_png(savePath, width, height, channel, data, 0);
-	cout << "渲染完成！" << endl;
 	stbi_image_free(data);
 }
 
 
 int main() {
 	// 记录用时
-	clock_t start, end; 
+	clock_t start, end;
 	start = clock();
 	seeds.seed(time(0));
 
-	const char* savePath = "output-chapter07-spp4-gamma.png";
+	std::cout << "        wWw  wWw(o)__(o)\\\\  //     .-.     ))           _oo  \\\\  //       \\\\\\  ///   \\/       .-.    wW  Ww\\\\\\  ///   \\/    " << std::endl;
+	std::cout << "   /)   (O)  (O)(__  __)(o)(o)   c(O_O)c  (Oo)-.     >-(_  \\ (o)(o)   /)  ((O)(O))  (OO)    c(O_O)c  (O)(O)((O)(O))  (OO)   " << std::endl;
+	std::cout << " (o)(O) / )  ( \\  (  )  ||  ||  ,'.---.`,  | (_))       / _/ ||  || (o)(O) | \\ || ,'.--.)  ,'.---.`,  (..)  | \\ || ,'.--.)" << std::endl;
+	std::cout << "  //\\\\ / /    \\ \\  )(   |(__)| / /|_|_|\\ \\ |  .'       / /   |(__)|  //\\\\  ||\\\\||/ /|_|_\\ / /|_|_|\\ \\  ||   ||\\\\||/ /|_|_\\" << std::endl;
+	std::cout << " |(__)|| \\____/ | (  )  /.--.\\ | \\_____/ | )|\\\\       / (    /.--.\\ |(__)| || \\ || \\_.--. | \\___.--.| _||_  || \\ || \\_.--." << std::endl;
+	std::cout << " /,-. |'. `--' .`  )/  -'    `-'. `---' .`(/  \\)     (   `-.-'    `-/,-. | ||  ||'.   \\) \\'. `---\\) \\(_/\\_) ||  ||'.   \\) \\" << std::endl;
+	std::cout << "-'   ''  `-..-'   (              `-...-'   )          `--.._)      -'   ''(_/  \\_) `-.(_.'  `-...(_.'      (_/  \\_) `-.(_.' " << std::endl << std::endl;
+
+	const char* savePath = "output-chapter08-spp1000-fuzz-1000x500-2.png";
 
 	Renderer(savePath);
 
 	end = clock();   //结束时间
-	cout << "Renderer time is " << double(end - start) << "ms" << endl;  //输出时间（单位：ms）
-	
+	cout << "\n\nRenderer time is " << double(end - start) << "ms" << endl;  //输出时间（单位：ms）
+
 }
 

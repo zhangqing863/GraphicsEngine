@@ -247,3 +247,30 @@ void Renderer(const char* savePath) {
 确实要亮些了，果然什么都得实践！！！
 
 ![Chapter-07-spp picture](./QZRayTracer/output-chapter07-spp4-gamma.png)
+
+
+### Chapter-08
+本节主要实现了金属材质的模拟，这里主要去把金属当作镜子来理解。不同材质的实现主要靠改变反射光的分布。因此光线击中金属表面后反射的光近似于镜面反射，因此在材质中实现了 **Reflect** 方法。此外并不是所有金属表面都是纯镜面反射的，因此添加了一个参数 $fuzz$ 用来扰动反射光，达到那种反射情况介于镜面反射和漫反射之间的材质，我们称为 **Glossy material**。它不是完全的镜子，比镜子粗糙一些，就像铜镜。
+
+---
+
+这里给自己提个醒，看来C++掌握的还不太熟练，头文件的引用造成在写这一节的代码的时候出现了很多低级错误。不过这也算是一个学习的过程，知难而上😆，主要结合了pbrt的代码来写的，并不完全是照着这本书来写。另一个需要注意的是**随机数**的使用，切记要使用同一分布的随机数，不然出来的图片噪音很明显，且分布很不自然。
+
+---
+
+接下来就该展现成果图了，虽然渲染时间长一点，但还是会花久一点得到更好看的结果来奖励自己。。。
+
+![Chapter-08-spp picture](./QZRayTracer/output-chapter08-spp16-gamma-1000x500.png)
+这张图的 $spp=16, size=1000\times500$，感觉噪声有点明显，这是还没实现 $fuzz$ 的效果，中间漫反射，左右两个球镜面反射。
+
+![Chapter-08 picture](./QZRayTracer/output-chapter08-spp100-gamma-600x300.png)
+这张图的 $spp=100, size=600\times300$，感觉稍微好些了，但是这种采样率感觉效果不太对，给我感觉应该还是随机数的问题。
+
+![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-gamma-600x300.png)
+这张图的 $spp=1000, size=600\times300$，随着采样率的提高，整体噪点变少了，但是图像感觉也变模糊了，因为采样越多，后面对颜色的处理其实类似于图像中的均值模糊了。
+
+![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500.png)
+这张图的 $spp=1000, size=1000\times500$，这个是加入了 $fuzz$ 的效果，确实有 **铜镜** 那味了，但是看细节可以发现图像两边有那种噪点过渡的边界，感觉很奇怪，原因大抵是随机数或者数值精度的毛病。
+
+![Chapter-08 picture](./QZRayTracer/output-chapter08-spp1000-fuzz-1000x500-2.png)
+这张图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。

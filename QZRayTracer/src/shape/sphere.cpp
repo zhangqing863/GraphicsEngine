@@ -1,6 +1,6 @@
 #include "sphere.h"
 namespace raytracer {
-	bool Sphere::hit(const Ray& ray, HitRecord& rec) const
+	bool Sphere::Hit(const Ray& ray, HitRecord& rec) const
 	{
 		Vector3f oc = ray.o - center;
 		Float a = Dot(ray.d, ray.d);
@@ -18,13 +18,14 @@ namespace raytracer {
 				rec.t = temp;
 				rec.p = ray(temp);
 				rec.normal = Normal3f((rec.p - center) * invRadius);
+				rec.mat = material;
 				return true;
 			}
 		}
 		return false;
 	}
-	std::shared_ptr<Shape> CreateSphereShape(Point3f center, Float radius)
+	std::shared_ptr<Shape> CreateSphereShape(Point3f center, Float radius, std::shared_ptr<Material> material)
 	{
-		return std::make_shared<Sphere>(center, radius);
+		return std::make_shared<Sphere>(center, radius, material);
 	}
 }

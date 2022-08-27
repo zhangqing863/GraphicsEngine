@@ -19,6 +19,12 @@
     <Filter Include="shape">
       <UniqueIdentifier>{e4334664-5e19-474e-b57a-9fd082b2c392}</UniqueIdentifier>
     </Filter>
+    <Filter Include="material">
+      <UniqueIdentifier>{a4a2d624-5157-4820-8505-75f10f42c9bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{a14b2a7c-371f-4f55-91c8-87a81fae83e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp">
@@ -36,11 +42,20 @@
     <ClCompile Include="src\shape\sphere.cpp">
       <Filter>shape</Filter>
     </ClCompile>
-    <ClCompile Include="src\shape\shapeList.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\camera.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\material.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\lambertian.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\metal.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\shapeList.cpp">
+      <Filter>shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +83,23 @@
     <ClInclude Include="src\shape\sphere.h">
       <Filter>shape</Filter>
     </ClInclude>
-    <ClInclude Include="src\shape\shapeList.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\camera.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\material.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\lambertian.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\metal.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\shapeList.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\progressbar.h">
+      <Filter>tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

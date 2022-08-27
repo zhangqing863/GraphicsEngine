@@ -9,7 +9,7 @@ namespace raytracer {
 		ShapeList() {}
 		ShapeList(std::vector<std::shared_ptr<Shape>> shapes) :shapes(shapes) {}
 		// Í¨¹ý Shape ¼Ì³Ð
-		virtual bool hit(const Ray& ray, HitRecord& rec) const override;
+		virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
 		std::vector<std::shared_ptr<Shape>> shapes;
 	};
 

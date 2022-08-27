@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +121,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +135,10 @@
     <ClCompile Include="src\core\api.cpp" />
     <ClCompile Include="src\core\camera.cpp" />
     <ClCompile Include="src\core\geometry.cpp" />
+    <ClCompile Include="src\core\material.cpp" />
     <ClCompile Include="src\core\shape.cpp" />
+    <ClCompile Include="src\material\lambertian.cpp" />
+    <ClCompile Include="src\material\metal.cpp" />
     <ClCompile Include="src\shape\shapeList.cpp" />
     <ClCompile Include="src\shape\sphere.cpp" />
   </ItemGroup>
@@ -141,13 +146,17 @@
     <ClInclude Include="src\core\api.h" />
     <ClInclude Include="src\core\camera.h" />
     <ClInclude Include="src\core\geometry.h" />
+    <ClInclude Include="src\core\material.h" />
     <ClInclude Include="src\core\QZRayTracer.h" />
     <ClInclude Include="src\core\shape.h" />
     <ClInclude Include="src\core\stb_image.h" />
     <ClInclude Include="src\core\stb_image_write.h" />
     <ClInclude Include="src\ext\logging.h" />
+    <ClInclude Include="src\material\lambertian.h" />
+    <ClInclude Include="src\material\metal.h" />
     <ClInclude Include="src\shape\shapeList.h" />
     <ClInclude Include="src\shape\sphere.h" />
+    <ClInclude Include="src\tool\progressbar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

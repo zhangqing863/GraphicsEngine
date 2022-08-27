@@ -8,6 +8,8 @@
 #include <ctime>
 #include <random>
 #include <vector>
+#include <string>
+#include <stdexcept>
 #include "../ext/logging.h"
 
 #define QZRT_CONSTEXPR constexpr
@@ -31,6 +33,9 @@ namespace raytracer {
 	class Normal3;
 	class Ray;
 	class Shape;
+	class Material;
+	class ProgressBar;
+	
 
 
 	// Global Constants
@@ -55,6 +60,10 @@ namespace raytracer {
 	static QZRT_CONSTEXPR Float PiOver2 = 1.57079632679489661923;
 	static QZRT_CONSTEXPR Float PiOver4 = 0.78539816339744830961;
 	static QZRT_CONSTEXPR Float Sqrt2 = 1.41421356237309504880;
+	static std::default_random_engine seeds;
+	static std::uniform_real_distribution<Float> randomNum(0, 1); // ×ó±ÕÓÒ±ÕÇø¼ä
+	// Global Inline Functions
+
 	// Global Inline Functions
 	
 }

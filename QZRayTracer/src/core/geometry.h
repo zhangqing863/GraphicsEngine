@@ -432,6 +432,12 @@ namespace raytracer {
             DCHECK(!p.HasNaNs());
             return Point3<T>(x + p.x, y + p.y, z + p.z);
         }
+
+        Point3<T> operator*(const Point3<T>& p) const {
+            DCHECK(!p.HasNaNs());
+            return Point3<T>(x * p.x, y * p.y, z * p.z);
+        }
+
         template <typename U>
         Point3<T> operator*(U f) const {
             return Point3<T>(f * x, f * y, f * z);
@@ -956,6 +962,23 @@ namespace raytracer {
         mutable Float tMax; // 突破const的限制，即使是 const Ray &r，也能更改tMax
         Float time;
     };
+
+
+    /// <summary>
+    /// 在一个单位圆内产生一个随机点
+    /// </summary>
+    /// <returns></returns>
+    inline Point3<Float> RandomInUnitSphere() {
+        Vector3f p;
+        // 构建随机数
+        // std::uniform_real_distribution<Float> randomNum(0, 1); // 左闭右闭区间
+        do {
+            p = Vector3f(randomNum(seeds), randomNum(seeds), randomNum(seeds));
+        } while (Dot(p, p) >= 1.0);
+
+
+        return Point3<Float>(p);
+    }
 }
 
 #endif  // QZRT_CORE_GEOMETRY_H
