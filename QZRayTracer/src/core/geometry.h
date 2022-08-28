@@ -972,7 +972,7 @@ namespace raytracer {
 
 
     /// <summary>
-    /// 在一个单位圆内产生一个随机点
+    /// 在一个单位球内产生一个随机点
     /// </summary>
     /// <returns></returns>
     inline Point3<Float> RandomInUnitSphere() {
@@ -980,7 +980,21 @@ namespace raytracer {
         // 构建随机数
         // std::uniform_real_distribution<Float> randomNum(0, 1); // 左闭右闭区间
         do {
-            p = Vector3f(randomNum(seeds), randomNum(seeds), randomNum(seeds));
+            p = 2.0 * Vector3f(randomNum(seeds), randomNum(seeds), randomNum(seeds)) - Vector3f(1, 1, 1);
+        } while (Dot(p, p) >= 1.0);
+
+
+        return Point3<Float>(p);
+    }
+
+    /// <summary>
+    /// 在一个单位圆内产生一个随机点
+    /// </summary>
+    /// <returns></returns>
+    inline Point3<Float> RandomInUnitDisk() {
+        Vector3f p;
+        do {
+            p = 2.0 * Vector3f(randomNum(seeds), randomNum(seeds), 0) - Vector3f(1, 1, 0);
         } while (Dot(p, p) >= 1.0);
 
 

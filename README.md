@@ -565,3 +565,81 @@ vertical = 2 * halfHeight * v;
 (5) $fov = 30, lf=(-2, 2, 1), la=(0, 0, -1),\mathbf{up}=(0, 1, 0)$
 
 ![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-fov30-1000x500.png)
+
+(6) $fov = \{x | x\in[0, 180]\}$
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-fov-anime.gif)
+
+### Chapter-11
+
+本节主要实现的是摄像机的**景深**效果，这里作者也称作离焦模糊。
+
+这里具体相机的原理我就不再详解，有兴趣可以自己去查阅，主要对代码实现的原理进行一定的说明。
+
+主要引入了几个概念：
+$focusDis$ ：焦平面到视点的距离（焦距）
+$aperture$ ：光圈大小
+
+代码实现的原理其实就是通过这些参数改变生成的光线，物理上的原理实际上就是视角通过光圈的视线会像凸透镜一样汇聚于一点，那个点就是焦点。
+
+主要通过随机采样来获得在光圈中的视线偏移 $\mathbf{offset}$ ，然后通过偏移值获得偏移后的光线。
+
+我们来看看如何理解光线的生成，光线是由**起点** $\mathbf{ray_o}$ 和 **方向** $\mathbf{ray_d}$ 构成。
+
+由于焦距的设置，我们的成像平面会改变位置，因此之前的一些参数也会受焦距影响，分别是：
+
+$$
+lowerLeftCorner = origin - halfWidth * \mathbf{u} * focusDis - halfHeight * \mathbf{v} * focusDis - \mathbf{w} * focusDis; \\
+horizontal = 2 * halfWidth * \mathbf{u} * focusDis; \\
+vertical = 2 * halfHeight * \mathbf{v} * focusDis;
+$$
+
+光线从原始变化为通过透镜的结果 $\mathbf{ray} \to \mathbf{ray'}$
+
+如图结合向量的加减法可以明确的理解光线是怎么变化的。
+
+![Chapter-11 picture](./QZRayTracer/pic/aperture概念图.png)
+
+$$
+\begin{aligned}
+\mathbf{ray'_o} &= \mathbf{ray_o} + \mathbf{offset} \\
+				&= origin + \mathbf{offset},\\
+\mathbf{ray'_d} &= \mathbf{ray_d} - \mathbf{offset} \\				&=lowerLeftCorner + s * horizontal + t * vertical - origin - \mathbf{offset},\\
+\end{aligned}
+$$
+
+接下来就是见证效果的时候了，光是静态的没意思，看不出这些参数对成像的影响，因此我还通过设置不同的参数变换来形成动态图像，把 [Chapter-10](#chapter-10) 的也补上**fov**的变化。
+
+(1) 参数设置
+$$lookFrom = (3, 3, 2), \\
+lookAt = (0, 0, -1), \\
+fov = 20, \\
+aspect = 2.0, \\
+aperture = 2.0, \\
+focusDis = |lookFrom - lookAt|;$$
+
+![Chapter-11 picture](./QZRayTracer/output/output-chapter11-aperture2.0-1000x500.png)
+
+(2) 
+$$lookFrom = (3, 3, 2), \\
+lookAt = (0, 0, -1), \\
+fov = 20, \\
+aspect = 2.0, \\
+aperture = \{x | x\in[0, 4]\}, \\
+focusDis = |lookFrom - lookAt|;$$
+
+![Chapter-11 picture](./QZRayTracer/output/output-chapter11-aperture-anime.gif)
+
+(3) 
+$$lookFrom = (3, 3, 2), \\
+lookAt = (0, 0, -1), \\
+fov = 20, \\
+aspect = 2.0, \\
+aperture = 1.0, \\
+focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$$
+
+![Chapter-11 picture](./QZRayTracer/output/output-chapter11-focus-anime.gif)
+
+### Chapter-12
+
+这章就没啥内容了，主要是实现一些随机的球，还原这本书的封面图，顺便说说代码的进一步的提升，后面会涉及到的一些更高级的概念。
+

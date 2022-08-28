@@ -29,8 +29,15 @@ namespace raytracer{
 			origin = Point3f(0.0, 0.0, 0.0);
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="looFrom">观测点位置</param>
+		/// <param name="lookAt">观测目标的位置</param>
+		/// <param name="Up">方向向上的向量</param>
+		/// <param name="vFov">垂直方向的视场</param>
+		/// <param name="aspect">图像比例</param>
 		Camera(Point3f looFrom, Point3f lookAt, Vector3f Up, Float vFov, Float aspect) {
-			Vector3f u, v, w;
 			Float theta = vFov * Degree2Rad;
 			Float halfHeight = tan(theta / 2.0);
 			Float halfWidth = aspect * halfHeight;
@@ -43,12 +50,42 @@ namespace raytracer{
 			vertical = 2 * halfHeight * v;
 		}
 
-		Ray GenerateRay(float u, float v) { return Ray(origin, lowerLeftCorner + u * horizontal + v * vertical - Vector3f(origin)); }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="looFrom">观测点位置</param>
+		/// <param name="lookAt">观测目标的位置</param>
+		/// <param name="Up">方向向上的向量</param>
+		/// <param name="vFov">垂直方向的视场</param>
+		/// <param name="aspect">图像比例</param>
+		/// <param name="aperture">光圈大小</param>
+		/// <param name="focusDis">焦距</param>
+		Camera(Point3f looFrom, Point3f lookAt, Vector3f Up, Float vFov, Float aspect, Float aperture, Float focusDis) {
+			lensRadius = aperture * 0.5;
+			Float theta = vFov * Degree2Rad;
+			Float halfHeight = tan(theta / 2.0);
+			Float halfWidth = aspect * halfHeight;
+			origin = looFrom;
+			w = Normalize(looFrom - lookAt);
+			u = Normalize(Cross(Up, w));
+			v = Cross(w, u);
+			lowerLeftCorner = Vector3f(origin) - halfWidth * u * focusDis - halfHeight * v * focusDis - w * focusDis;
+			horizontal = 2 * halfWidth * u * focusDis;
+			vertical = 2 * halfHeight * v * focusDis;
+		}
+
+		Ray GenerateRay(Float s, Float t) {
+			Point3f randomLoc = lensRadius * RandomInUnitDisk();
+			Vector3f offset = u * randomLoc.x + v * randomLoc.y;
+			return Ray(origin + offset, lowerLeftCorner + s * horizontal + t * vertical - Vector3f(origin) - offset);
+		}
 
 		Vector3f lowerLeftCorner;
 		Vector3f horizontal;
 		Vector3f vertical;
+		Vector3f u, v, w; // 基向量
 		Point3f origin;
+		Float lensRadius; // 镜头半径
 		
 	};
 }

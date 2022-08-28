@@ -40,7 +40,7 @@ Point3f Color(const Ray& ray, shared_ptr<Shape> world, int depth) {
 }
 
 
-void Renderer(const char* savePath) {
+void Renderer(const char* savePath, Camera& camera) {
 	// 参数设置
 	int depth = 0;
 	int width = 1000, height = 500, channel = 3;
@@ -55,7 +55,7 @@ void Renderer(const char* savePath) {
 	auto* data = (unsigned char*)malloc(width * height * channel);
 
 	// 构建一个简单的相机
-	Camera camera(Point3f(-2, 2, 1), Point3f(0, 0, -1), worldUp, 30, aspect);
+	// Camera camera(Point3f(-2, 2, 1), Point3f(0, 0, -1), worldUp, fov, aspect);
 
 	// 搭建一个简单的场景
 	vector<std::shared_ptr<Shape>> shapes;
@@ -69,13 +69,11 @@ void Renderer(const char* savePath) {
 	std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
 	std::shared_ptr<Material> dlcMat = std::make_shared<Dielectric>(1.5);
 
-	Float radius = cos(Pi * 0.25);
-	shapes.push_back(CreateSphereShape(Point3f(-radius, 0, -1), radius, lambBlueMat));
-	shapes.push_back(CreateSphereShape(Point3f(radius, 0, -1), radius, lambRedMat));
 	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, lambPurpleMat));
-	shapes.push_back(CreateSphereShape(Point3f(2, 0, -1), 0.5, metalGreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(-2, 0, -1), 0.5, dlcMat));
-	shapes.push_back(CreateSphereShape(Point3f(-2, 0, -1), -0.45, dlcMat));
+	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, lambBlueMat));
+	shapes.push_back(CreateSphereShape(Point3f(1, 0, -1), 0.5, metalGreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), 0.5, dlcMat));
+	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), -0.45, dlcMat));
 
 	// 包含所有Shape的场景
 	std::shared_ptr<Shape> world = CreateShapeList(shapes);
@@ -117,6 +115,7 @@ void Renderer(const char* savePath) {
 	// 写入图像
 	stbi_write_png(savePath, width, height, channel, data, 0);
 	stbi_image_free(data);
+	cout << endl;
 }
 
 
@@ -134,9 +133,24 @@ int main() {
 	std::cout << " /,-. |'. `--' .`  )/  -'    `-'. `---' .`(/  \\)     (   `-.-'    `-/,-. | ||  ||'.   \\) \\'. `---\\) \\(_/\\_) ||  ||'.   \\) \\" << std::endl;
 	std::cout << "-'   ''  `-..-'   (              `-...-'   )          `--.._)      -'   ''(_/  \\_) `-.(_.'  `-...(_.'      (_/  \\_) `-.(_.' " << std::endl << std::endl;
 
-	const char* savePath = "./output/output-chapter10-camera-PIY-fov30-1000x500.png";
+	const char* savePath = "./output/output-chapter11-aperture2.0-1000x500.png";
+	int frame = 360; // 总帧数
+	Float unitFov = 180.0 / frame;
+	Float unitAperture = 4.0 / frame;
+	Point3f lookFrom = Point3f(3, 3, 2);
+	Point3f lookAt = Point3f(0, 0, -1);
+	Float unitFocusDis = (lookFrom - lookAt).Length() * 2.0 / frame;
 
-	Renderer(savePath);
+	/*Camera camera(lookFrom, lookAt, worldUp, 20, 2.0, 2.0, (lookFrom - lookAt).Length());
+	Renderer(savePath, camera);*/
+	// 渲染多帧来生成动画
+	stringstream tempPath;
+	for (int i = 0; i < frame; i++) {
+		Camera camera(lookFrom, lookAt, worldUp, 20, 2.0, 1.0, i * unitFocusDis);
+		tempPath << "./temp/focusDis" << i << ".png";
+		Renderer(tempPath.str().c_str(), camera);
+		tempPath.str("");
+	}
 
 	end = clock();   //结束时间
 	cout << "\n\nRenderer time is " << double(end - start) << "ms" << endl;  //输出时间（单位：ms）

@@ -9,6 +9,7 @@
 #include <random>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <stdexcept>
 #include "../ext/logging.h"
 
