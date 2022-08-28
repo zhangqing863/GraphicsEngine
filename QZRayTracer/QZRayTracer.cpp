@@ -44,6 +44,7 @@ void Renderer(const char* savePath) {
 	// 参数设置
 	int depth = 0;
 	int width = 1000, height = 500, channel = 3;
+	Float aspect = width / height;
 	Float gamma = 1.0 / 2.2;
 
 
@@ -54,7 +55,7 @@ void Renderer(const char* savePath) {
 	auto* data = (unsigned char*)malloc(width * height * channel);
 
 	// 构建一个简单的相机
-	Camera camera;
+	Camera camera(Point3f(-2, 2, 1), Point3f(0, 0, -1), worldUp, 30, aspect);
 
 	// 搭建一个简单的场景
 	vector<std::shared_ptr<Shape>> shapes;
@@ -67,12 +68,14 @@ void Renderer(const char* savePath) {
 	std::shared_ptr<Material> metalGlassGreenMat = std::make_shared<Metal>(Point3f(0.8, 0.6, 0.2), 0.6);
 	std::shared_ptr<Material> metalWhiteMat = std::make_shared<Metal>(Point3f(0.8, 0.8, 0.8), 1.0);
 	std::shared_ptr<Material> dlcMat = std::make_shared<Dielectric>(1.5);
-	shapes.push_back(CreateSphereShape(Point3f(0, 0, -1), 0.5, lambBlueMat));
-	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, lambGlassGreengreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(1, 0, -1), 0.5, metalGlassGreenMat));
-	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), 0.5, dlcMat));
-	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), -0.45, dlcMat));
-	shapes.push_back(CreateSphereShape(Point3f(-1, 0, -1), 0.3, metalGreenMat));
+
+	Float radius = cos(Pi * 0.25);
+	shapes.push_back(CreateSphereShape(Point3f(-radius, 0, -1), radius, lambBlueMat));
+	shapes.push_back(CreateSphereShape(Point3f(radius, 0, -1), radius, lambRedMat));
+	shapes.push_back(CreateSphereShape(Point3f(0, -100.5, -1), 100, lambPurpleMat));
+	shapes.push_back(CreateSphereShape(Point3f(2, 0, -1), 0.5, metalGreenMat));
+	shapes.push_back(CreateSphereShape(Point3f(-2, 0, -1), 0.5, dlcMat));
+	shapes.push_back(CreateSphereShape(Point3f(-2, 0, -1), -0.45, dlcMat));
 
 	// 包含所有Shape的场景
 	std::shared_ptr<Shape> world = CreateShapeList(shapes);
@@ -131,7 +134,7 @@ int main() {
 	std::cout << " /,-. |'. `--' .`  )/  -'    `-'. `---' .`(/  \\)     (   `-.-'    `-/,-. | ||  ||'.   \\) \\'. `---\\) \\(_/\\_) ||  ||'.   \\) \\" << std::endl;
 	std::cout << "-'   ''  `-..-'   (              `-...-'   )          `--.._)      -'   ''(_/  \\_) `-.(_.'  `-...(_.'      (_/  \\_) `-.(_.' " << std::endl << std::endl;
 
-	const char* savePath = "./output/output-chapter09-spp100-hollowglass3-1000x500.png";
+	const char* savePath = "./output/output-chapter10-camera-PIY-fov30-1000x500.png";
 
 	Renderer(savePath);
 

@@ -308,11 +308,11 @@ if (discriminant > 0) {
 
 (1) 未修改
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc-1000x500.png)
 
 (2) 第一次修改后
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(wrong)-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(wrong)-1000x500.png)
 
 巨难受。。。左边这个球的黑边就是作者出现的那种效果，我真的是服了，花了半个下午的时间才发现作者在实现折射函数时里面有个问题。一切尽在注释中，我还回头看了一下作者实现Vec3的代码，他归一化时返回的是一个新向量，并没有改变原来的向量，因此这里确实会造成错误。
 
@@ -334,7 +334,7 @@ inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector
 
 (3) 第二次修改后
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(right)-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(right)-1000x500.png)
 
 痛，太痛了，伊苏尔德😭！！！
 
@@ -343,20 +343,20 @@ inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector
 **实现Schlick的近似公式**
 (1) 一个玻璃球
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-schlick-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-schlick-1000x500.png)
 
 (2) 一个玻璃球里面再放一个玻璃球，但是里面那个设置的半径是负数，这会使得其生成的法线朝球体内部，这个效果就相当于是一个中空的玻璃球。
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass-1000x500.png)
 
 (3) 尝试一下在中空的玻璃球里再放一个球
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass2-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass2-1000x500.png)
 
 <center> 磨砂材质球 </center>
 
    
-![Chapter-08 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass3-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass3-1000x500.png)
 
 <center> 金属材质球 </center>
 
@@ -364,7 +364,7 @@ inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector
 
 首先看图，我仿照原书画的：
 
-![Chapter-08 picture](./QZRayTracer/pic/Chapter8概念图.png)
+![Chapter-09 picture](./QZRayTracer/pic/折射概念图.png)
 
 $\mathbf{n,n'}$ 是不同方向的法线向量且都做了归一化处理；
 $\mathbf{v_i,v_o}$ 分别是入射向量和折射向量，且都是单位向量；
@@ -404,7 +404,7 @@ if (discriminant > 0) {
 接下来判断完就可以去求解 $\mathbf{v_o}$
 如下图：
 
-![Chapter-08 picture](./QZRayTracer/pic/Chapter8概念图2.png)
+![Chapter-09 picture](./QZRayTracer/pic/折射概念图2.png)
 
 我们可以将 $\mathbf{v_i,v_o}$ 分解
 $$
@@ -485,3 +485,83 @@ inline Float Schlick(Float cosine, Float refIdx) {
 ```
 
 到此整个推导就结束了，不仅要得到效果，还要了解背后的原理，前路漫漫啊，还好头发多🤡
+
+### Chapter-10
+
+本章进一步设计了摄像机的一些参数，能够有更多的操作性。
+
+首先实现的是 **FOV(Field of view)** , 也叫做**视场**，如下图。
+
+![Chapter-10 picture](./QZRayTracer/pic/Fov概念图.png)
+
+$fov_h$ 指的是视角水平方向的最大夹角，
+$fov_v$ 指的是视角垂直方向的最大夹角，本节已实现
+
+$aspect = \frac{width}{height}$ 指的是视角的比例，有了这个，我们便可以根据一个方向的值算出另一个方向的值。
+
+比如计算长宽的一半 $halfWidth,halfHeight$.
+
+$$
+halfHeight = \tan(fov_h\pi/180), \\
+halfWidth = halfHeight * aspect \\
+$$
+
+接下来再来看看如何推导可以改变视角位置和成像平面的摄像机，其作为坐标轴的基向量怎么求？
+
+如图：
+
+![Chapter-10 picture](./QZRayTracer/pic/Fov概念图2.png)
+
+$\mathbf{y},\mathbf{u},\mathbf{w}$ 是组成三个轴的基向量，
+$\mathbf{up}$ 是切平面上朝上的向量，
+$lf,lr$ 分别是观测的位置和观测的目标位置。
+
+
+
+已知 $\mathbf{up}, lf,la$ ，求 $\mathbf{y},\mathbf{u},\mathbf{w}$
+
+原理利用叉乘即可, 注意这里用的是**右手坐标系**
+
+$$
+\mathbf{w} = Normalize(lf-la); \\
+\mathbf{u} = Normalize(Cross(\mathbf{up},\mathbf{w})); \\
+\mathbf{v} = Normalize(Cross(\mathbf{w},\mathbf{u}));
+$$
+
+有了这些值，我们再将代码中的变量 $lowerLeftCorner, horizontal, vertical,origin$ 求得即可。
+
+$$
+lowerLeftCorner = lf-(\mathbf{-v_1} + \mathbf{v_2} + \mathbf{v_3}); \\
+\mathbf{-v_1} = \mathbf{w},\mathbf{v_2} = halfHeight*\mathbf{y},\mathbf{v_3} = halfWidth * \mathbf{u}, \\
+horizontal = 2 * halfWidth * \mathbf{u} ; \\
+vertical = 2 * halfHeight * \mathbf{v}; \\
+origin = lf
+$$
+
+```cpp
+lowerLeftCorner = Vector3f(origin) - halfWidth * u - halfHeight * v - w;
+horizontal = 2 * halfWidth * u;
+vertical = 2 * halfHeight * v;
+```
+
+这样就完成了摄像机的一些概念设计，看一下效果图。
+
+(1) $fov = 90$
+
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-1000x500.png)
+
+(2) $fov = 60$
+
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-fov60-1000x500.png)
+
+(3) $fov = 120$
+
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-fov120-1000x500.png)
+
+(4) $fov = 90, lf=(-2, 2, 1), la=(0, 0, -1),\mathbf{up}=(0, 1, 0)$
+
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-1000x500.png)
+
+(5) $fov = 30, lf=(-2, 2, 1), la=(0, 0, -1),\mathbf{up}=(0, 1, 0)$
+
+![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-fov30-1000x500.png)

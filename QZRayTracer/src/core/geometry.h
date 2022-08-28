@@ -654,6 +654,13 @@ namespace raytracer {
         return std::abs(Dot(v1, v2));
     }
 
+    /// <summary>
+    /// ÓÒÊÖ×ø±êÏµ
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="v1"></param>
+    /// <param name="v2"></param>
+    /// <returns></returns>
     template <typename T>
     inline Vector3<T> Cross(const Vector3<T>& v1, const Vector3<T>& v2) {
         DCHECK(!v1.HasNaNs() && !v2.HasNaNs());
@@ -979,6 +986,10 @@ namespace raytracer {
 
         return Point3<Float>(p);
     }
+
+    // Global Constants
+    static Vector3f worldUp(0.0, 1.0, 0.0);
+    static Vector3f worldRight(1.0, 0.0, 0.0);
 }
 
 #endif  // QZRT_CORE_GEOMETRY_H
