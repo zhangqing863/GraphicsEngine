@@ -631,12 +631,12 @@ $focusDis = |lookFrom - lookAt|;$
 ![Chapter-11 光圈变化的动图](./QZRayTracer/output/output-chapter11-aperture-anime.gif)
 
 (3) 
-$$lookFrom = (3, 3, 2), \\
-lookAt = (0, 0, -1), \\
-fov = 20, \\
-aspect = 2.0, \\
-aperture = 1.0, \\
-focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$$
+$lookFrom = (3, 3, 2), $
+$lookAt = (0, 0, -1), $
+$fov = 20, $
+$aspect = 2.0, $
+$aperture = 1.0, $
+$focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$
 
 ![Chapter-11 焦距变化的动图](./QZRayTracer/output/output-chapter11-focus-anime.gif)
 
