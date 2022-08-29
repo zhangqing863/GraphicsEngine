@@ -21,7 +21,7 @@ namespace raytracer{
 		/// <param name="aspect">水平与垂直方向长度的比例</param>
 		Camera(Float vFov, Float aspect) {
 			Float theta = vFov * Degree2Rad;
-			Float halfHeight = tan(theta / 2.0);
+			Float halfHeight = tanf(theta / 2.0);
 			Float halfWidth = aspect * halfHeight;
 			lowerLeftCorner = Vector3f(-halfWidth, -halfHeight, -1.0);
 			horizontal = Vector3f(2.0 * halfWidth, 0.0, 0.0);
@@ -39,7 +39,7 @@ namespace raytracer{
 		/// <param name="aspect">图像比例</param>
 		Camera(Point3f looFrom, Point3f lookAt, Vector3f Up, Float vFov, Float aspect) {
 			Float theta = vFov * Degree2Rad;
-			Float halfHeight = tan(theta / 2.0);
+			Float halfHeight = tanf(theta / 2.0);
 			Float halfWidth = aspect * halfHeight;
 			origin = looFrom;
 			w = Normalize(looFrom - lookAt);

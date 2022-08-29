@@ -156,6 +156,7 @@
     <ClInclude Include="src\material\dielectric.h" />
     <ClInclude Include="src\material\lambertian.h" />
     <ClInclude Include="src\material\metal.h" />
+    <ClInclude Include="src\scene\example.h" />
     <ClInclude Include="src\shape\shapeList.h" />
     <ClInclude Include="src\shape\sphere.h" />
     <ClInclude Include="src\tool\progressbar.h" />

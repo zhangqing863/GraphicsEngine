@@ -567,7 +567,8 @@ vertical = 2 * halfHeight * v;
 ![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-fov30-1000x500.png)
 
 (6) $fov = \{x | x\in[0, 180]\}$
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-fov-anime.gif)
+
+![Chapter-10 FOV变化的动图](./QZRayTracer/output/output-chapter10-fov-anime.gif)
 
 ### Chapter-11
 
@@ -610,24 +611,24 @@ $$
 接下来就是见证效果的时候了，光是静态的没意思，看不出这些参数对成像的影响，因此我还通过设置不同的参数变换来形成动态图像，把 [Chapter-10](#chapter-10) 的也补上**fov**的变化。
 
 (1) 参数设置
-$$lookFrom = (3, 3, 2), \\
-lookAt = (0, 0, -1), \\
-fov = 20, \\
-aspect = 2.0, \\
-aperture = 2.0, \\
-focusDis = |lookFrom - lookAt|;$$
+$lookFrom = (3, 3, 2), $
+$lookAt = (0, 0, -1), $
+$fov = 20, $
+$aspect = 2.0, $
+$aperture = 2.0, $
+$focusDis = |lookFrom - lookAt|;$
 
 ![Chapter-11 picture](./QZRayTracer/output/output-chapter11-aperture2.0-1000x500.png)
 
 (2) 
-$$lookFrom = (3, 3, 2), \\
-lookAt = (0, 0, -1), \\
-fov = 20, \\
-aspect = 2.0, \\
-aperture = \{x | x\in[0, 4]\}, \\
-focusDis = |lookFrom - lookAt|;$$
+$lookFrom = (3, 3, 2), $
+$lookAt = (0, 0, -1), $
+$fov = 20, $
+$aspect = 2.0, $
+$aperture = \{x | x\in[0, 4]\}, $
+$focusDis = |lookFrom - lookAt|;$
 
-![Chapter-11 picture](./QZRayTracer/output/output-chapter11-aperture-anime.gif)
+![Chapter-11 光圈变化的动图](./QZRayTracer/output/output-chapter11-aperture-anime.gif)
 
 (3) 
 $$lookFrom = (3, 3, 2), \\
@@ -637,9 +638,31 @@ aspect = 2.0, \\
 aperture = 1.0, \\
 focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$$
 
-![Chapter-11 picture](./QZRayTracer/output/output-chapter11-focus-anime.gif)
+![Chapter-11 焦距变化的动图](./QZRayTracer/output/output-chapter11-focus-anime.gif)
 
 ### Chapter-12
 
 这章就没啥内容了，主要是实现一些随机的球，还原这本书的封面图，顺便说说代码的进一步的提升，后面会涉及到的一些更高级的概念。
 
+生成的图像依然感觉有点问题：
+(1) $spp=100, fov=40$
+
+![Chapter-12 pic](./QZRayTracer/output/output-chapter12-1000x500.png)
+
+(2) $spp=16, fov=20$
+
+![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp-16-1000x500.png)
+
+(3) $spp=100, fov=20$
+
+![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp-100-fov20-1000x500.png)
+
+**原因还是浮点误差的影响，将击中点的判断偏移一下，效果就会好很多，主要修改代码中的 “ShadowEpslion”**
+
+(4) $spp=100, fov=20$
+
+![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp100-1000x500.png)
+
+(5) $spp=1000, fov=20$
+
+![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp1000-1000x500.png)

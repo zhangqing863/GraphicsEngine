@@ -31,6 +31,9 @@
     <Filter Include="resource\scene">
       <UniqueIdentifier>{3b2bf0ca-f028-47e8-ad1c-3d602a42dda1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{efb3fb8e-b841-4bbf-b07e-5f013a8103dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="QZRayTracer.cpp">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="src\material\dielectric.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\example.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
