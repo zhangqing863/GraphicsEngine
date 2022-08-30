@@ -106,6 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
       <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
       <OpenMPSupport>false</OpenMPSupport>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,10 +138,12 @@
     <ClCompile Include="src\core\camera.cpp" />
     <ClCompile Include="src\core\geometry.cpp" />
     <ClCompile Include="src\core\material.cpp" />
+    <ClCompile Include="src\core\paramset.cpp" />
     <ClCompile Include="src\core\shape.cpp" />
     <ClCompile Include="src\material\dielectric.cpp" />
     <ClCompile Include="src\material\lambertian.cpp" />
     <ClCompile Include="src\material\metal.cpp" />
+    <ClCompile Include="src\shape\cylinder.cpp" />
     <ClCompile Include="src\shape\shapeList.cpp" />
     <ClCompile Include="src\shape\sphere.cpp" />
   </ItemGroup>
@@ -148,6 +152,7 @@
     <ClInclude Include="src\core\camera.h" />
     <ClInclude Include="src\core\geometry.h" />
     <ClInclude Include="src\core\material.h" />
+    <ClInclude Include="src\core\paramset.h" />
     <ClInclude Include="src\core\QZRayTracer.h" />
     <ClInclude Include="src\core\shape.h" />
     <ClInclude Include="src\core\stb_image.h" />
@@ -157,6 +162,7 @@
     <ClInclude Include="src\material\lambertian.h" />
     <ClInclude Include="src\material\metal.h" />
     <ClInclude Include="src\scene\example.h" />
+    <ClInclude Include="src\shape\cylinder.h" />
     <ClInclude Include="src\shape\shapeList.h" />
     <ClInclude Include="src\shape\sphere.h" />
     <ClInclude Include="src\tool\progressbar.h" />

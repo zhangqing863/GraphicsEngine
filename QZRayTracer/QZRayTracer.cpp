@@ -36,27 +36,24 @@ Point3f Color(const Ray& ray, shared_ptr<Shape> world, int depth) {
 		// 没击中就画个背景
 		Vector3f dir = Normalize(ray.d);
 		Float t = 0.5 * (dir.y + 1.0);
-		return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
+		return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.8, 0.6, 0.6));
 	}
 }
 
 
-void Renderer(const char* savePath, Camera& camera) {
+void Renderer(RendererSet& set) {
 	// 参数设置
+	Camera camera = set.camera;
+	int spp = set.spp;
 	int depth = 0;
-	int width = 1000, height = 500, channel = 3;
-	Float aspect = width / height;
-	Float gamma = 1.0 / 2.2;
-
-
-	// 采样值，一个像素内采多少次样
-	int spp = 1000;
+	int width = set.width, height = set.height, channel = 3;
+	const char* savePath = set.savePath;
 	Float invSpp = 1.0 / Float(spp);
 
 	auto* data = (unsigned char*)malloc(width * height * channel);
 
 	// 包含所有Shape的场景
-	std::shared_ptr<Shape> world = RandomScene();
+	std::shared_ptr<Shape> world = set.shapes;
 
 #ifdef ELEGANT
 	ProgressBar bar(height);
@@ -76,7 +73,7 @@ void Renderer(const char* savePath, Camera& camera) {
 				color += Color(ray, world, depth);
 			}
 			color *= invSpp; // 求平均值
-			color = Point3f(pow(color.x, gamma), pow(color.y, gamma), pow(color.z, gamma)); // gamma矫正
+			color = Point3f(pow(color.x, Gamma), pow(color.y, Gamma), pow(color.z, Gamma)); // gamma矫正
 			int ir = int(255.99 * color[0]);
 			int ig = int(255.99 * color[1]);
 			int ib = int(255.99 * color[2]);
@@ -113,16 +110,10 @@ int main() {
 	std::cout << " /,-. |'. `--' .`  )/  -'    `-'. `---' .`(/  \\)     (   `-.-'    `-/,-. | ||  ||'.   \\) \\'. `---\\) \\(_/\\_) ||  ||'.   \\) \\" << std::endl;
 	std::cout << "-'   ''  `-..-'   (              `-...-'   )          `--.._)      -'   ''(_/  \\_) `-.(_.'  `-...(_.'      (_/  \\_) `-.(_.' " << std::endl << std::endl;
 
-	const char* savePath = "./output/output-chapter12-test-1000x500.png";
-	int frame = 360; // 总帧数
-	Float unitFov = 180.0 / frame;
-	Float unitAperture = 4.0 / frame;
-	Point3f lookFrom = Point3f(13, 2, 3);
-	Point3f lookAt = Point3f(0, 0, 0);
-	Float unitFocusDis = (lookFrom - lookAt).Length() * 2.0 / frame;
-
-	Camera camera(lookFrom, lookAt, worldUp, 20, 2.0, 0.0, 10);
-	Renderer(savePath, camera);
+	RendererSet renderSet = ShapeTestCylinderScene();
+	
+	
+	Renderer(renderSet);
 	// 渲染多帧来生成动画
 	/*stringstream tempPath;
 	for (int i = 0; i < frame; i++) {

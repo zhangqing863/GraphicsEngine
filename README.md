@@ -3,7 +3,7 @@ The implementation of "RayTracing, RealTime Rendering, Rasterization Rendering"
 
 ## Implementation of 《Ray Tracing In One Weekend》
 ### Chapter-01
-![Chapter-01 picture](./QZRayTracer/output/output-chapter01.png)
+![Chapter-01 picture](./QZRayTracer/output/RTIOW/output-chapter01.png)
 ---
 使用了一个图像处理库，"stb_image_write.h",
 大概操作如下：
@@ -24,7 +24,7 @@ stbi_image_free(data);
 
 相比于上一章，主要是用 Vector 来承载RGB颜色并输出。
 
-![Chapter-02 picture](./QZRayTracer/output/output-chapter02.png)
+![Chapter-02 picture](./QZRayTracer/output/RTIOW/output-chapter02.png)
 ### Chapter-03
 设计一个简单的光线类(Ray)，同时用简单的方式来测试光线的值，转化为一种简便的颜色，可以用来当作背景。这里因为看过pbrt，再加上后面也会以此为基础添加更多的功能，因此直接将pbrt中的光线类代码搬了过来使用。毕竟有更好的轮胎🤣
 
@@ -43,17 +43,17 @@ Point3f Color(const Ray& ray) {
 ---
 $$t=0.5\times(\mathbf{dir}_y + 1.0)$$
 
- ![Chapter-03-1 picture](./QZRayTracer/output/output-chapter03-1.png)
+ ![Chapter-03-1 picture](./QZRayTracer/output/RTIOW/output-chapter03-1.png)
 
 ---
 $$t=0.25\times(\mathbf{dir}_x + 2.0)$$
 
- ![Chapter-03-2 picture](./QZRayTracer/output/output-chapter03-2.png)
+ ![Chapter-03-2 picture](./QZRayTracer/output/RTIOW/output-chapter03-2.png)
 
 ---
  $$t=\mathbf{dir}_z + 2.0$$
 
- ![Chapter-03-3 picture](./QZRayTracer/output/output-chapter03-3.png)
+ ![Chapter-03-3 picture](./QZRayTracer/output/RTIOW/output-chapter03-3.png)
 
 至于 $t$ 为什么要这么计算，目的主要是为了将其区间映射至 $[0,1]$ .
 
@@ -100,7 +100,7 @@ Point3f Color(const Ray& ray) {
 
 效果图：
 
-![Chapter-04 picture](./QZRayTracer/output/output-chapter04.png)
+![Chapter-04 picture](./QZRayTracer/output/RTIOW/output-chapter04.png)
 
 ### Chapter-05
 本章主要引入了法线的概念，并且简单实现了球体的法线。在图形学中法线是必不可少的一个概念，后面不管是任何的渲染公式都会用到，包括后面的 **半程向量(halfDir)，视角向量(viewDir)** 都是重要的概念。
@@ -125,7 +125,7 @@ Point3f Color(const Ray& ray) {
 	return Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
 }
 ```
-![Chapter-05-1 picture](./QZRayTracer/output/output-chapter05-1.png)
+![Chapter-05-1 picture](./QZRayTracer/output/RTIOW/output-chapter05-1.png)
 
 这里解释一下为什么会出现这样的效果，设置法线表示 $\mathbf{N}$ .
 首先从世界坐标的角度去理解，朝屏幕上方的 $\mathbf{N} \to [0.0,1.0,0.0]$，故其颜色分量 $rgb \to [0.0,1.0,0.0]$，因此造成朝上的方向会更绿，原因就是其 $green$ 分量的值更大；同理屏幕左边和右边也可以这样去理解。
@@ -135,7 +135,7 @@ Point3f Color(const Ray& ray) {
 
 最终实现本节的两个球体效果。
 
-![Chapter-05-2 picture](./QZRayTracer/output/output-chapter05-2.png)
+![Chapter-05-2 picture](./QZRayTracer/output/RTIOW/output-chapter05-2.png)
 
 **纠正代码：**
  ```cpp
@@ -168,11 +168,11 @@ Point3f Color(const Ray& ray) {
 
 具体代码和书中大同小异，就不在本文中细述了。主要看其效果：
 
-![Chapter-06-spp picture](./QZRayTracer/output/output-chapter06-spp1-info.png)
+![Chapter-06-spp picture](./QZRayTracer/output/RTIOW/output-chapter06-spp1-info.png)
 
 $$spp=1,time=4271ms$$
 
-![Chapter-06-spp picture](./QZRayTracer/output/output-chapter06-spp16-info.png)
+![Chapter-06-spp picture](./QZRayTracer/output/RTIOW/output-chapter06-spp16-info.png)
 
 $$spp=16,time=59097ms$$
 
@@ -181,7 +181,7 @@ $$spp=16,time=59097ms$$
 ### Chapter-07
 本章实现了一下 **Diffuse** 的材质，这里实现的非常简洁，并且都没有涉及到光源，材质的颜色也没有涉及到，纯粹是通过判断光线与物体是否有交点，有就返回其多次弹射到背景上的颜色，并且每次弹射颜色都会衰减一半，这就会出现下图中的情况。
 
-![Chapter-07-spp picture](./QZRayTracer/output/output-chapter07-spp16.png)
+![Chapter-07-spp picture](./QZRayTracer/output/RTIOW/output-chapter07-spp16.png)
 
 可以看到两球靠近的地方会更加容易使光线弹射多次，这就造成采样到的颜色值不断衰减，形成了阴影般的效果。
 
@@ -246,7 +246,7 @@ void Renderer(const char* savePath) {
 
 确实要亮些了，果然什么都得实践！！！
 
-![Chapter-07-spp picture](./QZRayTracer/output/output-chapter07-spp4-gamma.png)
+![Chapter-07-spp picture](./QZRayTracer/output/RTIOW/output-chapter07-spp4-gamma.png)
 
 
 ### Chapter-08
@@ -260,23 +260,23 @@ void Renderer(const char* savePath) {
 
 接下来就该展现成果图了，虽然渲染时间长一点，但还是会花久一点得到更好看的结果来奖励自己。。。
 
-![Chapter-08-spp picture](./QZRayTracer/output/output-chapter08-spp16-gamma-1000x500.png)
+![Chapter-08-spp picture](./QZRayTracer/output/RTIOW/output-chapter08-spp16-gamma-1000x500.png)
 
 上图的 $spp=16, size=1000\times500$，感觉噪声有点明显，这是还没实现 $fuzz$ 的效果，中间漫反射，左右两个球镜面反射。
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp100-gamma-600x300.png)
+![Chapter-08 picture](./QZRayTracer/output/RTIOW/output-chapter08-spp100-gamma-600x300.png)
 
 上图的 $spp=100, size=600\times300$，感觉稍微好些了，但是这种采样率感觉效果不太对，给我感觉应该还是随机数的问题。
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-gamma-600x300.png)
+![Chapter-08 picture](./QZRayTracer/output/RTIOW/output-chapter08-spp1000-gamma-600x300.png)
 
 上图的 $spp=1000, size=600\times300$，随着采样率的提高，整体噪点变少了，但是图像感觉也变模糊了，因为采样越多，后面对颜色的处理其实类似于图像中的均值模糊了。
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-fuzz-1000x500.png)
+![Chapter-08 picture](./QZRayTracer/output/RTIOW/output-chapter08-spp1000-fuzz-1000x500.png)
 
 上图的 $spp=1000, size=1000\times500$，这个是加入了 $fuzz$ 的效果，确实有 **铜镜** 那味了，但是看细节可以发现图像两边有那种噪点过渡的边界，感觉很奇怪，原因大抵是随机数或者数值精度的毛病。
 
-![Chapter-08 picture](./QZRayTracer/output/output-chapter08-spp1000-fuzz-1000x500-2.png)
+![Chapter-08 picture](./QZRayTracer/output/RTIOW/output-chapter08-spp1000-fuzz-1000x500-2.png)
 
 上图的 $spp=1000, size=1000\times500$，展示了不同 $fuzz$ 值的效果。
 
@@ -308,11 +308,11 @@ if (discriminant > 0) {
 
 (1) 未修改
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-dlc-1000x500.png)
 
 (2) 第一次修改后
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(wrong)-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-dlc(wrong)-1000x500.png)
 
 巨难受。。。左边这个球的黑边就是作者出现的那种效果，我真的是服了，花了半个下午的时间才发现作者在实现折射函数时里面有个问题。一切尽在注释中，我还回头看了一下作者实现Vec3的代码，他归一化时返回的是一个新向量，并没有改变原来的向量，因此这里确实会造成错误。
 
@@ -334,7 +334,7 @@ inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector
 
 (3) 第二次修改后
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-dlc(right)-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-dlc(right)-1000x500.png)
 
 痛，太痛了，伊苏尔德😭！！！
 
@@ -343,20 +343,20 @@ inline bool Refract(const Vector3f& v, const Vector3f& n, Float niOverNo, Vector
 **实现Schlick的近似公式**
 (1) 一个玻璃球
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-schlick-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-schlick-1000x500.png)
 
 (2) 一个玻璃球里面再放一个玻璃球，但是里面那个设置的半径是负数，这会使得其生成的法线朝球体内部，这个效果就相当于是一个中空的玻璃球。
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-hollowglass-1000x500.png)
 
 (3) 尝试一下在中空的玻璃球里再放一个球
 
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass2-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-hollowglass2-1000x500.png)
 
 <center> 磨砂材质球 </center>
 
    
-![Chapter-09 picture](./QZRayTracer/output/output-chapter09-spp100-hollowglass3-1000x500.png)
+![Chapter-09 picture](./QZRayTracer/output/RTIOW/output-chapter09-spp100-hollowglass3-1000x500.png)
 
 <center> 金属材质球 </center>
 
@@ -548,27 +548,27 @@ vertical = 2 * halfHeight * v;
 
 (1) $fov = 90$
 
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-1000x500.png)
+![Chapter-10 picture](./QZRayTracer/output/RTIOW/output-chapter10-camera-1000x500.png)
 
 (2) $fov = 60$
 
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-fov60-1000x500.png)
+![Chapter-10 picture](./QZRayTracer/output/RTIOW/output-chapter10-camera-fov60-1000x500.png)
 
 (3) $fov = 120$
 
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-fov120-1000x500.png)
+![Chapter-10 picture](./QZRayTracer/output/RTIOW/output-chapter10-camera-fov120-1000x500.png)
 
 (4) $fov = 90, lf=(-2, 2, 1), la=(0, 0, -1),\mathbf{up}=(0, 1, 0)$
 
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-1000x500.png)
+![Chapter-10 picture](./QZRayTracer/output/RTIOW/output-chapter10-camera-PIY-1000x500.png)
 
 (5) $fov = 30, lf=(-2, 2, 1), la=(0, 0, -1),\mathbf{up}=(0, 1, 0)$
 
-![Chapter-10 picture](./QZRayTracer/output/output-chapter10-camera-PIY-fov30-1000x500.png)
+![Chapter-10 picture](./QZRayTracer/output/RTIOW/output-chapter10-camera-PIY-fov30-1000x500.png)
 
 (6) $fov = \{x | x\in[0, 180]\}$
 
-![Chapter-10 FOV变化的动图](./QZRayTracer/output/output-chapter10-fov-anime.gif)
+![Chapter-10 FOV变化的动图](./QZRayTracer/output/RTIOW/output-chapter10-fov-anime.gif)
 
 ### Chapter-11
 
@@ -618,7 +618,7 @@ $aspect = 2.0, $
 $aperture = 2.0, $
 $focusDis = |lookFrom - lookAt|;$
 
-![Chapter-11 picture](./QZRayTracer/output/output-chapter11-aperture2.0-1000x500.png)
+![Chapter-11 picture](./QZRayTracer/output/RTIOW/output-chapter11-aperture2.0-1000x500.png)
 
 (2) 
 $lookFrom = (3, 3, 2), $
@@ -628,7 +628,7 @@ $aspect = 2.0, $
 $aperture = \{x | x\in[0, 4]\}, $
 $focusDis = |lookFrom - lookAt|;$
 
-![Chapter-11 光圈变化的动图](./QZRayTracer/output/output-chapter11-aperture-anime.gif)
+![Chapter-11 光圈变化的动图](./QZRayTracer/output/RTIOW/output-chapter11-aperture-anime.gif)
 
 (3) 
 $lookFrom = (3, 3, 2), $
@@ -638,7 +638,7 @@ $aspect = 2.0, $
 $aperture = 1.0, $
 $focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$
 
-![Chapter-11 焦距变化的动图](./QZRayTracer/output/output-chapter11-focus-anime.gif)
+![Chapter-11 焦距变化的动图](./QZRayTracer/output/RTIOW/output-chapter11-focus-anime.gif)
 
 ### Chapter-12
 
@@ -647,22 +647,151 @@ $focusDis = \{x | x\in[0, 2 * |lookFrom - lookAt|]\};$
 生成的图像依然感觉有点问题：
 (1) $spp=100, fov=40$
 
-![Chapter-12 pic](./QZRayTracer/output/output-chapter12-1000x500.png)
+![Chapter-12 pic](./QZRayTracer/output/RTIOW/output-chapter12-1000x500.png)
 
 (2) $spp=16, fov=20$
 
-![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp-16-1000x500.png)
+![Chapter-12 pic](./QZRayTracer/output/RTIOW/output-chapter12-spp-16-1000x500.png)
 
 (3) $spp=100, fov=20$
 
-![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp-100-fov20-1000x500.png)
+![Chapter-12 pic](./QZRayTracer/output/RTIOW/output-chapter12-spp-100-fov20-1000x500.png)
 
 **原因还是浮点误差的影响，将击中点的判断偏移一下，效果就会好很多，主要修改代码中的 “ShadowEpslion”**
 
 (4) $spp=100, fov=20$
 
-![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp100-1000x500.png)
+![Chapter-12 pic](./QZRayTracer/output/RTIOW/output-chapter12-spp100-1000x500.png)
 
 (5) $spp=1000, fov=20$
 
-![Chapter-12 pic](./QZRayTracer/output/output-chapter12-spp1000-1000x500.png)
+![Chapter-12 pic](./QZRayTracer/output/RTIOW/output-chapter12-spp1000-1000x500.png)
+
+## Custom addition
+
+敲完 [Ray Tracing In One Weekend](#implementation-of-ray-tracing-in-one-weekend) 后，个人认为可以沉淀一下，把感兴趣的东西加上去，于是就有了这一节的内容。
+
+### 1. Add Shape
+
+#### Cylinder
+
+![Chapter-12 pic](./QZRayTracer/pic/圆柱体概念图.png)
+
+构造一个圆柱体，我们需要解决什么？**如何击中圆柱？如何获得法线？** 有了击中点的信息，我们就可以将后面的认为交给光线的传播了。
+
+让我们一步一步来解决这些问题。
+
+**获得击中的位置**
+
+求点 $\mathrm{p}$
+已知 $\mathrm{c, o}, r, zMax, zMin$
+
+**(1)** 先分析常见的情况，就是**击中侧面**，可以利用向量来获得结果。
+我们从二维的情况去分析，比如俯视图。
+
+![Chapter-12 pic](./QZRayTracer/pic/圆柱体概念图2.png)
+
+$$
+\mathrm{p} = ray_\mathrm{o} + ray_\mathbf{d}\times t;
+$$
+
+$$
+\mathbf{cp}\cdot\mathbf{cp}=\|\mathbf{cp}\|=r^2;
+$$
+
+$$
+\mathbf{cp} = \mathbf{op} - \mathbf{oc};
+$$
+
+$$
+\mathbf{op} = \mathrm{p} - \mathrm{o} = ray_\mathbf{d} \times t = (t\mathbf{d}_x, t\mathbf{d}_y)
+$$
+
+$$\mathbf{oc} = \mathrm{c} - \mathrm{o} = (\mathrm{c}_x-\mathrm{o}_x,\mathrm{c}_y-\mathrm{o}_y)$$
+
+$$
+\mathbf{cp} = (t\mathbf{d}_x +(\mathrm{o}_x-\mathrm{c}_x),t\mathbf{d}_y +(\mathrm{o}_y-\mathrm{c}_y) )
+$$
+
+$$
+\mathbf{cp} \cdot \mathbf{cp}=(\mathbf{d}_x^2+\mathbf{d}_y^2)t^2 + 2(\mathbf{co}_x\mathbf{d}_x + \mathbf{co}_y\mathbf{d}_y)t + \mathbf{co}_x^2 + \mathbf{co}_y^2 = r^2
+$$
+
+最终获得一元二次方程：
+$$
+(\mathbf{d}_x^2+\mathbf{d}_y^2)t^2 + 2(\mathbf{co}_x\mathbf{d}_x + \mathbf{co}_y\mathbf{d}_y)t + \mathbf{co}_x^2 + \mathbf{co}_y^2 - r^2=0
+$$
+
+其中未知数就只有 $t$ ，利用求根公式求出即可。
+
+求根很好理解，但是出现的情况却很多。通过求出 $t$ 后，我们代入回三维来获得击中点的位置 $\mathrm{p}$
+
+注意一元二次方程可能有 $0,1,2$ 个解，无解表示圆柱体在视角后面，一个解表示视角在圆柱体内部，两个解表示在视角前面。
+
+如果 $zMin < \mathrm{p} < zMax$ ，说明击中了，再继续求其法线 $\mathbf{n}$ 。
+
+$$
+\mathbf{n} = Normalize((\mathrm{p}_x - \mathrm{c}_x , 0 , \mathrm{p}_z - \mathrm{c}_z ))
+$$
+
+否则光线可能是击中顶端或者底端，这就引入了情况 (2)
+
+**(2)** **击中顶端或者底端**
+
+**(2.1) 视角在圆柱体外部**
+
+如果视角位置高于圆柱顶端且光线方向在 $y$ 分量上的值小于0才可能击中顶端
+
+$$
+t = (zMax - \mathrm{o}) / \mathbf{d}_y;
+$$
+
+计算出 $t$ 后获得 $\mathrm{p}$，若击中顶部需满足以下条件：
+
+$$
+\mathbf{cp}_x^2+\mathbf{cp}_y^2\leq r
+$$
+
+如果视角位置低于圆柱底端且光线方向在 $y$ 分量上的值大于0才可能击中底端
+
+$$
+t = (zMin - \mathrm{o}) / \mathbf{d}_y;
+$$
+
+击中条件同上。
+
+**(2.2) 视角在圆柱体内部**
+
+$zMin \leq \mathrm{o}_z\leq zMax$
+
+如果光线方向在 $y$ 分量上的值大于0才可能击中顶端
+
+$$
+t = (zMax - \mathrm{o}) / \mathbf{d}_y;
+$$
+
+击中条件同上。
+
+如果光线方向在 $y$ 分量上的值小于0才可能击中底端
+
+$$
+t = (zMin - \mathrm{o}) / \mathbf{d}_y;
+$$
+
+击中条件同上。
+
+满足条件后求其法线 $\mathbf{n}$ 。
+
+$$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
+
+---
+
+至此理论阐述完毕，在代码中主要就是理清逻辑关系，由于情况较多，条件控制语句也会出现很多，我一开始就是很多条件没弄清楚，造成很多 **bug** , 接下来就是见证效果的时候了。
+
+
+![Chapter-12 pic](./QZRayTracer/output/CustomAdd/cylinder.png)
+
+下面这张图渲染了两三个小时。。
+
+![Chapter-12 pic](./QZRayTracer/output/CustomAdd/cylinder-final.png)
+

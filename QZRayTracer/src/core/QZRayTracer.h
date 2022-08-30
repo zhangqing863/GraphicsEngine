@@ -34,9 +34,13 @@ namespace raytracer {
 	class Normal3;
 	class Ray;
 	class Shape;
+	class ShapeList;
 	class Material;
 	class ProgressBar;
-	
+	class ParamSet;
+	template <typename T>
+	struct ParamSetItem;
+	struct RendererSet;
 
 
 	// Global Constants
@@ -63,11 +67,28 @@ namespace raytracer {
 	static QZRT_CONSTEXPR Float Sqrt2 = 1.41421356237309504880;
 	static QZRT_CONSTEXPR Float Rad2Degree = 57.29577951308232087680;
 	static QZRT_CONSTEXPR Float Degree2Rad = 0.01745329251994329577;
+	static QZRT_CONSTEXPR Float Gamma = 1.0 / 2.2;
 	static std::default_random_engine seeds;
 	static std::uniform_real_distribution<Float> randomNum(0, 1); // ×ó±ÕÓÒ±ÕÇø¼ä
 	// Global Inline Functions
 
 	// Global Inline Functions
+	inline bool Quadratic(Float A, Float B, Float C, Float& t0, Float& t1) {
+		// Find quadratic discriminant
+		double discrim = (double)B * (double)B - 4. * (double)A * (double)C;
+		if (discrim < 0.) return false;
+		double rootDiscrim = std::sqrt(discrim);
+		// Compute quadratic _t_ values
+		Float q;
+		if ((float)B < 0)
+			q = -.5 * (B - rootDiscrim);
+		else
+			q = -.5 * (B + rootDiscrim);
+		t0 = q / A;
+		t1 = C / q;
+		if ((float)t0 > (float)t1) std::swap(t0, t1);
+		return true;
+	}
 	
 }
 

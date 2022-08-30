@@ -1002,8 +1002,8 @@ namespace raytracer {
     }
 
     // Global Constants
-    static Vector3f worldUp(0.0, 1.0, 0.0);
-    static Vector3f worldRight(1.0, 0.0, 0.0);
+    static Vector3f WorldUp(0.0, 1.0, 0.0);
+    static Vector3f WorldRight(1.0, 0.0, 0.0);
 }
 
 #endif  // QZRT_CORE_GEOMETRY_H

@@ -1,13 +1,16 @@
 ﻿  QZRayTracer.cpp
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(57,57): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(58,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(59,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(60,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(61,62): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(62,62): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(63,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(64,66): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(65,65): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(61,57): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(62,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(63,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(64,61): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(65,62): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(66,62): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(67,60): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(68,66): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(69,65): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(70,47): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(84,12): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\QZRayTracer.h(86,12): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(81,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(88,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(200,13): warning C4002: 类函数宏的调用“CHECK_NE”参数过多
@@ -35,71 +38,297 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\camera.h(42,34): warning C
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\camera.h(64,26): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\camera.h(66,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\shape\sphere.h(15,20): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\shape\cylinder.h(20,20): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\material\dielectric.h(14,80): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\tool\progressbar.h(142,32): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(17,65): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(33,65): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(17,89): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(33,89): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(17,32): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(33,32): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(18,8): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(34,8): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(24,157): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(31,105): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(40,157): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(47,105): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(31,75): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(47,75): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(31,45): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(47,45): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(31,149): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(38,59): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(45,42): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(50,42): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(58,112): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(47,149): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(54,59): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(61,42): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(66,42): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(74,112): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(59,106): warning C4305: “参数”: 从“double”到“T”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(75,106): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(110,131): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(111,57): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(111,140): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(111,142): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(112,136): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(112,141): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(113,61): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(113,140): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(113,147): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(114,62): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(114,138): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(114,140): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(115,62): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(115,113): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(116,63): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(116,140): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(116,147): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(117,57): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(117,135): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(117,142): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(123,98): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(123,62): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(123,32): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(129,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(137,105): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(137,75): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(137,45): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(136,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(143,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(150,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(155,13): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(165,130): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(166,59): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(166,128): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(166,130): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(167,59): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(167,128): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(167,130): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(168,59): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(168,131): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(168,138): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(169,60): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(169,113): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(170,125): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(170,130): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(171,60): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(171,113): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(172,57): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(172,129): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(172,136): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(173,127): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(173,129): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(174,57): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(174,126): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(174,128): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(175,58): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(175,129): warning C4305: “参数”: 从“double”到“raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(181,99): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(181,62): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(181,32): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(192,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(200,105): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(200,75): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(200,45): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
+          with
+          [
+              T=raytracer::Float
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(199,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(206,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(213,18): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(218,14): warning C4244: “参数”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(38,11): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(39,63): warning C4305: “参数”: 从“double”到“T”截断
           with
           [
               T=raytracer::Float
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(48,15): warning C4244: “初始化”: 从“int”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(49,25): warning C4305: “初始化”: 从“double”到“raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(54,15): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(106,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(118,16): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(119,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(122,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(49,12): warning C4244: “初始化”: 从“raytracer::Float”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(49,32): warning C4244: “初始化”: 从“raytracer::Float”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(51,15): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\QZRayTracer.cpp(103,17): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\core\geometry.h(670,25): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
           with
           [
@@ -178,9 +407,30 @@ D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(27
           [
               _Ty=double
           ]
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(45): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Dielectric> std::make_shared<raytracer::Dielectric,double>(double &&)”的引用
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(61): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Dielectric> std::make_shared<raytracer::Dielectric,double>(double &&)”的引用
+D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\xutility(149,77): warning C4244: “参数”: 从“_Ty”转换到“raytracer::Float”，可能丢失数据
+          with
+          [
+              _Ty=int
+          ]
+D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(2010): message : 查看对正在编译的函数 模板 实例化“void std::_Construct_in_place<_Ty,raytracer::Point3<raytracer::Float>,int>(_Ty &,raytracer::Point3<raytracer::Float> &&,int &&) noexcept(false)”的引用
+          with
+          [
+              _Ty=raytracer::Metal
+          ]
+D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(2729): message : 查看对正在编译的函数 模板 实例化“std::_Ref_count_obj2<raytracer::Metal>::_Ref_count_obj2<_Ty,int>(_Ty &&,int &&)”的引用
+          with
+          [
+              _Ty=raytracer::Point3f
+          ]
+D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\memory(2730): message : 查看对正在编译的函数 模板 实例化“std::_Ref_count_obj2<raytracer::Metal>::_Ref_count_obj2<_Ty,int>(_Ty &&,int &&)”的引用
+          with
+          [
+              _Ty=raytracer::Point3f
+          ]
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer\src\scene\example.h(112): message : 查看对正在编译的函数 模板 实例化“std::shared_ptr<raytracer::Metal> std::make_shared<raytracer::Metal,raytracer::Point3f,int>(raytracer::Point3f &&,int &&)”的引用
   正在生成代码
-  1 of 486 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  1 of 545 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     2 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

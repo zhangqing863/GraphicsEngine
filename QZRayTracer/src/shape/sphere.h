@@ -1,5 +1,5 @@
-#ifndef QZRT_CORE_SPHERE_H
-#define QZRT_CORE_SPHERE_H
+#ifndef QZRT_SHAPE_SPHERE_H
+#define QZRT_SHAPE_SPHERE_H
 #include "../core/shape.h"
 
 namespace raytracer {
@@ -20,4 +20,4 @@ namespace raytracer {
 
 	std::shared_ptr<Shape> CreateSphereShape(Point3f center, Float radius, std::shared_ptr<Material> material);
 }
-#endif // QZRT_CORE_SPHERE_H
+#endif // QZRT_SHAPE_SPHERE_H
