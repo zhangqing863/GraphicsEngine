@@ -1,276 +1,38 @@
-﻿  api.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(25,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(28,30): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(29,33): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(43,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(65,26): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(67,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18,23): warning C4099: “raytracer::RendererSet”: 类型名称以前使用“struct”现在使用的是“class”
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): message : 参见“raytracer::RendererSet”的声明
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\shape\cylinder.h(20,20): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(670,25): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(47): message : 查看对正在编译的函数 模板 实例化“raytracer::Vector3<raytracer::Float> raytracer::Cross<raytracer::Float>(const raytracer::Vector3<raytracer::Float> &,const raytracer::Vector3<raytracer::Float> &)”的引用
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,66): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,39): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-  camera.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(25,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(28,30): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(29,33): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(43,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(65,26): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(67,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(670,25): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(47): message : 查看对正在编译的函数 模板 实例化“raytracer::Vector3<raytracer::Float> raytracer::Cross<raytracer::Float>(const raytracer::Vector3<raytracer::Float> &,const raytracer::Vector3<raytracer::Float> &)”的引用
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,66): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,39): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-  geometry.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  material.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  paramset.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(25,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(28,30): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(29,33): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(43,34): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(65,26): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(67,21): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18,23): warning C4099: “raytracer::RendererSet”: 类型名称以前使用“struct”现在使用的是“class”
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): message : 参见“raytracer::RendererSet”的声明
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(670,25): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\camera.h(47): message : 查看对正在编译的函数 模板 实例化“raytracer::Vector3<raytracer::Float> raytracer::Cross<raytracer::Float>(const raytracer::Vector3<raytracer::Float> &,const raytracer::Vector3<raytracer::Float> &)”的引用
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,66): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(669,39): warning C4244: “参数”: 从“double”转换到“T”，可能丢失数据
-          with
-          [
-              T=raytracer::Float
-          ]
-  scene.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  shape.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  dielectric.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  lambertian.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  metal.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\material.h(62,13): warning C4244: “return”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  cylinder.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\shape\cylinder.h(20,20): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  shapeList.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-  sphere.cpp
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(65,68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(66,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(67,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(68,72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(69,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(70,73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(71,71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(72,77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(73,76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(74,58): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(92,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-E:\Study\CG\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h(94,13): warning C4244: “=”: 从“double”转换到“raytracer::Float”，可能丢失数据
-    正在创建库 E:\Study\CG\GraphicsEngine\x64\Release\QZRayTracer-GPU.lib 和对象 E:\Study\CG\GraphicsEngine\x64\Release\QZRayTracer-GPU.exp
+﻿  Compiling CUDA source file QZRayTracer.cu...
+  
+  E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\include"     --keep-dir x64\Release  -maxrregcount=0  --machine 64 --compile -cudart static    -D_MBCS -Xcompiler "/EHsc /W3 /nologo /O2 /Fdx64\Release\vc143.pdb /FS   /MT " -o E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\x64\Release\QZRayTracer.cu.obj "E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\QZRayTracer.cu" 
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/sphere.h(25): warning #177-D: variable "discriminant" was declared but never referenced
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/cylinder.h(35): warning #177-D: variable "discriminant" was declared but never referenced
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(4240): warning #550-D: variable "old_limit" was set but never used
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(5181): warning #550-D: variable "idata_limit_old" was set but never used
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7000): warning #550-D: variable "out_size" was set but never used
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7001): warning #550-D: variable "delays_size" was set but never used
+  
+CUDACOMPILE : ptxas warning : Stack size for entry function '_Z6renderPN9raytracer6Point3IfEEiiiPPNS_6CameraEPPNS_5ShapeEP17curandStateXORWOW' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer12create_worldEPPNS_5ShapeES2_PPNS_6CameraEii' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22ShapeTestCylinderSceneEPPNS_5ShapeES2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
+  QZRayTracer.cu
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(65): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(66): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(67): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(68): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(69): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(70): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(74): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): warning C4099: “raytracer::RendererSet”: 类型名称以前使用“struct”现在使用的是“class”
+  E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): note: 参见“raytracer::RendererSet”的声明
+    正在创建库 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.lib 和对象 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.exp
   正在生成代码
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 58 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  0 of 58 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
-  QZRayTracer-GPU.vcxproj -> E:\Study\CG\GraphicsEngine\x64\Release\QZRayTracer-GPU.exe
+  QZRayTracer-GPU.vcxproj -> E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.exe
