@@ -728,7 +728,7 @@ $$
 
 注意一元二次方程可能有 $0,1,2$ 个解，无解表示圆柱体在视角后面，一个解表示视角在圆柱体内部，两个解表示在视角前面。
 
-如果 $zMin < \mathrm{p} < zMax$ ，说明击中了，再继续求其法线 $\mathbf{n}$ 。
+如果 $ zMin < \mathrm{p} < zMax $ ，说明击中了，再继续求其法线 $\mathbf{n}$ 。
 
 $$
 \mathbf{n} = Normalize((\mathrm{p}_x - \mathrm{c}_x , 0 , \mathrm{p}_z - \mathrm{c}_z ))
@@ -795,7 +795,7 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 
 ![CustomAdd pic](./QZRayTracer/output/CustomAdd/cylinder-final.png)
 
-#### GPU Mode
+### GPU Mode
 
 由于离线渲染使用cpu实在是太慢了，因此下定决心将之前的代码修改一个GPU版本的。
 
