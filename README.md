@@ -789,9 +789,36 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 至此理论阐述完毕，在代码中主要就是理清逻辑关系，由于情况较多，条件控制语句也会出现很多，我一开始就是很多条件没弄清楚，造成很多 **bug** , 接下来就是见证效果的时候了。
 
 
-![Chapter-12 pic](./QZRayTracer/output/CustomAdd/cylinder.png)
+![CustomAdd pic](./QZRayTracer/output/CustomAdd/cylinder.png)
 
 下面这张图渲染了两三个小时。。
 
-![Chapter-12 pic](./QZRayTracer/output/CustomAdd/cylinder-final.png)
+![CustomAdd pic](./QZRayTracer/output/CustomAdd/cylinder-final.png)
 
+#### GPU Mode
+
+由于离线渲染使用cpu实在是太慢了，因此下定决心将之前的代码修改一个GPU版本的。
+
+主要使用的是 **CUDA** ，当然还有 **Optix，Direct3d, Opengl** 等api可以来用，不过这些后面再说吧。
+
+参考文章：[Accelerated Ray Tracing in One Weekend in CUDA](https://developer.nvidia.com/blog/accelerated-ray-tracing-cuda/)
+
+在改进的过程中遇到了很多问题，还有改进完成后上传github遇到的让人及其不适的问题。
+
+**改进过程中：**
+(1) 需要安装CUDA环境，也就是**cudatoolkit**，这个可以自行查阅安装过程。
+(2) 使用CUDA的时候需要注意内存分配问题，我就在这上面栽了很多跟头，常常遇到 **CUDA error=700**，这通常都是访问越界，要么是没申明内存，要么是申请的不够。
+(3) 最重要的一个点就是申明一个自定义类的时候，把所有的定义都放在 **.h** 文件中，放到 **.cpp** 文件会报错，这里特别需要注意。
+
+**改进完成后上传遇到的问题：**
+(1) 首先就是大文件上传，奶奶的，不用LFS上传不了，你用它吧，因为之前已经上传到工作区了，又无法撤销，总而言之就是卡住了，为了上传上去，尝试了网上很多方法，最终落得个本地文件版本回退的结果😭 血的教训，本章就是因为这个问题，又重写的。所以说先备份，重要的事情说三遍，备份！备份！备份！
+
+皇天不负有心人，结果至少来说是可观的，相比于上章节末尾的图片，用GPU模式去生成足足节省了几百倍，GPU只花了两百多秒，而之前的用了九千多秒。
+
+反正现在可以放心的渲染高分辨率，高spp的超清大图了。。
+
+欣赏一波：
+
+![GPU-mode pic](./QZRayTracer-GPU/output/GPU/Cylinder-spp1000-2400x1600.png)
+
+![GPU-mode pic](./QZRayTracer-GPU/output/GPU/SampleScene.png)
