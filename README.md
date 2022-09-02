@@ -381,7 +381,7 @@ n_i\sin\theta=n_o\sin\theta'
 \end{aligned}
 $$
 
-先判断是否能够折射出去，因为你想，如果从折射率大的一面折射出去，当夹角 $\theta$ 很大的时候，比如 $\theta=90, n_i=1.5,n_o=1.0$，那么要想满足上式则 $\sin\theta' > 1$ 才行，这显然是不可能的，故这里当出现这种情况的时候将不产生折射，而是反射全部光线，这种现象叫做**全反射**。 
+先判断是否能够折射出去，因为你想，如果从折射率大的一面折射出去，当夹角 $\theta$ 很大的时候，比如 $\theta=90, n_i=1.5,n_o=1.0$，那么要想满足上式则 $ sin\theta' > 1 $ 才行，这显然是不可能的，故这里当出现这种情况的时候将不产生折射，而是反射全部光线，这种现象叫做**全反射**。 
 
 如何判断呢？
 $$
@@ -602,9 +602,14 @@ $$
 
 $$
 \begin{aligned}
-\mathbf{ray'_o} &= \mathbf{ray_o} + \mathbf{offset} \\
-				&= origin + \mathbf{offset},\\
-\mathbf{ray'_d} &= \mathbf{ray_d} - \mathbf{offset} \\				&=lowerLeftCorner + s * horizontal + t * vertical - origin - \mathbf{offset},\\
+\mathbf{ray'_o} = \mathbf{ray_o} + \mathbf{offset} 
+				= origin + \mathbf{offset},
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+\mathbf{ray'_d} = \mathbf{ray_d} - \mathbf{offset} =lowerLeftCorner + s * horizontal + t * vertical - origin - \mathbf{offset},\\
 \end{aligned}
 $$
 
