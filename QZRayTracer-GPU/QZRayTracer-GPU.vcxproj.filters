@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="QZRayTracer.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{82e3b397-6b92-444e-9043-5a6b4a513fd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ext">
+      <UniqueIdentifier>{682a0ca0-2730-4af2-bda5-735e82581dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{ac83cd69-f4c5-4637-901e-60d5d41e3353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="material">
+      <UniqueIdentifier>{8ce3056a-aa37-4633-9741-4e4d9c062937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shape">
+      <UniqueIdentifier>{dc5ef312-c6ab-42c7-8098-9308c46d0912}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\api.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\camera.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\geometry.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\material.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\paramset.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\shape.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\dielectric.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\lambertian.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\metal.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\cylinder.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\shapeList.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\sphere.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\scene.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\api.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\camera.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\geometry.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\material.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\paramset.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\QZRayTracer.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\shape.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\stb_image.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\stb_image_write.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ext\logging.h">
+      <Filter>ext</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\dielectric.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\lambertian.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\metal.h">
+      <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\cylinder.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\shapeList.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\sphere.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\example.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\scene.h">
+      <Filter>core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+</Project>
