@@ -3,6 +3,8 @@
   E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static  -g  -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc143.pdb /FS /Zi /RTC1 /MT " -o E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\x64\Debug\QZRayTracer.cu.obj "E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\QZRayTracer.cu" 
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/sphere.h(25): warning #177-D: variable "discriminant" was declared but never referenced
   
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/dsphere.h(38): warning #177-D: variable "discriminant" was declared but never referenced
+  
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/cylinder.h(35): warning #177-D: variable "discriminant" was declared but never referenced
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(4240): warning #550-D: variable "old_limit" was set but never used

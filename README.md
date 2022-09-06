@@ -827,3 +827,21 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 ![GPU-mode pic](./QZRayTracer-GPU/output/GPU/Cylinder-spp1000-2400x1600.png)
 
 ![GPU-mode pic](./QZRayTracer-GPU/output/GPU/SampleScene.png)
+
+## Implementation of 《Ray Tracing The Next Week》
+
+本章在 [Ray Tracing In One Weekend](#implementation-of-ray-tracing-in-one-weekend) 的基础上添加更多高级的功能，并不断完善以获得一个正儿八经的光线追踪器。
+
+### Chapter-01 : Motion Blur
+
+本节进一步完善了相机的功能：运动模糊。
+从现实角度去理解，相机拍摄是通过快门的开合来捕获光量已形成图像，而当我们的快门时间则是影响图像光量的大小，快门时间越久，进光量就越大，图像就会越亮，反之越少。在虚拟世界中，我们不需要通过改变这些参数来提升捕获的光量。但是改变快门时间会造成一种效果，称为 **运动模糊** ，这个效果常常属于那种快门速度跟不上物体运动的速度，然后造成残影一样的效果，cool！
+
+代码上的设计很简单，简单梳理一下，主要在相机中加入两个时间刻度，然后在这之间随机生成一个时间值传入光线类中，最后在击中物体的时候，将这个时间变量用来改变物体的重心位置，以此来模拟物体在运动的效果。
+
+效果图：
+
+![RTTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter01-1.png)
+
+
+![RTTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter01-2.png)

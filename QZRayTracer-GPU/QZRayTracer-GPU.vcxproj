@@ -93,6 +93,7 @@
     <ClCompile Include="src\material\lambertian.cpp" />
     <ClCompile Include="src\material\metal.cpp" />
     <ClCompile Include="src\shape\cylinder.cpp" />
+    <ClCompile Include="src\shape\dsphere.cpp" />
     <ClCompile Include="src\shape\shapeList.cpp" />
     <ClCompile Include="src\shape\sphere.cpp" />
   </ItemGroup>
@@ -113,6 +114,7 @@
     <ClInclude Include="src\material\metal.h" />
     <ClInclude Include="src\scene\example.h" />
     <ClInclude Include="src\shape\cylinder.h" />
+    <ClInclude Include="src\shape\dsphere.h" />
     <ClInclude Include="src\shape\shapeList.h" />
     <ClInclude Include="src\shape\sphere.h" />
   </ItemGroup>

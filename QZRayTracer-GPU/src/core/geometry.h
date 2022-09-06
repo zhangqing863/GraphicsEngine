@@ -952,8 +952,8 @@ namespace raytracer {
     public:
         // Ray Public Methods
         __device__ Ray() : tMax(Infinity), time(0.f) {}
-        __device__ Ray(const Point3f& o, const Vector3f& d, Float tMax = Infinity,
-            Float time = 0.f)
+        __device__ Ray(const Point3f& o, const Vector3f& d,
+            Float time = 0.f, Float tMax = Infinity)
             : o(o), d(d), tMax(tMax), time(time) {}
         __device__ Point3f operator()(Float t) const { return o + d * t; }
         //__device__ bool HasNaNs() const { return (o.HasNaNs() || d.HasNaNs() || isNaN(tMax)); }

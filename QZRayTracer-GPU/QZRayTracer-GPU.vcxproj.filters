@@ -60,6 +60,9 @@
     <ClCompile Include="src\core\scene.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\shape\dsphere.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="src\core\scene.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\dsphere.h">
+      <Filter>shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

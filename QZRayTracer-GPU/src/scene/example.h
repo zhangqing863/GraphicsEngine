@@ -120,6 +120,76 @@ namespace raytracer {
 		}
 	}
 
+	__global__ void Chapter1MotionBlurScene(Shape** shapes, Shape** world, Camera** camera, int width, int height, curandState* rand_state) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(13, 2, 3);
+			Point3f lookAt = Point3f(0, 0, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0;
+			Float fov = 20.0;
+			Float focusDis = 10.0;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(Point3f(0.5, 0.5, 0.5)));
+
+
+			for (int a = -11; a < 11; a++) {
+				for (int b = -11; b < 11; b++) {
+					Float chooseMat = RND;
+					Point3f center = Point3f(a + 0.9 * RND, 0.2, b + 0.9 * RND);
+					if ((center - Point3f(4, 0.2, 0)).Length() > 0.9) {
+						if (chooseMat < 0.7) { // 选择漫反射材质
+							shapes[curNum++] = new DSphere(
+								center,
+								center + Point3f(0, 0.5 * RND, 0),
+								0.0f,
+								1.0f,
+								0.2f,
+								new Lambertian(Point3f(RND * RND, RND * RND, RND * RND)));
+						}
+						else if (chooseMat < 0.85) { // 选择金属材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Metal(Point3f(0.5 * (1 + RND), 0.5 * (1 + RND), 0.5 * (1 + RND)), RND));
+						}
+						else if (chooseMat < 0.95) { // 选择玻璃材质
+							shapes[curNum++] = new DSphere(
+								center,
+								center + Point3f(0.5 - RND, 0, 0),
+								0.0f,
+								1.0f,
+								0.2,
+								new Dielectric(1 + RND));
+						}
+						else { // 选择中空玻璃球材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Dielectric(1.5));
+							shapes[curNum++] = new Sphere(
+								center,
+								-0.15,
+								new Dielectric(1.5));
+						}
+					}
+				}
+
+			}
+
+			shapes[curNum++] = new Sphere(Point3f(0, 1, 0), 1.0, new Dielectric(1.5));
+			shapes[curNum++] = new Sphere(Point3f(-4, 1, 0), 1.0, new Lambertian(Point3f(0.4, 0.2, 0.1)));
+			shapes[curNum++] = new Sphere(Point3f(4, 1, 0), 1.0, new Metal(Point3f(0.7, 0.6, 0.5), 0.0));
+			*rand_state = local_rand_state;
+			*world = new ShapeList(shapes, curNum);
+		}
+	}
+
 	__global__ void ShapeTestCylinderScene(Shape** shapes, Shape** world, Camera** camera, int width, int height, curandState* rand_state) {
 		if (threadIdx.x == 0 && blockIdx.x == 0) {
 			curandState local_rand_state = *rand_state;

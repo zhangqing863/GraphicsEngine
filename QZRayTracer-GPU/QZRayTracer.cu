@@ -13,7 +13,7 @@
 using namespace raytracer;
 using namespace std;
 #define MAXBOUNDTIME 50
-#define MAXNUMSHAPE 1000
+#define MAXNUMSHAPE 2000
 
 // GPU Mode
 // limited version of checkCudaErrors from helper_cuda.h in CUDA examples
@@ -89,8 +89,8 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
 
 int main() {
     int nx = 2400;
-    int ny = 1600;
-    int ns = 1;
+    int ny = 1200;
+    int ns = 1000;
     int tx = 32;
     int ty = 32;
 
@@ -124,7 +124,7 @@ int main() {
     checkCudaErrors(cudaMalloc((void**)&d_camera, sizeof(Camera*)));
     
     /*--------------------------更换自己的场景--------------------------*/
-    ShapeTestCylinderScene <<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
+    Chapter1MotionBlurScene <<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -161,7 +161,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/GPU/Cylinder-spp1.png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter01-2.png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up

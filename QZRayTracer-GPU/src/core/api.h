@@ -9,6 +9,7 @@
 #include "paramset.h"
 #include "../shape/shapeList.h"
 #include "../shape/sphere.h"
+#include "../shape/dsphere.h"
 #include "../shape/cylinder.h"
 #include "../material/lambertian.h"
 #include "../material/metal.h"
