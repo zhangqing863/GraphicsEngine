@@ -8,14 +8,18 @@ namespace raytracer {
 		Point3f center;
 		Float radius;
 		Float invRadius;
-		Material* material;
+		//Material* material;
 		__device__ Sphere() :center(Point3f(0, 0, 0)), radius(1.0f), invRadius(1.0f) { material = nullptr; }
 		__device__ Sphere(Point3f center, Float radius) : center(center), radius(radius), invRadius(1.0f) { material = nullptr; }
-		__device__ Sphere(Point3f center, Float radius, Material* mat) :center(center), radius(radius), material(mat) {
+		__device__ Sphere(Point3f center, Float radius, Material* mat) :center(center), radius(radius) {
 			invRadius = 1.0f / radius;
+			material = mat;
 		};
 		// 通过 Shape 继承
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
+
+		// 通过 Shape 继承
+		__device__ virtual bool BoundingBox(Bounds3f& box) const override;
 	};
 	__device__ inline bool Sphere::Hit(const Ray& ray, HitRecord& rec) const {
 		Vector3f oc = ray.o - center;
@@ -34,6 +38,10 @@ namespace raytracer {
 		rec.normal = Normal3f((rec.p - center) * invRadius);
 		rec.mat = material;
 
+		return true;
+	}
+	__device__ inline bool Sphere::BoundingBox(Bounds3f& box) const {
+		box = Bounds3f(center + Vector3f(-radius, -radius, -radius), center + Vector3f(radius, radius, radius));
 		return true;
 	}
 	// Shape* CreateSphereShape(Point3f center, Float radius, Material* material);

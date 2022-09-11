@@ -38,6 +38,10 @@ namespace raytracer {
 	template <typename T>
 	class Normal3;
 	class Ray;
+	template <typename T>
+	class Bounds2;
+	template <typename T>
+	class Bounds3;
 	// class Shape;
 	class Material;
 	class ProgressBar;
@@ -51,6 +55,7 @@ namespace raytracer {
 #ifdef _MSC_VER
 	__device__ static QZRT_CONSTEXPR Float MaxFloat = std::numeric_limits<Float>::max();
 	__device__ static QZRT_CONSTEXPR Float Infinity = std::numeric_limits<Float>::infinity();
+	__device__ static QZRT_CONSTEXPR Float MinFloat = std::numeric_limits<Float>::lowest();
 #else
 	static QZRT_CONSTEXPR Float MaxFloat = std::numeric_limits<Float>::max();
 	static QZRT_CONSTEXPR Float Infinity = std::numeric_limits<Float>::infinity();
@@ -112,6 +117,13 @@ namespace raytracer {
 		return a < b ? b : a;
 	}
 	
+
+
+
+	
+
+
+
 }
 
 

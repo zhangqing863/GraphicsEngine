@@ -63,6 +63,9 @@
     <ClCompile Include="src\shape\dsphere.cpp">
       <Filter>shape</Filter>
     </ClCompile>
+    <ClCompile Include="src\shape\bvh.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -120,6 +123,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="src\shape\dsphere.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\bvh.h">
       <Filter>shape</Filter>
     </ClInclude>
   </ItemGroup>

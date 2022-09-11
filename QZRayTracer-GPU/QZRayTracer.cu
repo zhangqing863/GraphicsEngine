@@ -34,7 +34,10 @@ __device__ Point3f Color(const Ray& r, Shape** world, curandState* local_rand_st
     Point3f cur_attenuation = Point3f(1.0, 1.0, 1.0);
     for (int i = 0; i < 50; i++) {
         HitRecord rec;
+
+        //printf("Hit。。。\n");
         if ((*world)->Hit(cur_ray, rec)) {
+            //printf("Hited\n");
             Ray scattered;
             Point3f attenuation;
             Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere(local_rand_state);
@@ -47,6 +50,7 @@ __device__ Point3f Color(const Ray& r, Shape** world, curandState* local_rand_st
             }
         }
         else {
+            //printf("Not Hited\n");
             Vector3f unit_direction = Normalize(cur_ray.d);
             float t = 0.5f * (unit_direction.y + 1.0f);
             Point3f c = (1.0f - t) * Point3f(1.0, 1.0, 1.0) + t * Point3f(0.5, 0.7, 1.0);
@@ -63,7 +67,7 @@ __global__ void render_init(int max_x, int max_y, curandState* rand_state) {
     if ((i >= max_x) || (j >= max_y)) return;
     int pixel_index = j * max_x + i;
     //Each thread gets same seed, a different sequence number, no offset
-    curand_init(1999, pixel_index, 0, &rand_state[pixel_index]);
+    curand_init(2022, pixel_index, 0, &rand_state[pixel_index]);
 }
 
 
@@ -78,7 +82,9 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
         Float u = Float(i + curand_uniform(&local_rand_state)) / Float(max_x);
         Float v = Float(/*max_y -*/ j /*- 1*/ + curand_uniform(&local_rand_state)) / Float(max_y);
         Ray ray = (*cam)->GenerateRay(u, v, &local_rand_state);
+        //printf("GetColor。。。\n");
         color += Color(ray, world, &local_rand_state);
+        //printf("GetColor done\n");
     }
 
     rand_state[pixel_index] = local_rand_state;
@@ -91,8 +97,8 @@ int main() {
     int nx = 2400;
     int ny = 1200;
     int ns = 1000;
-    int tx = 32;
-    int ty = 32;
+    int tx = 8;
+    int ty = 8;
 
     std::cerr << "Rendering a " << nx << "x" << ny << " image with " << ns << " samples per pixel ";
     std::cerr << "in " << tx << "x" << ty << " blocks.\n";
@@ -118,17 +124,18 @@ int main() {
     // make our world of hitables
     Shape** d_list;
     checkCudaErrors(cudaMalloc((void**)&d_list, MAXNUMSHAPE * sizeof(Shape*)));
+    Shape** d_nodes;
+    checkCudaErrors(cudaMalloc((void**)&d_nodes, MAXNUMSHAPE * sizeof(Shape*)));
     Shape** d_world;
     checkCudaErrors(cudaMalloc((void**)&d_world, sizeof(Shape*)));
     Camera** d_camera;
     checkCudaErrors(cudaMalloc((void**)&d_camera, sizeof(Camera*)));
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter1MotionBlurScene <<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
+    Chapter2BVHScene <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
-    
     
     checkCudaErrors(cudaGetLastError());
     checkCudaErrors(cudaDeviceSynchronize());
@@ -161,15 +168,16 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter01-2.png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter02-test.png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up
-    checkCudaErrors(cudaDeviceSynchronize());
-    free_world <<<1, 1 >>> (d_list, d_world, d_camera);
     checkCudaErrors(cudaGetLastError());;
-    checkCudaErrors(cudaFree(d_camera));
+    checkCudaErrors(cudaDeviceSynchronize());
+    free_world_bvh <<<1, 1 >>> (d_list, d_world, d_camera);
     checkCudaErrors(cudaFree(d_list));
+    checkCudaErrors(cudaFree(d_nodes));
+    checkCudaErrors(cudaFree(d_camera));
     checkCudaErrors(cudaFree(d_world));
     checkCudaErrors(cudaFree(d_rand_state));
     checkCudaErrors(cudaFree(d_rand_state2));

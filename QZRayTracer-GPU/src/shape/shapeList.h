@@ -9,10 +9,14 @@ namespace raytracer {
 		__device__ ShapeList(Shape** shapes, int n) { this->shapes = shapes; numShapes = n; }
 		
 		Shape** shapes;
-		int numShapes;
+		//int numShapes;
 
         // 通过 Shape 继承
         __device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
+
+
+        // 通过 Shape 继承
+        __device__ virtual bool BoundingBox(Bounds3f& box) const override;
     };
 
     __device__ inline bool ShapeList::Hit(const Ray& ray, HitRecord& rec) const {
@@ -29,6 +33,9 @@ namespace raytracer {
         return hitAnything;
     }
 
+    __device__ inline bool ShapeList::BoundingBox(Bounds3f& box) const {
+        return true;
+    }
 	// Shape *CreateShapeList(Shape** shapes);
 }
 

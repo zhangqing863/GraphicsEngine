@@ -20,7 +20,20 @@ namespace raytracer {
 	class Shape {
 	public:
 		Material* material = nullptr;
+		int left = -1;
+		int right = -1;
+		Bounds3f box;
+		int numShapes = 0;
+		int numNodes = 0;
+
+		// flag={-1,0,1,2}; 
+		// -1(表示普通的Shape，没有左右孩子)
+		// 0(表示BVHNode，且左右孩子为空)
+		// 1(表示BVHNode，只有左孩子)
+		// 2(表示BVHNode，只有右孩子)
+		int flag = -1;
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec)const = 0;
+		__device__ virtual bool BoundingBox(Bounds3f& box)const = 0;
 	};
 
 }

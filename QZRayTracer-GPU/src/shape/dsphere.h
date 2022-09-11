@@ -23,6 +23,9 @@ namespace raytracer {
 		// 通过 Shape 继承
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
 
+		// 通过 Shape 继承
+		__device__ virtual bool BoundingBox(Bounds3f& box) const override;
+
 		__device__ Point3f Center(Float time)const {
 			return Lerp((time - time0) * invOverTime, center0, center1);
 		}
@@ -47,6 +50,13 @@ namespace raytracer {
 		rec.normal = Normal3f((rec.p - Center(ray.time)) * invRadius);
 		rec.mat = material;
 
+		return true;
+	}
+
+	__device__ inline bool DSphere::BoundingBox(Bounds3f& box) const {
+		Bounds3f box0 = Bounds3f(center0 + Vector3f(-radius, -radius, -radius), center0 + Vector3f(radius, radius, radius));
+		Bounds3f box1 = Bounds3f(center1 + Vector3f(-radius, -radius, -radius), center1 + Vector3f(radius, radius, radius));
+		box = Union(box0, box1);
 		return true;
 	}
 }

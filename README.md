@@ -845,3 +845,234 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 
 
 ![RTTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter01-2.png)
+
+
+### Chapter-02 : BVH
+
+本章实现了一种加速结构。回顾之前的所有算法，我们在计算光线求交时每根光线都需要**Hit**场景中的所有**Shape**，但是仔细想一想，完全没必要去遍历所有**Shape**来求交，我们可以利用一种结构，层次包围盒(Bounding Box)来提前将这些**Shape**根据坐标轴划分好，然后构造成**树**一样的数据结构，通过**Box**的大小来构造，越大越靠近根部，那么当我们对**box**进行求交测试时，一旦没相交，那么该**Box**包含的**Shape**自然也就无法相加，就可以省略很大一部分工作，使效率得到提升。
+
+有关实现的细节，由于我实现的是**GPU**版本，因此在构造**BVH**和其**Hit**方法会与 **Ray Tracing The Next Week** 有所不同，而 **Axis Aligned Bounding Box(AABB)** 的实现是差不多的，当然我认为在 **PBRT** 一书中该结构实现的更为具体，因此沿用了 **PBRT** 中的 **Bounds** 。
+
+实现GPU版本的难点主要体现在如何将**递归**转换为**非递归**，这里主要采用**栈**的方式来实现，因为**递归**其实和**栈**的概念差不多，并且这里和**树**的**后序遍历**类似。
+
+有关(**AABB**)的原理以及实现方法就不去细述了，文章很多，并且也不难，这里就不再赘述，只关注结构实现。
+
+**构造BVH的函数：**
+```cpp 
+__device__ inline Shape* CreateBVHNode(Shape** shapes, int n, Shape** nodes, curandState* local_rand_state, Float time0, Float time1) {
+	// flag={-1,0,1,2}; 
+	// -1(表示普通的Shape，没有左右孩子)
+	// 0(表示BVHNode，且左右孩子为空)
+	// 1(表示BVHNode，只有左孩子)
+	// 2(表示BVHNode，只有右孩子)
+	Shape** temp = shapes;
+	Shape** stack = new Shape * [n]; // 定义栈
+	int* numShapesBeginStack = new int[n]; // 定义栈
+	int* numShapesEndStack = new int[n]; // 定义栈
+	int top = -1;
+	int size = -1;
+	BVHNode* root = new BVHNode(temp, n, nodes, time0, time1);
+	nodes[++size] = root;
+	stack[++top] = root;
+	numShapesBeginStack[top] = 0;
+	numShapesEndStack[top] = n - 1;
+	// 按照坐标轴的值排序
+	int axis = int(3 * curand_uniform(local_rand_state));
+	if (axis == 0) {
+		Qsort(temp, n, sizeof(Shape*), BoxCompareOnAxisX);
+	}
+	else if (axis == 1) {
+		Qsort(temp, n, sizeof(Shape*), BoxCompareOnAxisY);
+	}
+	else {
+		Qsort(temp, n, sizeof(Shape*), BoxCompareOnAxisZ);
+	}
+	while (top != -1) {
+		int tempN = numShapesEndStack[top] - numShapesBeginStack[top] + 1;
+		int tempBegin = numShapesBeginStack[top];
+		int tempEnd = numShapesEndStack[top];
+		// 按照坐标轴的值排序
+		if (tempN == 1) { // 叶子节点
+			stack[top]->left = tempBegin;
+			stack[top]->right = tempBegin;
+			stack[top]->flag = 3;
+		}
+		else if (tempN == 2) { // 叶子节点
+			stack[top]->left = tempBegin;
+			stack[top]->right = tempBegin + 1;
+			stack[top]->flag = 3;
+		}
+		else { // 中间节点
+			if (stack[top]->flag == 0) {
+				BVHNode* node = new BVHNode(temp + tempBegin, tempN / 2, nodes, time0, time1);
+				nodes[++size] = node;
+				stack[top]->left = size;
+				stack[top]->flag = 1;
+				stack[++top] = node;
+				numShapesBeginStack[top] = tempBegin;
+				numShapesEndStack[top] = tempBegin + tempN / 2 - 1;
+				axis = int(3 * curand_uniform(local_rand_state));
+				if (axis == 0) {
+					Qsort(temp + numShapesBeginStack[top], numShapesEndStack[top] - numShapesBeginStack[top] + 1, sizeof(Shape*), BoxCompareOnAxisX);
+				}
+				else if (axis == 1) {
+					Qsort(temp + numShapesBeginStack[top], numShapesEndStack[top] - numShapesBeginStack[top] + 1, sizeof(Shape*), BoxCompareOnAxisY);
+				}
+				else {
+					Qsort(temp + numShapesBeginStack[top], numShapesEndStack[top] - numShapesBeginStack[top] + 1, sizeof(Shape*), BoxCompareOnAxisZ);
+				}
+			}
+			else if (stack[top]->flag == 1) {
+				BVHNode* node = new BVHNode(temp + tempBegin + tempN / 2, tempN - tempN / 2, nodes, time0, time1);
+				nodes[++size] = node;
+				stack[top]->right = size;
+				stack[top]->flag = 2;
+				stack[++top] = node;
+				numShapesBeginStack[top] = tempBegin + tempN / 2;
+				numShapesEndStack[top] = tempEnd;
+			}
+		}
+		while (top >= 0 && stack[top]->flag >= 2) {
+			Bounds3f leftBox, rightBox;
+			// 叶节点
+			if (stack[top]->flag == 3 && stack[top]->left >= 0 && stack[top]->right >= 0) {
+				if (shapes[stack[top]->left]->BoundingBox(leftBox) && shapes[stack[top]->right]->BoundingBox(rightBox)) {
+					stack[top]->box = Union(leftBox, rightBox);
+				}
+				else {
+					stack[top]->box = Bounds3f();
+				}
+			}
+			else if (stack[top]->flag == 2 && stack[top]->left >= 0 && stack[top]->right >= 0) {
+				if (nodes[stack[top]->left]->BoundingBox(leftBox) && nodes[stack[top]->right]->BoundingBox(rightBox)) {
+					stack[top]->box = Union(leftBox, rightBox);
+				}
+				else {
+					stack[top]->box = Bounds3f();
+				}
+			}
+			else {
+				stack[top]->box = Bounds3f();
+			}
+			top--;
+		}
+	}
+	root->numNodes = size;
+	delete* stack;
+	delete[]numShapesBeginStack;
+	delete[]numShapesEndStack;
+	return root;
+}
+```
+
+**前提**：我们创建的是二叉树，且所有节点不存在孩子为空
+
+1. 首先将根节点放入栈中，并记录当前节点所在的**Shape**区间范围
+2. 如果当前区间范围**小于等于2**，表示现在应该将真正的**Shape**放入左右孩子节点
+3. 如果当前节点的左孩子为空，那么设置左孩子为一个**BVH**节点，并将左孩子入栈
+4. 如果当前节点的左孩子不为空，右孩子为空，那么设置右孩子为一个**BVH**节点,并将右孩子入栈
+5. 出栈，如果当前栈顶元素的左右孩子都有了，那么就需要出栈，并为其计算**AABB**
+6. 按照上述顺序不断重复直至栈内元素全部出栈
+
+这里需要注意一下细节，也是我踩的坑：
+- 排序只能在设置根节点或者左孩子的时候排一次，如果在设置右孩子的时候排序则会打乱之前左孩子排好的序，因为左右孩子虽然不是同步设置的，但是它们所处的区间范围是一致的，一旦设置左孩子的时候排序了，那么此时该区间范围内**Shape**的顺序就应该固定住，否则会造成后面计算**AABB**出错
+
+然后另一个难点则是**BVH中的求交函数：**
+```cpp
+__device__ inline bool BVHNode::Hit(const Ray& ray,HitRecord& rec) const {
+	// 栈
+	int stack[10];
+	int sp = 0;
+	stack[sp++] = 0;
+	bool isHit = false;
+	rec.t = Infinity;
+	while (sp > 0) {
+		int top = stack[--sp];
+		Shape* node = nodes[top];
+		if (node->box.IntersectP(ray)) { // 如果击中了box
+			// 是叶子节点，直接调用Shape的击中方法
+			if (node->flag == 3) { 
+				int L = node->left;
+				int R = node->right;
+				HitRecord leftRec, rightRec;
+				bool hitLeft = shapes[L]->Hit(ray, leftRec);
+				bool hitRight = shapes[R]->Hit(ray, rightRec);
+				/* 这里击中了叶节点也不能直接返回，否则击中的结果是错误的
+				* 由于采用的是栈，而不是递归，因此很多设计会更难一些，
+				* 当我们击中了当前盒子的某个shape时，可能在另一个盒子中可以击中更近的一个shape，但是由于构建BVH的时候，
+				* 可能后者被分到了一个小盒子里，导致我们在与盒子判断求交时认为大盒子我们更先击中，于是忽略掉那个小盒子，导致更近的那个shape被忽略掉
+				* 因此除非有盒子没被击中可以直接忽略掉，其它都需要进行子节点求交，最后得到最近的shape
+				*/ 
+				if (hitLeft && hitRight) {
+					if (leftRec.t < rightRec.t && leftRec.t < rec.t) {
+						rec = leftRec;
+					}
+					else if(leftRec.t >= rightRec.t && rightRec.t < rec.t) {
+						rec = rightRec;
+					}
+					isHit = true;
+				}
+				else if (hitLeft) {
+					if (leftRec.t < rec.t) {
+						rec = leftRec;
+					}
+					isHit = true;
+				}
+				else if (hitRight) {
+					if (rightRec.t < rec.t) {
+						rec = rightRec;
+					}
+					isHit = true;
+				}
+			}
+			else {
+				//Float leftT = MinFloat, rightT = MinFloat;
+				bool leftHit = nodes[node->left]->box.IntersectP(ray/*, &leftT*/);
+				bool rightHit = nodes[node->right]->box.IntersectP(ray/*, &rightT*/);
+				if (leftHit && rightHit) {
+					//printf("都击中\n");
+					//if (leftT < rightT) {
+						stack[sp++] = node->right;
+						stack[sp++] = node->left;
+					/*}
+					else {
+						stack[sp++] = node->left;
+						stack[sp++] = node->right;
+					}*/
+					//printf("Hited\nleftT:%f and rightT:%f\n", leftT, rightT);
+				}
+				else if (leftHit) {
+					stack[sp++] = node->left;
+				}
+				else if (rightHit) {
+					stack[sp++] = node->right;
+				}
+				/*if (abs(leftT) > ShadowEpsilon || abs(rightT) > ShadowEpsilon) {
+					printf("leftT:%f and rightT:%f\n", leftT, rightT);
+				}*/
+			}
+		}
+		
+	}
+	if (isHit) return true;
+	return false;
+}
+```
+
+**原理：**求交在原文中也是递归，但是在GPU中也需要改成非递归，这里的求交比较像**遍历树**中的**先序遍历**
+
+1. 入栈根节点
+2. 判断是否击中根节点的**AABB**，如果未击中返回**false**
+3. 若击中则先判断是否是叶子节点，如果是叶子节点就可以直接将光线与左右孩子(**Shape**)相交获得结果，然后做判断，保存最近距离的击中点信息.(原文判断击中就完事了，但是非递归不一样，还得继续判断，原因在代码中有解释)
+4. 如果不是叶子节点，那么判断光线是否与左右孩子的(**AABB**)相交，若相交，则将其放入栈中
+5. 重复以上步骤，直至栈内元素出完栈
+
+踩的坑主要就是上面的第三步，经历了**5天**的调试以及思考，将GPU版本的**BVH**给实现出来了，效果还是很明显的。
+
+![GPU-mode pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter02-test3.png)
+
+上图就是踩的坑，求交有问题导致图像的先后顺序没对。
+
+![GPU-mode pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter02-test(100s).png)
+
+上图的分辨率为 $ 2400\times 1200 $ ，采样数 $ spp=1000 $ ，**Shape**数量为**500+**，使用**BVH**结构渲染用时为**100s**，使用原始求交方法则花费了**675s**，足足提升了六点几倍，还是相当不错了。

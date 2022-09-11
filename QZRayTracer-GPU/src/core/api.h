@@ -11,6 +11,7 @@
 #include "../shape/sphere.h"
 #include "../shape/dsphere.h"
 #include "../shape/cylinder.h"
+#include "../shape/bvh.h"
 #include "../material/lambertian.h"
 #include "../material/metal.h"
 #include "../material/dielectric.h"

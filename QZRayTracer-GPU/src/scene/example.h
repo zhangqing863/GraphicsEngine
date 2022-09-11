@@ -12,18 +12,32 @@ namespace raytracer {
 
 	__global__ void rand_init(curandState* rand_state) {
 		if (threadIdx.x == 0 && blockIdx.x == 0) {
-			curand_init(1999, 0, 0, rand_state);
+			curand_init(2022, 0, 0, rand_state);
 		}
 	}
 
 	__global__ void free_world(Shape** d_list, Shape** d_world, Camera** d_camera) {
-		for (int i = 0; i < ((ShapeList*)d_world)->numShapes; i++) {
+		printf("free_world! n:%d\n", (*d_world)->numShapes);
+		for (int i = 0; i < (*d_world)->numShapes; i++) {
 			delete d_list[i]->material;
 			delete d_list[i];
 		}
 		delete* d_world;
 		delete* d_camera;
 	}
+
+	
+	__global__ void free_world_bvh(Shape** d_list, Shape** d_world, Camera** d_camera) {
+		int numShapes = (*d_world)->numShapes;
+		for (int i = 0; i < numShapes; i++) {
+			delete d_list[i]->material;
+			delete d_list[i];
+		}
+		//DeleteBVHNode(d_nodes, (*d_world)->numNodes);
+		delete* d_camera;
+	}
+
+	
 
 	__global__ void create_world(Shape** d_list, Shape** d_world, Camera** d_camera, int nx, int ny) {
 		if (threadIdx.x == 0 && blockIdx.x == 0) {
@@ -74,8 +88,8 @@ namespace raytracer {
 			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(Point3f(0.5, 0.5, 0.5)));
 
 
-			for (int a = -11; a < 11; a++) {
-				for (int b = -11; b < 11; b++) {
+			for (int a = -2; a < 2; a++) {
+				for (int b = -2; b < 2; b++) {
 					Float chooseMat = RND;
 					Point3f center = Point3f(a + 0.9 * RND, 0.2, b + 0.9 * RND);
 					if ((center - Point3f(4, 0.2, 0)).Length() > 0.9) {
@@ -116,7 +130,24 @@ namespace raytracer {
 			shapes[curNum++] = new Sphere(Point3f(-4, 1, 0), 1.0, new Lambertian(Point3f(0.4, 0.2, 0.1)));
 			shapes[curNum++] = new Sphere(Point3f(4, 1, 0), 1.0, new Metal(Point3f(0.7, 0.6, 0.5), 0.0));
 			*rand_state = local_rand_state;
+
+			/*for (int i = 0; i < curNum; i++) {
+				Bounds3f box;
+				if (shapes[i]->BoundingBox(box)) {
+					printf("The %dth Shape Bounding Box is:[%f, %f, %f]\n", i, box.pMin.x, box.pMin.y, box.pMin.z);
+				}
+			}*/
+			//new BVHNode(shapes, curNum, &local_rand_state)
 			*world = new ShapeList(shapes, curNum);
+
+
+			
+
+
+			printf("Create Successful!\n");
+			//*world = root;
+			int n = (*world)->numShapes;
+			printf("n:%d\n", n);
 		}
 	}
 
@@ -187,6 +218,8 @@ namespace raytracer {
 			shapes[curNum++] = new Sphere(Point3f(4, 1, 0), 1.0, new Metal(Point3f(0.7, 0.6, 0.5), 0.0));
 			*rand_state = local_rand_state;
 			*world = new ShapeList(shapes, curNum);
+			int n = (*world)->numShapes;
+			printf("n:%d\n", n);
 		}
 	}
 
@@ -319,6 +352,82 @@ namespace raytracer {
 		}
 	}
 	
+
+
+	__global__ void Chapter2BVHScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(13, 2, 3);
+			Point3f lookAt = Point3f(0, 0, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0;
+			Float fov = 20.0;
+			Float focusDis = 10.0;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(Point3f(0.5, 0.5, 0.5)));
+
+
+			for (int a = -11; a < 11; a++) {
+				for (int b = -11; b < 11; b++) {
+					Float chooseMat = RND;
+					Point3f center = Point3f(a + 0.9 * RND, 0.2, b + 0.9 * RND);
+					if ((center - Point3f(4, 0.2, 0)).Length() > 0.9) {
+						if (chooseMat < 0.7) { // 选择漫反射材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Lambertian(Point3f(RND * RND, RND * RND, RND * RND)));
+						}
+						else if (chooseMat < 0.85) { // 选择金属材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Metal(Point3f(0.5 * (1 + RND), 0.5 * (1 + RND), 0.5 * (1 + RND)), RND));
+						}
+						else if (chooseMat < 0.95) { // 选择玻璃材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Dielectric(1 + RND));
+						}
+						else { // 选择中空玻璃球材质
+							shapes[curNum++] = new Sphere(
+								center,
+								0.2,
+								new Dielectric(1.5));
+							shapes[curNum++] = new Sphere(
+								center,
+								-0.15,
+								new Dielectric(1.5));
+						}
+					}
+				}
+
+			}
+
+			shapes[curNum++] = new Sphere(Point3f(0, 1, 0), 1.0, new Dielectric(1.5));
+			shapes[curNum++] = new Cylinder(Point3f(2, .25, 3), 1.0, 0.0, 0.5, new Lambertian(Point3f(0.2, 0.2, 0.8)));
+			shapes[curNum++] = new DSphere(Point3f(2, 0.8, 3), Point3f(2, 1.2, 3), 0.0, 1.0, 0.3, new Lambertian(Point3f(0.8, 0.2, 0.2)));
+			shapes[curNum++] = new Sphere(Point3f(-4, 1, 0), 1.0, new Lambertian(Point3f(0.4, 0.2, 0.1)));
+			shapes[curNum++] = new Sphere(Point3f(4, 1, 0), 1.0, new Metal(Point3f(0.7, 0.6, 0.5), 0.0));
+
+			/*for (int i = 0; i < curNum + curNum / 2 + 1; i++) {
+				nodes[i] = new BVHNode(shapes, curNum, nodes);
+			}*/
+
+			*rand_state = local_rand_state;
+
+			// *world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f); // 使用BVH 100s spp 1000
+			*world = new ShapeList(shapes, curNum);// 不使用BVH 675s spp 1000
+			printf("Create World Successful!\n");
+		}
+	}
+
 }
 
 

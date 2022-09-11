@@ -948,6 +948,324 @@ namespace raytracer {
         return Normal3<T>(std::abs(v.x), std::abs(v.y), std::abs(v.z));
     }
 
+
+    // Bounds Declarations
+    template <typename T>
+    class Bounds2 {
+    public:
+        // Bounds2 Public Methods
+        __device__ Bounds2() {
+            T minNum = std::numeric_limits<T>::lowest();
+            T maxNum = std::numeric_limits<T>::max();
+            pMin = Point2<T>(maxNum, maxNum);
+            pMax = Point2<T>(minNum, minNum);
+        }
+        __device__ explicit Bounds2(const Point2<T>& p) : pMin(p), pMax(p) {}
+        __device__ Bounds2(const Point2<T>& p1, const Point2<T>& p2) {
+            pMin = Point2<T>(Min(p1.x, p2.x), Min(p1.y, p2.y));
+            pMax = Point2<T>(Max(p1.x, p2.x), Max(p1.y, p2.y));
+        }
+        template <typename U>
+        __device__ explicit operator Bounds2<U>() const {
+            return Bounds2<U>((Point2<U>)pMin, (Point2<U>)pMax);
+        }
+
+        __device__ Vector2<T> Diagonal() const { return pMax - pMin; }
+        __device__ T Area() const {
+            Vector2<T> d = pMax - pMin;
+            return (d.x * d.y);
+        }
+        __device__ int MaximumExtent() const {
+            Vector2<T> diag = Diagonal();
+            if (diag.x > diag.y)
+                return 0;
+            else
+                return 1;
+        }
+        __device__ inline const Point2<T>& operator[](int i) const {
+            DCHECK(i == 0 || i == 1);
+            return (i == 0) ? pMin : pMax;
+        }
+        __device__ inline Point2<T>& operator[](int i) {
+            DCHECK(i == 0 || i == 1);
+            return (i == 0) ? pMin : pMax;
+        }
+        __device__ bool operator==(const Bounds2<T>& b) const {
+            return b.pMin == pMin && b.pMax == pMax;
+        }
+        __device__ bool operator!=(const Bounds2<T>& b) const {
+            return b.pMin != pMin || b.pMax != pMax;
+        }
+        __device__ Point2<T> Lerp(const Point2f& t) const {
+            return Point2<T>(Lerp(t.x, pMin.x, pMax.x),
+                Lerp(t.y, pMin.y, pMax.y));
+        }
+        __device__ Vector2<T> Offset(const Point2<T>& p) const {
+            Vector2<T> o = p - pMin;
+            if (pMax.x > pMin.x) o.x /= pMax.x - pMin.x;
+            if (pMax.y > pMin.y) o.y /= pMax.y - pMin.y;
+            return o;
+        }
+        __device__ void BoundingSphere(Point2<T>* c, Float* rad) const {
+            *c = (pMin + pMax) / 2;
+            *rad = Inside(*c, *this) ? Distance(*c, pMax) : 0;
+        }
+
+        // Bounds2 Public Data
+        Point2<T> pMin, pMax;
+    };
+
+    template <typename T>
+    class Bounds3 {
+    public:
+        // Bounds3 Public Methods
+        __device__ Bounds3() {
+            T minNum = MinFloat;
+            T maxNum = MaxFloat;
+            pMin = Point3<T>(maxNum, maxNum, maxNum);
+            pMax = Point3<T>(minNum, minNum, minNum);
+        }
+        __device__ explicit Bounds3(const Point3<T>& p) : pMin(p), pMax(p) {}
+        __device__ Bounds3(const Point3<T>& p1, const Point3<T>& p2)
+            : pMin(Min(p1.x, p2.x), Min(p1.y, p2.y),
+                Min(p1.z, p2.z)),
+            pMax(Max(p1.x, p2.x), Max(p1.y, p2.y),
+                Max(p1.z, p2.z)) {
+        }
+        __device__ const Point3<T>& operator[](int i) const;
+        __device__ Point3<T>& operator[](int i);
+        __device__ bool operator==(const Bounds3<T>& b) const {
+            return b.pMin == pMin && b.pMax == pMax;
+        }
+        __device__ bool operator!=(const Bounds3<T>& b) const {
+            return b.pMin != pMin || b.pMax != pMax;
+        }
+        __device__ Point3<T> Corner(int corner) const {
+            DCHECK(corner >= 0 && corner < 8);
+            return Point3<T>((*this)[(corner & 1)].x,
+                (*this)[(corner & 2) ? 1 : 0].y,
+                (*this)[(corner & 4) ? 1 : 0].z);
+        }
+        __device__ Vector3<T> Diagonal() const { return pMax - pMin; }
+        __device__ T SurfaceArea() const {
+            Vector3<T> d = Diagonal();
+            return 2 * (d.x * d.y + d.x * d.z + d.y * d.z);
+        }
+        __device__ T Volume() const {
+            Vector3<T> d = Diagonal();
+            return d.x * d.y * d.z;
+        }
+        __device__ int MaximumExtent() const {
+            Vector3<T> d = Diagonal();
+            if (d.x > d.y && d.x > d.z)
+                return 0;
+            else if (d.y > d.z)
+                return 1;
+            else
+                return 2;
+        }
+        __device__ Point3<T> Lerp(const Point3f& t) const {
+            return Point3<T>(Lerp(t.x, pMin.x, pMax.x),
+                Lerp(t.y, pMin.y, pMax.y),
+                Lerp(t.z, pMin.z, pMax.z));
+        }
+        __device__ Vector3<T> Offset(const Point3<T>& p) const {
+            Vector3<T> o = p - pMin;
+            if (pMax.x > pMin.x) o.x /= pMax.x - pMin.x;
+            if (pMax.y > pMin.y) o.y /= pMax.y - pMin.y;
+            if (pMax.z > pMin.z) o.z /= pMax.z - pMin.z;
+            return o;
+        }
+        __device__ void BoundingSphere(Point3<T>* center, Float* radius) const {
+            *center = (pMin + pMax) / 2;
+            *radius = Inside(*center, *this) ? Distance(*center, pMax) : 0;
+        }
+        template <typename U>
+        __device__ explicit operator Bounds3<U>() const {
+            return Bounds3<U>((Point3<U>)pMin, (Point3<U>)pMax);
+        }
+
+        __device__ bool IntersectP(const Ray& ray, Float* hitt0 = nullptr,
+            Float* hitt1 = nullptr) const;
+
+        // Bounds3 Public Data
+        Point3<T> pMin, pMax;
+    };
+
+    typedef Bounds2<Float> Bounds2f;
+    typedef Bounds2<int> Bounds2i;
+    typedef Bounds3<Float> Bounds3f;
+    typedef Bounds3<int> Bounds3i;
+
+
+    template <typename T>
+    __device__ inline const Point3<T>& Bounds3<T>::operator[](int i) const {
+        DCHECK(i == 0 || i == 1);
+        return (i == 0) ? pMin : pMax;
+    }
+
+    template <typename T>
+    __device__ inline Point3<T>& Bounds3<T>::operator[](int i) {
+        DCHECK(i == 0 || i == 1);
+        return (i == 0) ? pMin : pMax;
+    }
+
+    template <typename T>
+    __device__ Bounds3<T> Union(const Bounds3<T>& b, const Point3<T>& p) {
+        Bounds3<T> ret;
+        ret.pMin = Min(b.pMin, p);
+        ret.pMax = Max(b.pMax, p);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ Bounds3<T> Union(const Bounds3<T>& b1, const Bounds3<T>& b2) {
+        Bounds3<T> ret;
+        ret.pMin = Min(b1.pMin, b2.pMin);
+        ret.pMax = Max(b1.pMax, b2.pMax);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ Bounds3<T> Intersect(const Bounds3<T>& b1, const Bounds3<T>& b2) {
+        // Important: assign to pMin/pMax directly and don't run the Bounds2()
+        // constructor, since it takes min/max of the points passed to it.  In
+        // turn, that breaks returning an invalid bound for the case where we
+        // intersect non-overlapping bounds (as we'd like to happen).
+        Bounds3<T> ret;
+        ret.pMin = Max(b1.pMin, b2.pMin);
+        ret.pMax = Min(b1.pMax, b2.pMax);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ bool Overlaps(const Bounds3<T>& b1, const Bounds3<T>& b2) {
+        bool x = (b1.pMax.x >= b2.pMin.x) && (b1.pMin.x <= b2.pMax.x);
+        bool y = (b1.pMax.y >= b2.pMin.y) && (b1.pMin.y <= b2.pMax.y);
+        bool z = (b1.pMax.z >= b2.pMin.z) && (b1.pMin.z <= b2.pMax.z);
+        return (x && y && z);
+    }
+
+    template <typename T>
+    __device__ bool Inside(const Point3<T>& p, const Bounds3<T>& b) {
+        return (p.x >= b.pMin.x && p.x <= b.pMax.x && p.y >= b.pMin.y &&
+            p.y <= b.pMax.y && p.z >= b.pMin.z && p.z <= b.pMax.z);
+    }
+
+    template <typename T>
+    __device__ bool InsideExclusive(const Point3<T>& p, const Bounds3<T>& b) {
+        return (p.x >= b.pMin.x && p.x < b.pMax.x&& p.y >= b.pMin.y &&
+            p.y < b.pMax.y&& p.z >= b.pMin.z && p.z < b.pMax.z);
+    }
+
+    template <typename T, typename U>
+    __device__ inline Bounds3<T> Expand(const Bounds3<T>& b, U delta) {
+        return Bounds3<T>(b.pMin - Vector3<T>(delta, delta, delta),
+            b.pMax + Vector3<T>(delta, delta, delta));
+    }
+
+    // Minimum squared distance from point to box; returns zero if point is
+    // inside.
+    template <typename T, typename U>
+    __device__ inline Float DistanceSquared(const Point3<T>& p, const Bounds3<U>& b) {
+        Float dx = Max({ Float(0), b.pMin.x - p.x, p.x - b.pMax.x });
+        Float dy = Max({ Float(0), b.pMin.y - p.y, p.y - b.pMax.y });
+        Float dz = Max({ Float(0), b.pMin.z - p.z, p.z - b.pMax.z });
+        return dx * dx + dy * dy + dz * dz;
+    }
+
+    template <typename T, typename U>
+    __device__ inline Float Distance(const Point3<T>& p, const Bounds3<U>& b) {
+        return std::sqrt(DistanceSquared(p, b));
+    }
+
+    template <typename T>
+    __device__ Bounds2<T> Union(const Bounds2<T>& b, const Point2<T>& p) {
+        Bounds2<T> ret;
+        ret.pMin = Min(b.pMin, p);
+        ret.pMax = Max(b.pMax, p);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ Bounds2<T> Union(const Bounds2<T>& b, const Bounds2<T>& b2) {
+        Bounds2<T> ret;
+        ret.pMin = Min(b.pMin, b2.pMin);
+        ret.pMax = Max(b.pMax, b2.pMax);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ Bounds2<T> Intersect(const Bounds2<T>& b1, const Bounds2<T>& b2) {
+        // Important: assign to pMin/pMax directly and don't run the Bounds2()
+        // constructor, since it takes min/max of the points passed to it.  In
+        // turn, that breaks returning an invalid bound for the case where we
+        // intersect non-overlapping bounds (as we'd like to happen).
+        Bounds2<T> ret;
+        ret.pMin = Max(b1.pMin, b2.pMin);
+        ret.pMax = Min(b1.pMax, b2.pMax);
+        return ret;
+    }
+
+    template <typename T>
+    __device__ bool Overlaps(const Bounds2<T>& ba, const Bounds2<T>& bb) {
+        bool x = (ba.pMax.x >= bb.pMin.x) && (ba.pMin.x <= bb.pMax.x);
+        bool y = (ba.pMax.y >= bb.pMin.y) && (ba.pMin.y <= bb.pMax.y);
+        return (x && y);
+    }
+
+    template <typename T>
+    __device__ bool Inside(const Point2<T>& pt, const Bounds2<T>& b) {
+        return (pt.x >= b.pMin.x && pt.x <= b.pMax.x && pt.y >= b.pMin.y &&
+            pt.y <= b.pMax.y);
+    }
+
+    template <typename T>
+    __device__ bool InsideExclusive(const Point2<T>& pt, const Bounds2<T>& b) {
+        return (pt.x >= b.pMin.x && pt.x < b.pMax.x&& pt.y >= b.pMin.y &&
+            pt.y < b.pMax.y);
+    }
+
+    template <typename T, typename U>
+    __device__ Bounds2<T> Expand(const Bounds2<T>& b, U delta) {
+        return Bounds2<T>(b.pMin - Vector2<T>(delta, delta),
+            b.pMax + Vector2<T>(delta, delta));
+    }
+
+    template <typename T>
+    __device__ inline bool Bounds3<T>::IntersectP(const Ray& ray, Float* hitt0,
+        Float* hitt1) const {
+        Float t0 = MinFloat, t1 = ray.tMax;
+        for (int i = 0; i < 3; ++i) {
+            // Update interval for _i_th bounding box slab
+            Float invRayDir = 1.f / ray.d[i];
+            Float tNear = (pMin[i] - ray.o[i]) * invRayDir;
+            Float tFar = (pMax[i] - ray.o[i]) * invRayDir;
+
+            // Update parametric interval from slab intersection $t$ values
+            // 做这步的原因就是因为光线方向分量为负，导致近的在远平面找到
+            // 近远平面的定义主要是按照boundbox的轴，分量值越小，在该分量轴上就定义为近平面
+            if (tNear > tFar) {
+                Float temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+
+            // Update _tFar_ to ensure robust ray--bounds intersection
+            // tFar *= 1 + 2 * gamma(3);
+            // 判断区间是否重叠，没重叠就返回false
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1) return false;
+        }
+        if (hitt0) *hitt0 = t0;
+        if (hitt1) *hitt1 = t1;
+        return true;
+    }
+
+    
+
+
     class Ray {
     public:
         // Ray Public Methods
@@ -1018,6 +1336,92 @@ namespace raytracer {
     }
 #endif // GPUMODE
 
+#pragma region SortFunction
+    /// <summary>
+    /// 交换
+    /// </summary>
+    /// <param name="buf1"></param>
+    /// <param name="buf2"></param>
+    /// <param name="width"></param>
+    /// <returns></returns>
+    __device__ inline void QSwap(char* buf1, char* buf2, int size) {
+        char tmp = 0;
+        for (int i = 0; i < size; i++) {
+            tmp = *buf1;
+            *buf1 = *buf2;
+            *buf2 = tmp;
+            *buf1++;
+            *buf2++;
+        }
+    }
+
+
+    __device__ inline int Partition(void* base, int num, int size, int(*comparator)(const void*, const void*)) {
+
+        int first = 0, end = num - 1, pivot = first;
+
+        printf("Partition start\n");
+        while (first < end)
+
+        {
+            //  while (first < end && comparator(base + pivot, base + end) <= 0)
+            //  {
+            //   --end;
+            //  }
+            //  swap(base + first,base + end);
+
+            pivot = end;
+
+            while (first < end && comparator((char*)base + first * size, (char*)base + pivot * size) <= 0) {
+
+                ++first;
+
+            }
+
+            QSwap((char*)base + first * size, (char*)base + end * size, size);
+
+            pivot = first;
+
+        }
+        printf("Partition End\n");
+        return first;
+    }
+
+    __device__ inline void Qsort(void* base, int num, int size, int(*comparator)(const void*, const void*)) {
+
+        /*printf("numShapes:%d \n", num);
+
+        if (num > 0) {
+
+            printf("Sort\n");
+            int pivot = Partition(base, num, size, comparator);
+            printf("pivot:%d \n", pivot);
+
+            printf("AfterPartition\n");
+            Qsort((char*)base, pivot, size, comparator);
+
+            if (pivot + 1 > num) {
+                printf("NULL!!!\n");
+            }
+
+            Qsort((char*)base + (pivot + 1) * size, num - pivot - 1, size, comparator);
+
+        }*/
+
+        int i = 0;
+        for (i = 0; i < num - 1; i++) {
+            int j = 0;
+            for (j = 0; j < num - 1 - i; j++) {
+                //两个元素比较
+                //base强制类型转换成char*，
+                if (comparator((char*)base + j * size, (char*)base + (j + 1) * size) > 0) {
+                    //交换函数
+                    QSwap((char*)base + j * size, (char*)base + (j + 1) * size, size);
+                }
+            }
+        }
+    }
+#pragma endregion
     
 
     

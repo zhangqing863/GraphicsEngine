@@ -66,14 +66,14 @@
     <ClCompile Include="src\shape\shapeList.cpp">
       <Filter>shape</Filter>
     </ClCompile>
-    <ClCompile Include="src\material\dielectric.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\shape\cylinder.cpp">
       <Filter>shape</Filter>
     </ClCompile>
     <ClCompile Include="src\core\paramset.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\dielectric.cpp">
+      <Filter>material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +119,6 @@
     <ClInclude Include="src\tool\progressbar.h">
       <Filter>tool</Filter>
     </ClInclude>
-    <ClInclude Include="src\material\dielectric.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="src\scene\example.h">
       <Filter>scene</Filter>
     </ClInclude>
@@ -130,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="src\core\paramset.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\dielectric.h">
+      <Filter>material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

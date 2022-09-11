@@ -9,11 +9,12 @@ namespace raytracer {
 		Float radius;
 		Float zMin, zMax;
 		Float invRadius;
-		Material* material;
+		//Material* material;
 
 		__device__ Cylinder() :center(Point3f(0, 0, 0)), radius(1.0), invRadius(1.0), zMin(0), zMax(0) {}
 		__device__ Cylinder(Point3f center, Float radius, Float bottom, Float top, Material* mat)
-			:center(center), zMin(Min(bottom, top)), zMax(Max(bottom, top)), radius(radius), material(mat) {
+			:center(center), zMin(Min(bottom, top)), zMax(Max(bottom, top)), radius(radius){
+			material = mat;
 			Float halfHeight = (zMax - zMin) * .5f;
 			this->zMin = center.y - halfHeight;
 			this->zMax = center.y + halfHeight;
@@ -21,6 +22,9 @@ namespace raytracer {
 		};
 		// 通过 Shape 继承
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
+
+		// 通过 Shape 继承
+		__device__ virtual bool BoundingBox(Bounds3f& box) const override;
 	};
 
 	__device__ inline bool Cylinder::Hit(const Ray& ray, HitRecord& rec) const {
@@ -116,6 +120,10 @@ namespace raytracer {
 		return true;
 	}
 
+	__device__ inline bool Cylinder::BoundingBox(Bounds3f& box) const {
+		box = Bounds3f(Point3f(center.x - radius, zMin, center.z - radius), Point3f(center.x + radius, zMax, center.z + radius));
+		return true;
+	}
 	// Shape* CreateCylinderShape(Point3f center, Float radius, Float zMin, Float zMax, Material* material);
 }
 #endif // QZRT_SHAPE_CYLINDER_H
