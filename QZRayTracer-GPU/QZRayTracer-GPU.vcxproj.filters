@@ -19,6 +19,9 @@
     <Filter Include="shape">
       <UniqueIdentifier>{dc5ef312-c6ab-42c7-8098-9308c46d0912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="texture">
+      <UniqueIdentifier>{986cbbac-7be4-4e31-a835-2c3aef3f86e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\api.cpp">
@@ -65,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="src\shape\bvh.cpp">
       <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\texture.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture\constant_texture.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture\checker_texture.cpp">
+      <Filter>texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="src\shape\bvh.h">
       <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\texture.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture\constant_texture.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture\checker_texture.h">
+      <Filter>texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

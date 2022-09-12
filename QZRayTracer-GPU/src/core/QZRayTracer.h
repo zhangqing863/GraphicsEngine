@@ -49,6 +49,7 @@ namespace raytracer {
 	template <typename T>
 	struct ParamSetItem;
 	struct RendererSet;
+	class Texture;
 
 
 	// Global Constants

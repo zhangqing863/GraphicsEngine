@@ -3,9 +3,13 @@
 #include "QZRayTracer.h"
 #include "geometry.h"
 #include "shape.h"
+#include "texture.h"
 namespace raytracer {
 	class Material {
 	public:
+
+		Texture* albedo;
+
 		/// <summary>
 		/// 材质如何反射入射而来的光线
 		/// </summary>

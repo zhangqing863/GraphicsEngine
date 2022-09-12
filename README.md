@@ -1076,3 +1076,22 @@ __device__ inline bool BVHNode::Hit(const Ray& ray,HitRecord& rec) const {
 ![GPU-mode pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter02-test(100s).png)
 
 上图的分辨率为 $ 2400\times 1200 $ ，采样数 $ spp=1000 $ ，**Shape**数量为**500+**，使用**BVH**结构渲染用时为**100s**，使用原始求交方法则花费了**675s**，足足提升了六点几倍，还是相当不错了。
+
+### Chapter-03 : Solid Texture
+
+本章主要实现了普通颜色纹理的绑定，为之后的图像纹理以及程序化纹理打基础，本章很简单，并且没有涉及到 **uv** 坐标的计算。
+
+简单来说，我们可以将纹理想象成生活当中的贴纸或者颜料，当我们想要改变某个物体的外观(仅仅颜色)，纹理就起到了作用，而在图形学中纹理起到的作用便是这样，当然还会有一些更高级的用法，这里暂不细述。
+
+对于普通颜色纹理的实现便不再细说，因为这和之前我们直接给颜色的原理差不多，主要说说这个棋盘格纹理的原理。
+
+$$sines = \sin(10 * \mathrm{p}_x) * \sin(10 * \mathrm{p}_y) * \sin(10 * \mathrm{p}_z);$$
+
+由于三角函数是成周期性的，因此可以想象，当某两个轴的值固定，那么另一个轴的变化便会使我们去周期性的从两个固定颜色纹理中拾取颜色，形成棋盘格一般的效果。
+
+效果图：
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter03-checker.png)
+
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter03-checker2.png)

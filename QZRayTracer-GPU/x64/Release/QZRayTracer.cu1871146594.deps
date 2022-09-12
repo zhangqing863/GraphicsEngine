@@ -191,6 +191,7 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\scene.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\shape.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image_write.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\texture.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\ext\logging.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\dielectric.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\lambertian.h
@@ -201,3 +202,5 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\cylinder.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\dsphere.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\shapeList.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\sphere.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\checker_texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\constant_texture.h

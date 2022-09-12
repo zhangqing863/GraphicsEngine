@@ -5,6 +5,7 @@
 
 #include "geometry.h"
 #include "material.h"
+#include "texture.h"
 #include "camera.h"
 #include "paramset.h"
 #include "../shape/shapeList.h"
@@ -15,6 +16,8 @@
 #include "../material/lambertian.h"
 #include "../material/metal.h"
 #include "../material/dielectric.h"
+#include "../texture/constant_texture.h"
+#include "../texture/checker_texture.h"
 #include "scene.h"
 
 
