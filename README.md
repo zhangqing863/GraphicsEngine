@@ -1096,7 +1096,7 @@ $$sines = \sin(10 * \mathrm{p}_x) * \sin(10 * \mathrm{p}_y) * \sin(10 * \mathrm{
 
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter03-checker2.png)
 
-## Chapter-04 : Perlin Noise
+### Chapter-04 : Perlin Noise
 
 本章主要描述的一种程序化生成纹理--**柏林噪声**，可谓声名远扬，常常在游戏电影中使用，比如**我的世界**中生成地形，水面起伏，火焰等等效果。
 
