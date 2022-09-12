@@ -18,6 +18,7 @@
 #include "../material/dielectric.h"
 #include "../texture/constant_texture.h"
 #include "../texture/checker_texture.h"
+#include "../texture/noise_texture.h"
 #include "scene.h"
 
 

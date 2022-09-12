@@ -532,6 +532,41 @@ namespace raytracer {
 			printf("Create World Successful!\n");
 		}
 	}
+
+	__global__ void Chapter4NoiseScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(13, 2, 3);
+			Point3f lookAt = Point3f(0, 0, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0;
+			Float fov = 20.0;
+			Float focusDis = 10.0;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			Perlin* noise = new Perlin(&local_rand_state);
+			Texture* pertext = new NoiseTexture(noise, 10.0f);
+			/*Texture* checker = new CheckerTexture(new ConstantTexture(Point3f(0.607843, 0.34902, 0.713725)), new ConstantTexture(Point3f(0.9, 0.9, 0.9)));
+			Texture* checker2 = new CheckerTexture(new ConstantTexture(Point3f(0.203922, 0.596078, 0.858824)), new ConstantTexture(Point3f(0.9, 0.9, 0.9)));*/
+			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(pertext));
+			//shapes[curNum++] = new Cylinder(Point3f(0, 0, 0), 2, 0, 2, new Lambertian(pertext));
+			//shapes[curNum++] = new Sphere(Point3f(0, 2, 0), 2, new Lambertian(pertext));
+			shapes[curNum++] = new Cylinder(Point3f(0, 2, 0), 2, 0, 4, new Lambertian(pertext));
+			/*for (int i = 0; i < curNum + curNum / 2 + 1; i++) {
+				nodes[i] = new BVHNode(shapes, curNum, nodes);
+			}*/
+
+			*rand_state = local_rand_state;
+
+			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f); // 使用BVH 100s spp 1000
+			//*world = new ShapeList(shapes, curNum);// 不使用BVH 675s spp 1000
+			printf("Create World Successful!\n");
+		}
+	}
 }
 
 

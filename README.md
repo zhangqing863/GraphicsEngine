@@ -1095,3 +1095,33 @@ $$sines = \sin(10 * \mathrm{p}_x) * \sin(10 * \mathrm{p}_y) * \sin(10 * \mathrm{
 
 
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter03-checker2.png)
+
+## Chapter-04 : Perlin Noise
+
+本章主要描述的一种程序化生成纹理--**柏林噪声**，可谓声名远扬，常常在游戏电影中使用，比如**我的世界**中生成地形，水面起伏，火焰等等效果。
+
+具体原理比较复杂，这里就不去细致的说了，因为感觉自己也是说不太清楚，有时间会过来写写自己的理解，这里扔个其它人的理解：[理解柏林噪声](https://blog.csdn.net/liukairui/article/details/125496735)
+
+能够了解其作用也不错，接下来就依次展示下效果，这些效果也是按照文章不断完善并获得最终的效果。
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(smooth).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(smooth2).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(scale3).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(scale5).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(vector).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(camouflage).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(marble-like1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(marble-like2).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(marble-like3).png)
+
+上面展示了如何让柏林噪声变得越来越平滑，越来越真实。

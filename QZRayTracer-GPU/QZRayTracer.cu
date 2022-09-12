@@ -96,9 +96,9 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
 int main() {
     int nx = 2400;
     int ny = 1200;
-    int ns = 10000;
-    int tx = 32;
-    int ty = 32;
+    int ns = 1000;
+    int tx = 8;
+    int ty = 8;
 
     std::cerr << "Rendering a " << nx << "x" << ny << " image with " << ns << " samples per pixel ";
     std::cerr << "in " << tx << "x" << ty << " blocks.\n";
@@ -132,7 +132,7 @@ int main() {
     checkCudaErrors(cudaMalloc((void**)&d_camera, sizeof(Camera*)));
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter3TextureScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2);
+    Chapter4NoiseScene <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -168,7 +168,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter03-checker2.png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter04-noise(marble-like3).png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up

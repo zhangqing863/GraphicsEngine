@@ -100,6 +100,7 @@
     <ClCompile Include="src\shape\sphere.cpp" />
     <ClCompile Include="src\texture\checker_texture.cpp" />
     <ClCompile Include="src\texture\constant_texture.cpp" />
+    <ClCompile Include="src\texture\noise_texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="src\shape\sphere.h" />
     <ClInclude Include="src\texture\checker_texture.h" />
     <ClInclude Include="src\texture\constant_texture.h" />
+    <ClInclude Include="src\texture\noise_texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

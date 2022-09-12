@@ -78,6 +78,7 @@
     <ClCompile Include="src\texture\checker_texture.cpp">
       <Filter>texture</Filter>
     </ClCompile>
+    <ClCompile Include="src\texture\noise_texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -149,6 +150,7 @@
     <ClInclude Include="src\texture\checker_texture.h">
       <Filter>texture</Filter>
     </ClInclude>
+    <ClInclude Include="src\texture\noise_texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

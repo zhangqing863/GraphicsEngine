@@ -1288,6 +1288,20 @@ namespace raytracer {
         Float time;
     };
 
+
+    __device__ inline Float TrilinearLerp(Float c[2][2][2], Float u, Float v, Float w) {
+        Float accum = 0;
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    accum += (i * u + (1 - i) * (1 - u)) * (j * v + (1 - j) * (1 - v)) * (k * w + (1 - k) * (1 - w)) * c[i][j][k];
+                }
+            }
+        }
+        return accum;
+    }
+
+
 #ifdef GPUMODE
     __device__ inline Point3<Float> RandomInUnitSphere(curandState* local_rand_state) {
         Vector3f p;
@@ -1428,6 +1442,102 @@ namespace raytracer {
     // Global Constants
     static Vector3f WorldUp(0.0, 1.0, 0.0);
     static Vector3f WorldRight(1.0, 0.0, 0.0);
+
+
+#pragma region ∞ÿ¡÷‘Î…˘
+    class Perlin {
+
+    public:
+        __device__ Perlin() {}
+
+        __device__ Perlin(curandState* local_rand_state) {
+            ranVec = PerlinGenerate(local_rand_state);
+            perm_x = PerlinGeneratePermute(local_rand_state);
+            perm_y = PerlinGeneratePermute(local_rand_state);
+            perm_z = PerlinGeneratePermute(local_rand_state);
+        }
+
+        __device__ Float Turb(const Point3f& p, int depth=7) {
+            Float accum = 0.f;
+            Point3f temp = p;
+            Float weight = 1.0f;
+            for (int i = 0; i < depth; i++) {
+                accum += weight * Noise(temp);
+                weight *= 0.5f;
+                temp *= 2;
+            }
+            return abs(accum);
+        }
+
+        __device__ Float Noise(const Point3f& p) {
+            Point3f uvw = Point3f(p - Floor(p));
+            Point3f ijk = Floor(p);
+            Vector3f c[2][2][2];
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    for (int k = 0; k < 2; k++) {
+                        c[i][j][k] = ranVec[perm_x[((int)ijk.x + i) & 255] ^ perm_y[((int)ijk.y + j) & 255] ^ perm_z[((int)ijk.z + k) & 255]];
+                    }
+                }
+            }
+            return PerlinLerp(c, uvw.x, uvw.y, uvw.z);
+        }
+
+        Vector3f* ranVec = nullptr;
+        int* perm_x = nullptr;
+        int* perm_y = nullptr;
+        int* perm_z = nullptr;
+
+    private:
+        __device__ inline Vector3f* PerlinGenerate(curandState* local_rand_state) {
+            Vector3f* p = new Vector3f[256];
+            for (int i = 0; i < 256; i++) {
+                p[i] = Normalize(Vector3f(-1 + 2 * curand_uniform(local_rand_state), -1 + 2 * curand_uniform(local_rand_state), -1 + 2 * curand_uniform(local_rand_state)));
+            }
+            return p;
+        }
+
+        __device__ inline Float PerlinLerp(Vector3f c[2][2][2], Float u, Float v, Float w) {
+            Float uu = u * u * (3.f - 2.f * u);
+            Float vv = v * v * (3.f - 2.f * v);
+            Float ww = w * w * (3.f - 2.f * w);
+            Float accum = 0;
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    for (int k = 0; k < 2; k++) {
+                        Vector3f weight(u - i, v - j, w - k);
+                        accum += (i * uu + (1 - i) * (1 - uu)) * (j * vv + (1 - j) * (1 - vv)) * (k * ww + (1 - k) * (1 - ww)) * Dot(c[i][j][k], weight);
+                    }
+                }
+            }
+            return accum;
+        }
+
+        __device__ inline void PerlinPermute(int* p, int n, curandState* local_rand_state) {
+            for (int i = n - 1; i > 0; i--) {
+                int target = int(curand_uniform(local_rand_state) * (i + 1));
+                int tmp = p[i];
+                p[i] = p[target];
+                p[target] = tmp;
+            }
+        }
+
+        __device__ inline int* PerlinGeneratePermute(curandState* local_rand_state) {
+            int* p = new int[256];
+            for (int i = 0; i < 256; i++) {
+                p[i] = i;
+            }
+            PerlinPermute(p, 256, local_rand_state);
+            return p;
+        }
+
+    };
+    
+
+#pragma endregion
+
+    
+    
 }
 
 #endif  // QZRT_CORE_GEOMETRY_H
