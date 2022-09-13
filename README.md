@@ -1125,3 +1125,68 @@ $$sines = \sin(10 * \mathrm{p}_x) * \sin(10 * \mathrm{p}_y) * \sin(10 * \mathrm{
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter04-noise(marble-like3).png)
 
 上面展示了如何让柏林噪声变得越来越平滑，越来越真实。
+
+### Chapter-05 : Image Texture Mapping
+
+本章主要实现了图像纹理，通过导入外部图像文件，将其作为Shape的纹理。
+
+这里需要引入 **u, v** 坐标，该坐标用来将Shape的表面坐标映射到图像位置。
+
+$$
+\mathrm{u,v} \in [0, 1]
+$$
+
+![RTNW pic](./QZRayTracer-GPU/pic/uv%E8%AE%A1%E7%AE%97.png)
+
+如图主要是将整个Shape的表面坐标用极坐标来计算，这样就只需要两个参数 $ \theta,\phi $ ，再将其映射到 $ \mathrm{u,v} $ 即可。
+
+计算公式：
+
+已知条件： $ \mathbf{p_{hit}}, \mathbf{p_{center}} $
+
+首先计算击中点 $ \mathbf{p_{hit}} $ 到 $ \mathbf{p_{center}} $ 的归一化向量 $ \hat{\mathbf{v}} $
+
+
+
+$$
+x = \hat{\mathbf{v}}_x = \cos{\phi}\cos{\theta} \\
+y = \hat{\mathbf{v}}_y =\sin{\phi}\cos{\theta} \\
+z = \hat{\mathbf{v}}_z =\sin{\theta}
+$$
+
+故可以反推求得 
+
+$$
+\phi =  \arctan{\frac{y}{x}} \in [-\pi,\pi] \\
+\theta = \arcsin{z} \in [0, \pi]
+$$
+
+再将其映射到 $ [0, 1] $ 即可作为 $ \mathrm{u,v} $ 坐标，
+
+$$
+\mathrm{u} =  1 - \frac{(\phi + \pi)} {2\pi} \\
+\mathrm{v} = \frac{\theta}{\pi}
+$$
+
+再通过 $ \mathrm{u,v} $ 坐标采样图像中的像素值，补充一下，这里 $ \mathrm{u,v} $ 坐标也称为**纹素**。
+
+$$
+rgb=image(\mathrm{u\times w, v\times h})
+$$
+
+这里的 $ \mathrm{w, h} $ 表示图像的宽高， 相乘时需要注意 **不能超过图像的尺寸边界** ，因此需要加一点条件控制语句以增强稳定性。
+
+其它 **Shape** 的 $ \mathrm{u,v} $ 坐标计算大体相似，都是将表面分布的点映射为二维坐标以用来采样图像，各种形状会有差别，网上有很多不同 **Shape** 的 $ \mathrm{u,v} $ 坐标计算方法，这里就不再细述了。
+
+
+原理不难，实现其实也还好，但是在GPU版本中遇到了麻烦，申请内存不够用了，这也是不熟悉**CUDA**的锅，没办法，只能去网上搜，总算是解决了这个问题，链接就在下面，方便食用。
+
+[CUDA--数据传输 ](https://www.cnblogs.com/zzzsj/p/15660332.html)
+
+[正确使用cudaMalloc3D与cudaMemcpy](http://cn.voidcc.com/question/p-aizjvddr-zd.html)
+
+效果图走起：
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter05-test.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter05-test2.png)

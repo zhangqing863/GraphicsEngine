@@ -14,6 +14,7 @@ using namespace raytracer;
 using namespace std;
 #define MAXBOUNDTIME 50
 #define MAXNUMSHAPE 2000
+#define MAXNUMTEXTURE 20
 
 // GPU Mode
 // limited version of checkCudaErrors from helper_cuda.h in CUDA examples
@@ -93,6 +94,7 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
     fb[pixel_index] = color;
 }
 
+
 int main() {
     int nx = 2400;
     int ny = 1200;
@@ -106,6 +108,12 @@ int main() {
     // allocate FB
     int num_pixels = nx * ny;
     size_t fb_size = num_pixels * sizeof(Point3f);
+
+
+    size_t size;
+    cudaDeviceSetLimit(cudaLimitMallocHeapSize, 256 * 1024 * 1024);
+    cudaDeviceGetLimit(&size, cudaLimitMallocHeapSize);
+    //printf("size: %d\n", size);
 
     Point3f* fb;
     checkCudaErrors(cudaMallocManaged((void**)&fb, fb_size));
@@ -130,9 +138,23 @@ int main() {
     checkCudaErrors(cudaMalloc((void**)&d_world, sizeof(Shape*)));
     Camera** d_camera;
     checkCudaErrors(cudaMalloc((void**)&d_camera, sizeof(Camera*)));
+
+
+
+    int image_width, image_height, image_channel;
+    unsigned char* image = stbi_load("./resource/texture/signs.jpg", &image_width, &image_height, &image_channel, 0);
+    dim3  image_dimensions = dim3(image_width, image_height, image_channel);
+    cudaExtent volumeSizeBytes = make_cudaExtent(sizeof(unsigned char) * image_dimensions.x, image_dimensions.y, image_dimensions.z);
+    cudaPitchedPtr devicePitchedPointer;
+    cudaMalloc3D(&devicePitchedPointer, volumeSizeBytes);
+    cudaMemcpy(devicePitchedPointer.ptr, image, image_width * image_height * image_channel * sizeof(unsigned char), cudaMemcpyHostToDevice);
+
+
+    //printf("Malloc Success\n");
+    stbi_image_free(image);
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter4NoiseScene <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2);
+    Chapter5ImageScene <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -168,7 +190,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter04-noise(marble-like3).png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter05-test2.png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up
@@ -182,6 +204,8 @@ int main() {
     checkCudaErrors(cudaFree(d_rand_state));
     checkCudaErrors(cudaFree(d_rand_state2));
     checkCudaErrors(cudaFree(fb));
+    //checkCudaErrors(cudaFree(d_textures));
+    //checkCudaErrors(cudaFree(devicePitchedPointer));
 
     // useful for cuda-memcheck --leak-check full
     cudaDeviceReset();

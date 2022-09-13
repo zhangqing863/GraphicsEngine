@@ -15,6 +15,7 @@ namespace raytracer {
 		Point3f p; // 击中点
 		Normal3f normal; // 法线
 		Material* mat; // 材质
+		Float u, v;// u,v 坐标
 	};
 
 	class Shape {

@@ -503,6 +503,7 @@ namespace raytracer {
 
 	__global__ void Chapter3TextureScene2(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state) {
 		if (threadIdx.x == 0 && blockIdx.x == 0) {
+
 			curandState local_rand_state = *rand_state;
 			Point3f lookFrom = Point3f(13, 2, 3);
 			Point3f lookAt = Point3f(0, 0, 0);
@@ -564,6 +565,41 @@ namespace raytracer {
 
 			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f); // 使用BVH 100s spp 1000
 			//*world = new ShapeList(shapes, curNum);// 不使用BVH 675s spp 1000
+			printf("Create World Successful!\n");
+		}
+	}
+
+
+	__global__ void Chapter5ImageScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state,
+		cudaPitchedPtr image/*, cudaPitchedPtr image2*/) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(13, 8, 3);
+			Point3f lookAt = Point3f(0, 0, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0;
+			Float fov = 20.0;
+			Float focusDis = 10.0;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 5.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			Texture* imgtext = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
+			Texture* checker = new CheckerTexture(new ConstantTexture(Point3f(0.207843, 0.94902, 0.213725)), new ConstantTexture(Point3f(0.9, 0.9, 0.9)));
+			Perlin* noise = new Perlin(&local_rand_state);
+			Texture* pertext = new NoiseTexture(noise, 10.0f);
+			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(pertext));
+			shapes[curNum++] = new Cylinder(Point3f(1, 1.5, 3), 1.0, 0, 3, new Lambertian(imgtext));
+			shapes[curNum++] = new Sphere(Point3f(1, 1, 0), 1.1, new Dielectric(1.0));
+			shapes[curNum++] = new Sphere(Point3f(1, 1, 0), 1, new Metal(checker, 1.0));
+			shapes[curNum++] = new Sphere(Point3f(1, 0.7, -2.7), 0.7, new Lambertian(imgtext));
+
+
+
+			*rand_state = local_rand_state;
+			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f); 
 			printf("Create World Successful!\n");
 		}
 	}

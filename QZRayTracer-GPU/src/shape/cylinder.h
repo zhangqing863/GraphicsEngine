@@ -116,7 +116,17 @@ namespace raytracer {
 		rec.p = pHit;
 		rec.normal = normal;
 		rec.mat = material;
+		Vector3f unit_p = Normalize(rec.p - center);
+		Float phi = atan2f(unit_p.z, unit_p.x);
 
+		if (abs(rec.p.y - zMin) < ShadowEpsilon || abs(rec.p.y - zMax) < ShadowEpsilon) {
+			rec.u = (rec.p.x - center.x + radius) * 0.5f / radius;
+			rec.v = (rec.p.z - center.z + radius) * 0.5f / radius;
+		}
+		else {
+			rec.u = 1.f - (phi + Pi) * Inv2Pi;
+			rec.v = (rec.p.y - zMin) / (zMax - zMin);
+		}
 		return true;
 	}
 

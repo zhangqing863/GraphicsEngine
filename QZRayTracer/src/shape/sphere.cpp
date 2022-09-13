@@ -17,7 +17,6 @@ namespace raytracer {
 		rec.p = ray(tShapeHit);
 		rec.normal = Normal3f((rec.p - center) * invRadius);
 		rec.mat = material;
-
 		return true;
 	}
 	std::shared_ptr<Shape> CreateSphereShape(Point3f center, Float radius, std::shared_ptr<Material> material)

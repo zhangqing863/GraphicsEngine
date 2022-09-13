@@ -50,6 +50,14 @@ namespace raytracer {
 		rec.normal = Normal3f((rec.p - Center(ray.time)) * invRadius);
 		rec.mat = material;
 
+
+		Vector3f unit_p = Normalize(rec.p - Center(ray.time));
+
+		Float phi = atan2f(unit_p.z, unit_p.x);
+		Float theta = asinf(unit_p.y);
+
+		rec.u = 1.f - (phi + Pi) * Inv2Pi;
+		rec.v = (theta + Pi * 0.5f) * InvPi;
 		return true;
 	}
 

@@ -20,7 +20,7 @@ namespace raytracer {
 	__device__ inline bool Lambertian::Scatter(const Ray& wi, const HitRecord& rec, Point3f& attenuation, Ray& wo, curandState* local_rand_state) const {
 		Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere(local_rand_state);
 		wo = Ray(rec.p, target - rec.p);
-		attenuation = albedo->value(0, 0, rec.p);
+		attenuation = albedo->value(rec.u, rec.v, rec.p);
 		return true;
 	}
 }
