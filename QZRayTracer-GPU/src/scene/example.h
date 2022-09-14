@@ -603,6 +603,82 @@ namespace raytracer {
 			printf("Create World Successful!\n");
 		}
 	}
+
+
+	__global__ void Chapter6LightScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state,
+		cudaPitchedPtr image/*, cudaPitchedPtr image2*/) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(13, 2, 3);
+			Point3f lookAt = Point3f(0, 1.5f, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0;
+			Float fov = 40.0;
+			Float focusDis = 10.0;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 5.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			Texture* imgtext = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
+			Perlin* noise = new Perlin(&local_rand_state);
+			Texture* pertext = new NoiseTexture(noise, 10.0f);
+			//Texture* light_intensity = new ConstantTexture(Point3f(4.f, 4.f, 4.f));
+			//Material* light = new DiffuseLight(light_intensity);
+			shapes[curNum++] = new Sphere(Point3f(0, -1000, 0), 1000, new Lambertian(pertext));
+			shapes[curNum++] = new Cylinder(Point3f(1, 2, 4), 1.0, 0, 3, new DiffuseLight(new ConstantTexture(Point3f(.2f, 0.2f, 0.6f))));
+			shapes[curNum++] = new Sphere(Point3f(0, 2, 0), 2, new Lambertian(imgtext));
+			shapes[curNum++] = new Sphere(Point3f(0, 5, 0), .5, new DiffuseLight(new ConstantTexture(Point3f(0.6f, 0.2f, 0.2f))));
+			shapes[curNum++] = new XYRect(3, 5, 1, 3, -2, new DiffuseLight(new ConstantTexture(Point3f(0.2f, 0.6f, 0.2f))));
+
+
+
+			*rand_state = local_rand_state;
+			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f);
+			printf("Create World Successful!\n");
+		}
+	}
+
+
+	__global__ void Chapter6LightScene2(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state,
+		cudaPitchedPtr image/*, cudaPitchedPtr image2*/) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(278, 278, -800);
+			Point3f lookAt = Point3f(278, 278, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0f;
+			Float fov = 40.0f;
+			Float focusDis = 10.0f;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 5.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			
+			Material* red = new Lambertian(new ConstantTexture(Point3f(0.65f, 0.05f, 0.05f)));
+			Material* redlight = new DiffuseLight(new ConstantTexture(Point3f(0.65f, 0.05f, 0.05f)));
+			Material* white = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* white2 = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* white3 = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* green = new Lambertian(new ConstantTexture(Point3f(0.12f, 0.45f, 0.15f)));
+			Material* light = new DiffuseLight(new ConstantTexture(Point3f(15.0f, 15.0f, 15.0f)));
+			shapes[curNum++] = new YZRect(0.f, 555.f, 0.f, 555.f, 555.f, green);
+			shapes[curNum++] = new YZRect(0.f, 555.f, 0.f, 555.f, 0.f, red);
+			shapes[curNum++] = new XZRect(213.f, 343.f, 227.f, 332.f, 554.f, light);
+			shapes[curNum++] = new XZRect(0.f, 555.f, 0.f, 555.f, 555.f, white);
+			shapes[curNum++] = new XZRect(0.f, 555.f, 0.f, 555.f, 0.f, white2);
+			shapes[curNum++] = new XYRect(0.f, 555.f, 0.f, 555.f, 555.f, white3);
+
+
+
+			*rand_state = local_rand_state;
+			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f);
+			printf("Create World Successful!\n");
+		}
+	}
 }
 
 

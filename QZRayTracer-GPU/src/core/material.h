@@ -20,6 +20,9 @@ namespace raytracer {
 		/// <returns></returns>
 		__device__ virtual bool Scatter(const Ray& wi, const HitRecord& rec, Point3f& attenuation, Ray& wo, curandState* local_rand_state)const = 0;
 
+		__device__ virtual Point3f Emitted(Float u, Float v, const Point3f& p)const {
+			return Point3f();
+		}
 		
 	};
 

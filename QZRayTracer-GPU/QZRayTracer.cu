@@ -32,30 +32,30 @@ void check_cuda(cudaError_t result, char const* const func, const char* const fi
 
 __device__ Point3f Color(const Ray& r, Shape** world, curandState* local_rand_state) {
     Ray cur_ray = r;
-    Point3f cur_attenuation = Point3f(1.0, 1.0, 1.0);
+    Point3f cur_attenuation = Point3f(1.0f, 1.0f, 1.0f);
+    Point3f cur_emitted = Point3f(0.0f, 0.0f, 0.0f);
     for (int i = 0; i < 50; i++) {
         HitRecord rec;
 
-        //printf("Hit。。。\n");
         if ((*world)->Hit(cur_ray, rec)) {
-            //printf("Hited\n");
             Ray scattered;
             Point3f attenuation;
+            Point3f emitted = rec.mat->Emitted(rec.u, rec.v, rec.p);
             Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere(local_rand_state);
             if (rec.mat->Scatter(cur_ray, rec, attenuation, scattered, local_rand_state)) {
-                cur_attenuation = cur_attenuation * attenuation;
+                cur_attenuation = cur_attenuation * attenuation + emitted;
+                cur_emitted = Point3f(emitted);
                 cur_ray = scattered;
             }
             else {
-                return Point3f(0.0, 0.0, 0.0);
+                return cur_attenuation * emitted;
             }
         }
         else {
-            //printf("Not Hited\n");
-            Vector3f unit_direction = Normalize(cur_ray.d);
+            /*Vector3f unit_direction = Normalize(cur_ray.d);
             float t = 0.5f * (unit_direction.y + 1.0f);
-            Point3f c = Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));
-            return cur_attenuation * c;
+            Point3f c = Lerp(t, Point3f(1.0, 1.0, 1.0), Point3f(0.5, 0.7, 1.0));*/
+            return cur_attenuation * cur_emitted;
         }
     }
         
@@ -85,11 +85,15 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
         Ray ray = (*cam)->GenerateRay(u, v, &local_rand_state);
         //printf("GetColor。。。\n");
         color += Color(ray, world, &local_rand_state);
+
         //printf("GetColor done\n");
     }
-
     rand_state[pixel_index] = local_rand_state;
     color /= Float(ns);
+    /*if (Vector3f(color).LengthSquared() > 0) {
+        color = Point3f(Normalize(Vector3f(color)));
+    }*/
+    color = Clamp(color, 0.f, 1.f);
     color = Point3f(pow(color.x, Gamma), pow(color.y, Gamma), pow(color.z, Gamma)); // gamma矫正
     fb[pixel_index] = color;
 }
@@ -98,7 +102,7 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
 int main() {
     int nx = 2400;
     int ny = 1200;
-    int ns = 1000;
+    int ns = 10000;
     int tx = 8;
     int ty = 8;
 
@@ -154,7 +158,7 @@ int main() {
     stbi_image_free(image);
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter5ImageScene <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
+    Chapter6LightScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -180,9 +184,9 @@ int main() {
     for (int j = ny - 1; j >= 0; j--) {
         for (int i = 0; i < nx; i++) {
             size_t pixel_index = j * nx + i;
-            int ir = int(255.99 * fb[pixel_index].x);
-            int ig = int(255.99 * fb[pixel_index].y);
-            int ib = int(255.99 * fb[pixel_index].z);
+            int ir = int(255.99 * fb[pixel_index].x) % 257;
+            int ig = int(255.99 * fb[pixel_index].y) % 257;
+            int ib = int(255.99 * fb[pixel_index].z) % 257;
             size_t shadingPoint = ((ny - j - 1) * nx + i) * 3;
             data[shadingPoint + 0] = ir;
             data[shadingPoint + 1] = ig;
@@ -190,7 +194,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter05-test2.png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter06-light(cornellbox2).png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up

@@ -1,5 +1,5 @@
-#ifndef QZRT_CORE_Dielectric_H
-#define QZRT_CORE_Dielectric_H
+#ifndef QZRT_MATERIAL_Dielectric_H
+#define QZRT_MATERIAL_Dielectric_H
 
 #include "../core/material.h"
 namespace raytracer {
@@ -61,4 +61,4 @@ namespace raytracer {
 }
 
 
-#endif // QZRT_CORE_Dielectric_H
+#endif // QZRT_MATERIAL_Dielectric_H

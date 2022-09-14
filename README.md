@@ -1190,3 +1190,63 @@ $$
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter05-test.png)
 
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter05-test2.png)
+
+### Chapter-06 : Rectangles and Lights
+
+本章主要加入了光源的概念以及矩形的绘制，从而令场景的细节更加真实，并且最终形成一个著名的场景-**康奈尔盒子(cornell box)** 。
+
+在之前，我们直接将背景设置成了一个固定值，这其实相当于一个**环境光(ambient)**，为了更加合理与真实，加入光源，使场景的明暗关系更逼真，毕竟在生活中的阴影是比较明显的，而之前我们生成的图像都比较明亮，不太符合直觉。
+
+原理其实就是添加一种可以 **自发光(emitted)** 的材质，将其绑定在某个 **Shape** 上，便可作为光源来使用。而光线的求交则是在击中光源时便停止。
+
+另外，加入了一种新的形状-**矩形**，以用作光源、地板等。
+主要按照轴对齐的方式来构造，比如在 Z 轴上构造矩形，我们需要提供 X, Y 轴的区间以及 Z 轴的值。
+
+如图:
+
+![RTNW pic](./QZRayTracer-GPU/pic/%E7%9F%A9%E5%BD%A2%E8%AE%BE%E8%AE%A1.png)
+
+判断求交则需要通过 $ k $ 来获得 $ t $
+
+$$ 
+t = \frac{k-\mathbf{ray_{o_z}}}{\mathbf{ray_{d_z}}}
+$$
+
+通过计算得到的 $ t $ 再反过来求得击中的点 $ \mathbf{p} $ ,
+如果  $ \mathbf{p}_x \in [x_0,x_1], \mathbf{p}_y \in [y_0,y_1] $ ，那么表示击中了矩形框。
+
+效果如图：
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3D1%26num%3D1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3D4%26num%3D1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3D4%26num%3D2).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Dr%26num%3D1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Dg%26num%3D1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Db%26num%3D1).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Dpurple%26num%3D2).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Dpurple%26num%3D3).png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(intensity%3Drgb%26num%3D3).png)
+
+以上是我测试了不同颜色以及强度的光源。
+
+接下来是搭建 **Cornell Box** 。
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(cornellbox1).png)
+
+可以看到相比较下面的图，上面有两个问题，一是有部分墙壁不显示，二是光源设置的颜色应该呈纯白色，这里却成了灰色。
+
+第一个问题主要是因为法线的原因没有因为击中的方向而改变，需要对击中的哪一面做判断，然后将法线的朝向设置为击中的那一面。
+
+第二个问题则是由于光照的颜色突破了**RGB**的区间，因此做个截断操作即可。
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(cornellbox2).png)
+
+这张图使用了 $ spp=10000 $ ，渲染出来才感觉噪点没那么多，可能是场景设置太大的原因，导致采样率低的时候噪点特别明显。

@@ -1,5 +1,5 @@
-#ifndef QZRT_CORE_METAL_H
-#define QZRT_CORE_METAL_H
+#ifndef QZRT_MATERIAL_METAL_H
+#define QZRT_MATERIAL_METAL_H
 
 #include "../core/material.h"
 namespace raytracer {
@@ -21,4 +21,4 @@ namespace raytracer {
 	}
 }
 
-#endif // QZRT_CORE_METAL_H
+#endif // QZRT_MATERIAL_METAL_H

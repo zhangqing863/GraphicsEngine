@@ -15,23 +15,25 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7000): w
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7001): warning #550-D: variable "delays_size" was set but never used
   
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer21Chapter3TextureScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer12create_worldEPPNS_5ShapeES2_PPNS_6CameraEii' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter5ImageSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_Z6renderPN9raytracer6Point3IfEEiiiPPNS_6CameraEPPNS_5ShapeEP17curandStateXORWOW' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer16Chapter2BVHSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter3TextureSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer19Chapter6LightScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer21Chapter3TextureScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter4NoiseSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22ShapeTestCylinderSceneEPPNS_5ShapeES2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(986): warning #174-D: expression has no effect
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter6LightSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter3TextureSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW' cannot be statically determined
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1017): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(990): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1021): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1044): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1075): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1103): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1134): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1109): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1140): warning #174-D: expression has no effect
   
   QZRayTracer.cu
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
@@ -48,7 +50,7 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): warnin
   E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): note: 参见“raytracer::RendererSet”的声明
     正在创建库 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.lib 和对象 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.exp
   正在生成代码
-  0 of 82 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  0 of 102 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成

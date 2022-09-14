@@ -949,6 +949,37 @@ namespace raytracer {
     }
 
 
+    template <typename T>
+    __host__ __device__ Point3<T> Clamp(const Point3<T>& v, T a, T b) {
+        T left = min(a, b);
+        T right = max(a, b);
+        T x = min(max(v.x, left), right);
+        T y = min(max(v.y, left), right);
+        T z = min(max(v.z, left), right);
+        return Point3<T>(x, y, z);
+    }
+
+    template <typename T>
+    __host__ __device__ Normal3<T> Clamp(const Normal3<T>& v, T a, T b) {
+        T left = min(a, b);
+        T right = max(a, b);
+        T x = min(max(v.x, left), right);
+        T y = min(max(v.y, left), right);
+        T z = min(max(v.z, left), right);
+        return Normal3<T>(x, y, z);
+    }
+
+    template <typename T>
+    __host__ __device__ Vector3<T> Clamp(const Vector3<T>& v, T a, T b) {
+        T left = min(a, b);
+        T right = max(a, b);
+        T x = min(max(v.x, left), right);
+        T y = min(max(v.y, left), right);
+        T z = min(max(v.z, left), right);
+        return Vector3<T>(x, y, z);
+    }
+
+
     // Bounds Declarations
     template <typename T>
     class Bounds2 {
