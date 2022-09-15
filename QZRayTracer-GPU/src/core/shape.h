@@ -4,6 +4,7 @@
 #include <memory>
 #include "QZRayTracer.h"
 #include "geometry.h"
+#include "transform.h"
 
 
 namespace raytracer {
@@ -24,6 +25,7 @@ namespace raytracer {
 		int left = -1;
 		int right = -1;
 		Bounds3f box;
+		Transform transform;
 		int numShapes = 0;
 		int numNodes = 0;
 

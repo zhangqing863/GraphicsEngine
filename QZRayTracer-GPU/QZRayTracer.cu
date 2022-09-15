@@ -146,7 +146,7 @@ int main() {
 
 
     int image_width, image_height, image_channel;
-    unsigned char* image = stbi_load("./resource/texture/signs.jpg", &image_width, &image_height, &image_channel, 0);
+    unsigned char* image = stbi_load("./resource/texture/Metal-8857.jpg", &image_width, &image_height, &image_channel, 0);
     dim3  image_dimensions = dim3(image_width, image_height, image_channel);
     cudaExtent volumeSizeBytes = make_cudaExtent(sizeof(unsigned char) * image_dimensions.x, image_dimensions.y, image_dimensions.z);
     cudaPitchedPtr devicePitchedPointer;
@@ -158,7 +158,7 @@ int main() {
     stbi_image_free(image);
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter6LightScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
+    Chapter7InstancesScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -194,7 +194,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter06-light(cornellbox2).png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter07-instances6.png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up

@@ -192,12 +192,14 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\shape.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image_write.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\transform.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\ext\logging.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\dielectric.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\diffuse_light.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\lambertian.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\metal.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\example.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\box.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\bvh.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\cylinder.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\dsphere.h

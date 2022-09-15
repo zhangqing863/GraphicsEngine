@@ -1250,3 +1250,28 @@ $$
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter06-light(cornellbox2).png)
 
 这张图使用了 $ spp=10000 $ ，渲染出来才感觉噪点没那么多，可能是场景设置太大的原因，导致采样率低的时候噪点特别明显。
+
+
+
+### Chapter-07 : Instances
+
+本章在上一章的基础上实现了新的 **Shape** ，即立方体。
+另外加入了变换功能，可以实现 **旋转，平移，放缩** 。
+关于变换，具体原理可以看我之前写的一些博客，然后也可以去参考**PBRT**中的**Transformation**一节，我其中的代码也是参考的它的。
+[绕任意轴旋转矩阵推导](https://blog.csdn.net/Z_122113/article/details/126134389)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances1.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances2.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances3.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances4.png)
+
+这里我将之前的**Shape**都来测试了一下**Transform**，结果让我发现了之前的问题，**Cylinder**的光线求交是有一定问题的，可以看到**Cylinder**的底部应该是阴影，但是却有误。经发现还是一些控制条件没考虑周全，完善后即可。
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances5.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances6.png)

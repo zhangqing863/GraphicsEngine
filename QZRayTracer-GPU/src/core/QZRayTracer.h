@@ -118,7 +118,9 @@ namespace raytracer {
 		return a < b ? b : a;
 	}
 	
+	__host__ __device__ inline Float Radians(Float deg) { return (Pi / 180) * deg; }
 
+	__host__ __device__ inline Float Degrees(Float rad) { return (180 / Pi) * rad; }
 
 
 	
