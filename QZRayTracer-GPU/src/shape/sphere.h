@@ -38,6 +38,8 @@ namespace raytracer {
 		if (t0 > tansRay.tMax || t1 <= ShadowEpsilon) return false;
 		Float tShapeHit = t0 < ShadowEpsilon ? t1 : t0;
 		rec.t = tShapeHit;
+		rec.t0 = t0;
+		rec.t1 = t1;
 		Point3f hitP = tansRay(tShapeHit);
 
 

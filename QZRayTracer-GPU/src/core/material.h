@@ -32,7 +32,7 @@ namespace raytracer {
 	/// <param name="v">入射向量</param>
 	/// <param name="n">法线向量</param>
 	/// <returns>对称的出射向量</returns>
-	__device__ inline Vector3f Reflect(const Vector3f& v, const Vector3f& n) { return v - 2.0f * Dot(v, n) * n; }
+	__device__ inline Vector3f Reflect(const Vector3f& v, const Vector3f& n) { return Normalize(v - 2.0f * Dot(v, n) * n); }
 
 	/// <summary>
 	/// 折射
@@ -51,7 +51,7 @@ namespace raytracer {
 		if (discriminant > 0.0f) {
 			// 这里应该是（uv - n * dt）
 			// 错误：（这里的 v 没有归一化）refracted = niOverNo * (v - n * dt) - n * sqrt(discriminant);
-			refracted = niOverNo * (uv - n * dt) - n * sqrt(discriminant);
+			refracted = Normalize(niOverNo * (uv - n * dt) - n * sqrt(discriminant));
 			return true;
 		}
 		return false;

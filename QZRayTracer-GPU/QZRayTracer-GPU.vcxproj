@@ -93,10 +93,12 @@
     <ClCompile Include="src\core\transform.cpp" />
     <ClCompile Include="src\material\dielectric.cpp" />
     <ClCompile Include="src\material\diffuse_light.cpp" />
+    <ClCompile Include="src\material\isotropic.cpp" />
     <ClCompile Include="src\material\lambertian.cpp" />
     <ClCompile Include="src\material\metal.cpp" />
     <ClCompile Include="src\shape\box.cpp" />
     <ClCompile Include="src\shape\bvh.cpp" />
+    <ClCompile Include="src\shape\constant_medium.cpp" />
     <ClCompile Include="src\shape\cylinder.cpp" />
     <ClCompile Include="src\shape\dsphere.cpp" />
     <ClCompile Include="src\shape\flip_normals.cpp" />
@@ -126,11 +128,13 @@
     <ClInclude Include="src\ext\logging.h" />
     <ClInclude Include="src\material\dielectric.h" />
     <ClInclude Include="src\material\diffuse_light.h" />
+    <ClInclude Include="src\material\isotropic.h" />
     <ClInclude Include="src\material\lambertian.h" />
     <ClInclude Include="src\material\metal.h" />
     <ClInclude Include="src\scene\example.h" />
     <ClInclude Include="src\shape\box.h" />
     <ClInclude Include="src\shape\bvh.h" />
+    <ClInclude Include="src\shape\constant_medium.h" />
     <ClInclude Include="src\shape\cylinder.h" />
     <ClInclude Include="src\shape\dsphere.h" />
     <ClInclude Include="src\shape\flip_normals.h" />

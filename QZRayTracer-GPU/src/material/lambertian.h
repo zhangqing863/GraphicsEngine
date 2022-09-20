@@ -26,7 +26,7 @@ namespace raytracer {
 		//	randomPosInHemisphere = -randomPosInHemisphere;
 		//}
 		Point3f target = rec.p + Point3f(rec.normal) + randomPosInHemisphere;
-		wo = Ray(rec.p, target - rec.p);
+		wo = Ray(rec.p, Normalize(target - rec.p), wi.time, wi.tMax, wi.tMin);
 		attenuation = albedo->value(rec.u, rec.v, rec.p);
 		return true;
 	}

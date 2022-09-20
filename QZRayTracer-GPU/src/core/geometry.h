@@ -1300,10 +1300,10 @@ namespace raytracer {
     class Ray {
     public:
         // Ray Public Methods
-        __device__ Ray() : tMax(Infinity), time(0.f) {}
+        __device__ Ray() : tMax(Infinity), time(0.f), tMin(ShadowEpsilon) {}
         __device__ Ray(const Point3f& o, const Vector3f& d,
-            Float time = 0.f, Float tMax = Infinity)
-            : o(o), d(d), tMax(tMax), time(time) {}
+            Float time = 0.f, Float tMax = Infinity, Float tMin = ShadowEpsilon)
+            : o(o), d(d), tMax(tMax), time(time), tMin(tMin) {}
         __device__ Point3f operator()(Float t) const { return o + d * t; }
         //__device__ bool HasNaNs() const { return (o.HasNaNs() || d.HasNaNs() || isNaN(tMax)); }
         /*friend std::ostream& operator<<(std::ostream& os, const Ray& r) {
@@ -1315,7 +1315,7 @@ namespace raytracer {
         // Ray Public Data
         Point3f o;
         Vector3f d;
-        mutable Float tMax; // 突破const的限制，即使是 const Ray &r，也能更改tMax
+        mutable Float tMax, tMin; // 突破const的限制，即使是 const Ray &r，也能更改tMax
         Float time;
     };
 

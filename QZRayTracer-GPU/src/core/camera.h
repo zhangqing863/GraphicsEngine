@@ -9,7 +9,7 @@ namespace raytracer{
 	public:
 		__device__ Camera() {
 			time0 = 0.f;
-			time1 = 0.f;
+			time1 = 1.f;
 			lowerLeftCorner = Vector3f(-2.0, -1.0, -1.0);
 			horizontal = Vector3f(4.0, 0.0, 0.0);
 			vertical = Vector3f(0.0, 2.0, 0.0);
@@ -24,7 +24,7 @@ namespace raytracer{
 		/// <param name="aspect">水平与垂直方向长度的比例</param>
 		__device__ Camera(Float vFov, Float aspect) {
 			time0 = 0.f;
-			time1 = 0.f;
+			time1 = 1.f;
 			lensRadius = 0.f;
 			Float theta = vFov * Degree2Rad;
 			Float halfHeight = tanf(theta / 2.0);
@@ -45,7 +45,7 @@ namespace raytracer{
 		/// <param name="aspect">图像比例</param>
 		__device__ Camera(Point3f looFrom, Point3f lookAt, Vector3f Up, Float vFov, Float aspect) {
 			time0 = 0.f;
-			time1 = 0.f;
+			time1 = 1.f;
 			lensRadius = 0.f;
 			Float theta = vFov * Degree2Rad;
 			Float halfHeight = tanf(theta / 2.0);
@@ -71,7 +71,7 @@ namespace raytracer{
 		/// <param name="focusDis">焦距</param>
 		__device__ Camera(Point3f looFrom, Point3f lookAt, Vector3f Up, Float vFov, Float aspect, Float aperture, Float focusDis) {
 			time0 = 0.f;
-			time1 = 0.f;
+			time1 = 1.f;
 			lensRadius = aperture * 0.5f;
 			Float theta = vFov * Degree2Rad;
 			Float halfHeight = tan(theta / 2.0);
@@ -118,7 +118,8 @@ namespace raytracer{
 			Point3f randomLoc = lensRadius * RandomInUnitDisk(local_rand_state);
 			Vector3f offset = u * randomLoc.x + v * randomLoc.y;
 			Float time = time0 + curand_uniform(local_rand_state) * (time1 - time0);
-			return Ray(origin + offset, lowerLeftCorner + s * horizontal + t * vertical - Vector3f(origin) - offset, time);
+			//printf("time0: %f, time1: %f and time %f \n", time0, time1, time);
+			return Ray(origin + offset, Normalize(lowerLeftCorner + s * horizontal + t * vertical - Vector3f(origin) - offset), time);
 		}
 
 		Vector3f lowerLeftCorner;

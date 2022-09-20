@@ -34,6 +34,7 @@ namespace raytracer {
 		__device__ virtual bool BoundingBox(Bounds3f& box) const override;
 	};
 	__device__ inline bool XYRect::Hit(const Ray& ray, HitRecord& rec) const {
+		//printf("Hiting XYRECT----------------------------\n");
 
 		Transform invTrans = Inverse(transform);
 
@@ -53,7 +54,9 @@ namespace raytracer {
 		rec.u = (hitP.x - x0) / (x1 - x0);
 		rec.v = (hitP.y - y0) / (y1 - y0);
 		rec.t = t;
-		rec.p = transform(hitP);
+		rec.t0 = t;
+		rec.t1 = t;
+		rec.p = transform(Point3f(hitP.x, hitP.y, k));
 		Normal3f normal = Normal3f(0, 0, 1);
 		if (tansRay.o.z < k) {
 			normal = -normal;

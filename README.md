@@ -1275,3 +1275,60 @@ $$
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances5.png)
 
 ![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter07-instances6.png)
+
+
+### Chapter-08 : Volumes
+
+本章实现了介质的效果，比如像现实生活中的**烟雾、雾、薄雾**，在本节主要是将其在**Shape**的基础上改变其求交的方式，同时改变光线击中后的反射行为。
+
+
+![RTNW pic](./QZRayTracer-GPU/pic/%E4%BB%8B%E8%B4%A8%E8%AE%BE%E8%AE%A1.png)
+
+如上图，首先光线进入介质后有两种状态，一种是在里面继续**弹射**，另一种则是穿过**介质**。
+
+这里需要知道我们用什么条件来控制光线是穿过还是留在介质里呢？通过控制介质密度以此来实现光线留在里面的概率是多大。
+
+$$
+probability = C\cdot \delta L
+$$
+
+其中 $ C $ 与密度成正比，然后通过光线求交可以获得相交的距离，如果该距离在介质设定的距离之外()，就判断没有 **"命中"**。
+
+其中用代码表示为：
+
+```cpp
+float distance_inside_boundary = (rec2.t - rec1.t)*r.direction().length();
+float hit_distance = -(1/density) * log(random_double());
+if (hit_distance < distance_inside_boundary) {
+	// 击中后得到的信息
+}
+```
+
+**distance_inside_boundary** 表示光线从出发点(物体内部)或者是第一次击中物体的点开始，到第二次击中物体的距离。
+**hit_distance** 表示通过密度得到的一个随机击中距离。
+
+如果说 **hit_distance < distance_inside_boundary** ，就表示可以在里面继续弹射，反之则相当于光线已经射到**Shape**之外了，也就判断求交失败。
+
+光线击中后如何二次弹射呢？
+这里模拟的是**各向同性**，也就是我的光线可以向三维空间的任何一个方向弹射，故在一个单位球内随机获得某个点作为弹射方向。
+
+原理大概就是这样，很简单，但是代码实现起来需要考虑的东西就比较多，像原文中是使用光线二次求交来获得 **distance_inside_boundary** ，而我则是在之前求交的时候将 **t0, t1** 都存下来，这样便可以直接使用了。具体代码于 **GraphicsEngine-GPU** 。
+
+效果如下:
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter08-volume.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter08-volume2.png)
+
+
+### Chapter-09 :  A Scene Testing All New Features
+
+说实话，一步一步按照书中的代码来，并不能完全一模一样得到作者给的图，其实还有很多问题需要自己发现以及修改，比如柏林噪声的代码就有点问题，并且其场景设置也有一些问题，比如**Metal**材质的球，**fuzz**设置为10是无法达到像作者给的图的效果。
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter09.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter0901.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter0902.png)
+
+![RTNW pic](./QZRayTracer-GPU/output/RayTracingTheNextWeek/Chapter0903.png)

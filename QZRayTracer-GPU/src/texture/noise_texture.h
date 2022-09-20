@@ -23,7 +23,7 @@ namespace raytracer {
 		//return Point3f(1, 1, 1) * noise->Noise(p * scale);
 		//return Point3f(1, 1, 1) * noise->Turb(p * scale);
 		//return Point3f(1, 1, 1) * 0.5f * (1 + noise->Turb(p * scale));
-		return Point3f(1, 1, 1) * 0.5f * (1 + sin(noise->Turb(p) * 10 + scale * p.z));
+		return Point3f(1, 1, 1) * 0.5f * (1 + sin(noise->Turb(scale * p) * 10 + scale * p.z));
 	}
 
 }

@@ -51,7 +51,9 @@ namespace raytracer {
 		rec.u = (hitP.x - x0) / (x1 - x0);
 		rec.v = (hitP.z - z0) / (z1 - z0);
 		rec.t = t;
-		rec.p = transform(hitP);
+		rec.t0 = t;
+		rec.t1 = t;
+		rec.p = transform(Point3f(hitP.x, k, hitP.z));
 		Normal3f normal = Normal3f(0, 1, 0);
 		if (ray.o.y < k) {
 			normal = -normal;

@@ -20,6 +20,11 @@ namespace raytracer {
 			transform = _trans;
 			invRadius = 1.0f / radius;
 			invOverTime = 1.0f / (time1 - time0);
+			Bounds3f box0 = Bounds3f(center0 + Vector3f(-radius, -radius, -radius), center0 + Vector3f(radius, radius, radius));
+			Bounds3f box1 = Bounds3f(center1 + Vector3f(-radius, -radius, -radius), center1 + Vector3f(radius, radius, radius));
+			this->box = transform(Union(box0, box1));
+
+			//printf("box: %f, %f, %f | %f, %f, %f\n", box.pMin.x, box.pMin.y, box.pMin.z, box.pMax.x, box.pMax.y, box.pMax.z);
 		};
 		// Í¨¹ı Shape ¼Ì³Ğ
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
@@ -38,6 +43,8 @@ namespace raytracer {
 		Transform invTrans = Inverse(transform);
 
 		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)), ray.time);
+		//Point3f transCenter = 
+
 		Vector3f oc = tansRay.o - Center(tansRay.time);
 		Float a = Dot(tansRay.d, tansRay.d);
 		Float b = 2.0f * Dot(oc, tansRay.d);
@@ -48,9 +55,11 @@ namespace raytracer {
 		if (!Quadratic(a, b, c, t0, t1)) return false;
 
 		if (t0 > tansRay.tMax || t1 <= ShadowEpsilon) return false;
+		//printf("Change Center: %f, %f, %f and time %f \n", Center(tansRay.time).x, Center(tansRay.time).y, Center(tansRay.time).z, tansRay.time);
 		Float tShapeHit = t0 < ShadowEpsilon ? t1 : t0;
 		rec.t = tShapeHit;
-		
+		rec.t0 = t0;
+		rec.t1 = t1;
 		Point3f hitP = tansRay(tShapeHit);
 		rec.p = transform(hitP);
 		rec.mat = material;
@@ -69,9 +78,7 @@ namespace raytracer {
 	}
 
 	__device__ inline bool DSphere::BoundingBox(Bounds3f& box) const {
-		Bounds3f box0 = Bounds3f(center0 + Vector3f(-radius, -radius, -radius), center0 + Vector3f(radius, radius, radius));
-		Bounds3f box1 = Bounds3f(center1 + Vector3f(-radius, -radius, -radius), center1 + Vector3f(radius, radius, radius));
-		box = transform(Union(box0, box1));
+		box = this->box;
 		return true;
 	}
 }

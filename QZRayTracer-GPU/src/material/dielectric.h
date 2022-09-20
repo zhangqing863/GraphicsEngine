@@ -43,18 +43,18 @@ namespace raytracer {
 
         // 如果折射角度太小会导致折射变成镜面反射
         if (Refract(wi.d, outwardNormal, niOverNo, refracted)) {
-            wo = Ray(rec.p, refracted);
+            wo = Ray(rec.p, refracted, wi.time, wi.tMax, wi.tMin);
             reflectProb = Schlick(cosine, refractionIndex);
         }
         else {
-            wo = Ray(rec.p, reflected);
+            wo = Ray(rec.p, reflected, wi.time, wi.tMax, wi.tMin);
             reflectProb = 1.0f;
         }
         if (curand_uniform(local_rand_state) < reflectProb) {
-            wo = Ray(rec.p, reflected);
+            wo = Ray(rec.p, reflected, wi.time, wi.tMax, wi.tMin);
         }
         else {
-            wo = Ray(rec.p, refracted);
+            wo = Ray(rec.p, refracted, wi.time, wi.tMax, wi.tMin);
         }
         return true;
     }

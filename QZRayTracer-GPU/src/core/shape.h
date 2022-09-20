@@ -12,7 +12,9 @@ namespace raytracer {
 	
 
 	struct HitRecord {
-		Float t; // time
+		Float t; // time，记录采用的t
+		Float t0; // 记录击中的第二个点
+		Float t1; // 记录击中的第二个点
 		Point3f p; // 击中点
 		Normal3f normal; // 法线
 		Material* mat; // 材质

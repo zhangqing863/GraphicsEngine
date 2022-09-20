@@ -15,6 +15,8 @@ using namespace std;
 #define MAXBOUNDTIME 50
 #define MAXNUMSHAPE 2000
 #define MAXNUMTEXTURE 20
+#define STATICNUMSEEDS 1 // 用于创建场景使用的随机种子数量
+
 
 // GPU Mode
 // limited version of checkCudaErrors from helper_cuda.h in CUDA examples
@@ -30,6 +32,7 @@ void check_cuda(cudaError_t result, char const* const func, const char* const fi
     }
 }
 
+
 __device__ Point3f Color(const Ray& r, Shape** world, curandState* local_rand_state) {
     Ray cur_ray = r;
     Point3f cur_attenuation = Point3f(1.0f, 1.0f, 1.0f);
@@ -41,7 +44,7 @@ __device__ Point3f Color(const Ray& r, Shape** world, curandState* local_rand_st
             Ray scattered;
             Point3f attenuation;
             Point3f emitted = rec.mat->Emitted(rec.u, rec.v, rec.p);
-            Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere(local_rand_state);
+            Point3f target = rec.p + Point3f(rec.normal) + RandomInUnitSphere(local_rand_state); 
             if (rec.mat->Scatter(cur_ray, rec, attenuation, scattered, local_rand_state)) {
                 cur_attenuation = cur_attenuation * attenuation + emitted;
                 cur_emitted = Point3f(emitted);
@@ -96,15 +99,16 @@ __global__ void render(Point3f* fb, int max_x, int max_y, int ns, Camera** cam, 
     color = Clamp(color, 0.f, 1.f);
     color = Point3f(pow(color.x, Gamma), pow(color.y, Gamma), pow(color.z, Gamma)); // gamma矫正
     fb[pixel_index] = color;
+
 }
 
 
 int main() {
-    int nx = 2400;
-    int ny = 1200;
+    int nx = 3840;
+    int ny = 2160;
     int ns = 10000;
-    int tx = 8;
-    int ty = 8;
+    int tx = 16;
+    int ty = 16;
 
     std::cerr << "Rendering a " << nx << "x" << ny << " image with " << ns << " samples per pixel ";
     std::cerr << "in " << tx << "x" << ty << " blocks.\n";
@@ -126,7 +130,7 @@ int main() {
     curandState* d_rand_state;
     checkCudaErrors(cudaMalloc((void**)&d_rand_state, num_pixels * sizeof(curandState)));
     curandState* d_rand_state2;
-    checkCudaErrors(cudaMalloc((void**)&d_rand_state2, 1 * sizeof(curandState)));
+    checkCudaErrors(cudaMalloc((void**)&d_rand_state2, STATICNUMSEEDS * sizeof(curandState)));
 
     // we need that 2nd random state to be initialized for the world creation
     rand_init << <1, 1 >> > (d_rand_state2);
@@ -146,7 +150,7 @@ int main() {
 
 
     int image_width, image_height, image_channel;
-    unsigned char* image = stbi_load("./resource/texture/Metal-8857.jpg", &image_width, &image_height, &image_channel, 0);
+    unsigned char* image = stbi_load("./resource/texture/photo.png", &image_width, &image_height, &image_channel, 0);
     dim3  image_dimensions = dim3(image_width, image_height, image_channel);
     cudaExtent volumeSizeBytes = make_cudaExtent(sizeof(unsigned char) * image_dimensions.x, image_dimensions.y, image_dimensions.z);
     cudaPitchedPtr devicePitchedPointer;
@@ -158,7 +162,7 @@ int main() {
     stbi_image_free(image);
     
     /*--------------------------更换自己的场景--------------------------*/
-    Chapter7InstancesScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
+    RTNWScene2 <<<1, 1>>>(d_list, d_nodes, d_world, d_camera, nx, ny, d_rand_state2, devicePitchedPointer);
     //SampleScene<<<1, 1>>>(d_list, d_world, d_camera, nx, ny, d_rand_state2);
     // create_world << <1, 1 >> > (d_list, d_world, d_camera, nx, ny);
     /*------------------------------end--------------------------------*/
@@ -194,7 +198,7 @@ int main() {
         }
     }
     // 写入图像
-    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter07-instances6.png", nx, ny, 3, data, 0);
+    raytracer::stbi_write_png("./output/RayTracingTheNextWeek/Chapter0903.png", nx, ny, 3, data, 0);
     raytracer::stbi_image_free(data);
 
     // clean up

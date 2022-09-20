@@ -105,6 +105,12 @@
     <ClCompile Include="src\core\transform.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\shape\constant_medium.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material\isotropic.cpp">
+      <Filter>material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -202,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="src\core\transform.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\constant_medium.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\material\isotropic.h">
+      <Filter>material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

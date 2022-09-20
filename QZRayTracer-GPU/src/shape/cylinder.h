@@ -71,6 +71,8 @@ namespace raytracer {
 				}
 				pHit.y = tansRay.o.y > zMax ? zMax : zMin;
 				normal = Normalize(Normal3f(pHit - Point3f(pHit.x, center.y, pHit.z)));
+				rec.t0 = tShapeHit;
+				rec.t1 = t1;
 			}
 			else {
 				// 精确数值
@@ -78,6 +80,8 @@ namespace raytracer {
 				pHit.x *= radius / hitRad;
 				pHit.z *= radius / hitRad;
 				normal = Normalize(Normal3f(pHit - Point3f(center.x, pHit.y, center.z)));
+				rec.t0 = t0;
+				rec.t1 = t1;
 			}
 		}
 		// case2 : 在圆柱内部
@@ -93,6 +97,8 @@ namespace raytracer {
 				}
 				pHit.y = zMin;
 				normal = Normalize(Normal3f(pHit - Point3f(pHit.x, center.y, pHit.z)));
+				rec.t0 = tShapeHit;
+				rec.t1 = t1;
 			}
 			else if (tansRay.o.y > zMax) {
 				tShapeHit = (zMax - tansRay.o.y) / tansRay.d.y; // 击中下面时，光线需要朝下，tShapeHit > 0
@@ -104,6 +110,8 @@ namespace raytracer {
 				}
 				pHit.y = zMax;
 				normal = Normalize(Normal3f(pHit - Point3f(pHit.x, center.y, pHit.z)));
+				rec.t0 = tShapeHit;
+				rec.t1 = t1;
 			}
 			else/* if (tansRay.o.y < zMax && tansRay.o.y > zMin) */{
 				// 尝试能否击中上端
@@ -123,12 +131,16 @@ namespace raytracer {
 						pHit.x *= radius / hitRad;
 						pHit.z *= radius / hitRad;
 						normal = Normalize(Normal3f(Point3f(center.x, pHit.y, center.z) - pHit));
+						rec.t0 = t0;
+						rec.t1 = t1;
 					}
 					else {
 						return false;
 					}
 				}
 				else {
+					rec.t0 = t0;
+					rec.t1 = tShapeHit;
 					pHit.y = tansRay.d.y > 0 ? zMax : zMin;
 					normal = Normalize(Normal3f(Point3f(pHit.x, center.y, pHit.z) - pHit));
 				}
