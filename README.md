@@ -800,7 +800,7 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 
 ![CustomAdd pic](./QZRayTracer/output/CustomAdd/cylinder-final.png)
 
-### GPU Mode
+### 2. GPU Mode
 
 由于离线渲染使用cpu实在是太慢了，因此下定决心将之前的代码修改一个GPU版本的。
 
@@ -829,7 +829,7 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 ![GPU-mode pic](./QZRayTracer-GPU/output/GPU/SampleScene.png)
 
 
-### Add Mesh
+### 3. Add Mesh
 
 通过将 **Ray Tracing The Next Week** 实现后，我又添加 **Mesh** 到代码中，主要原理还是参考的**pbrt**，主要谈谈需要实现的一些核心要素。
 
