@@ -30,6 +30,7 @@ namespace raytracer {
                 rec = tempRec;
             }
         }
+        //printf("closestSoFar:%f\n", closestSoFar);
         return hitAnything;
     }
 

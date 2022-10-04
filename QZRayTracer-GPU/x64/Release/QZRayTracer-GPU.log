@@ -5,11 +5,15 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\transform.h(221): warn
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\transform.h(245): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/sphere.h(33): warning #177-D: variable "discriminant" was declared but never referenced
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/sphere.h(40): warning #177-D: variable "discriminant" was declared but never referenced
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/dsphere.h(52): warning #177-D: variable "discriminant" was declared but never referenced
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/cylinder.h(43): warning #177-D: variable "discriminant" was declared but never referenced
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/triangle.h(185): warning #192-D: unrecognized character escape sequence
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/triangle.h(188): warning #192-D: unrecognized character escape sequence
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(4240): warning #550-D: variable "old_limit" was set but never used
   
@@ -19,56 +23,74 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7000): w
   
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/stb_image.h(7001): warning #550-D: variable "delays_size" was set but never used
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1008): warning #177-D: variable "nb" was declared but never referenced
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1219): warning #177-D: variable "nb" was declared but never referenced
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1009): warning #177-D: variable "ns" was declared but never referenced
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1220): warning #177-D: variable "ns" was declared but never referenced
   
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter5ImageSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer9TestSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer12create_worldEPPNS_5ShapeES2_PPNS_6CameraEii' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer16Chapter2BVHSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer23Chapter7InstancesScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1260): warning #177-D: variable "nb" was declared but never referenced
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src/scene/example.h(1261): warning #177-D: variable "ns" was declared but never referenced
+  
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter4NoiseSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter8VolumeScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22Chapter7InstancesSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_Z6renderPN9raytracer6Point3IfEEiiiPPNS_6CameraEPPNS_5ShapeEP17curandStateXORWOW' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22ShapeTestCylinderSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter6LightSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer9RTNWSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer23Chapter7InstancesScene3EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter3TextureSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer21Chapter3TextureScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer19Chapter8VolumeSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer19Chapter6LightScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer10RTNWScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
 CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer23Chapter1MotionBlurSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer21Chapter3TextureScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer19Chapter8VolumeSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter4NoiseSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter8VolumeScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22ShapeTestCylinderSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer22Chapter7InstancesSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter6LightSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer9RTNWSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer20Chapter3TextureSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer23Chapter7InstancesScene3EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1017): warning #174-D: expression has no effect
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer18Chapter5ImageSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer9TestSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer12create_worldEPPNS_5ShapeES2_PPNS_6CameraEii' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer23Chapter7InstancesScene2EPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer10ModelSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtrPPNS_12TriangleMeshEi' cannot be statically determined
+CUDACOMPILE : ptxas warning : Stack size for entry function '_ZN9raytracer16Chapter2BVHSceneEPPNS_5ShapeES2_S2_PPNS_6CameraEiiP17curandStateXORWOW14cudaPitchedPtr' cannot be statically determined
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1022): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1021): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1026): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1075): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1080): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1134): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1139): warning #174-D: expression has no effect
   
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1140): warning #174-D: expression has no effect
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h(1145): warning #174-D: expression has no effect
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/triangle.h(185): warning #192-D: unrecognized character escape sequence
+  
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\../shape/triangle.h(188): warning #192-D: unrecognized character escape sequence
   
   QZRayTracer.cu
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(71): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(72): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(73): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(74): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(75): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(76): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(77): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(78): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(79): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(80): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(81): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(82): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(83): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(84): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(85): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\./src/core/QZRayTracer.h(86): warning C4305: “初始化”: 从“double”到“const raytracer::Float”截断
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\transform.h(228): warning C4244: “初始化”: 从“double”转换到“raytracer::Float”，可能丢失数据
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): warning C4099: “raytracer::RendererSet”: 类型名称以前使用“struct”现在使用的是“class”
   E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h(18): note: 参见“raytracer::RendererSet”的声明
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\../ext/load_obj.h(53): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\../ext/load_obj.h(53): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\../ext/load_obj.h(60): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\../ext/load_obj.h(195): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\QZRayTracer.cu(172): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\QZRayTracer.cu(173): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\QZRayTracer.cu(174): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
     正在创建库 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.lib 和对象 E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.exp
   正在生成代码
   Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 118 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 122 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   已完成代码的生成
   QZRayTracer-GPU.vcxproj -> E:\Study\CG\Works\GraphicsEngine\x64\Release\QZRayTracer-GPU.exe

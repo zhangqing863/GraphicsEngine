@@ -20,6 +20,7 @@
 #include "../shape/constant_medium.h"
 #include "../shape/flip_normals.h"
 #include "../shape/bvh.h"
+#include "../shape/triangle.h"
 #include "../material/lambertian.h"
 #include "../material/metal.h"
 #include "../material/dielectric.h"
@@ -29,7 +30,7 @@
 #include "../texture/checker_texture.h"
 #include "../texture/noise_texture.h"
 #include "../texture/image_texture.h"
-#include "scene.h"
+//#include "scene.h"
 
 
 namespace raytracer {

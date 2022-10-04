@@ -38,7 +38,7 @@ namespace raytracer {
 
 		Transform invTrans = Inverse(transform);
 
-		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)));
+		Ray tansRay = Ray(invTrans(ray.o), invTrans(Normalize(ray.d)));
 
 		Float t = (k - tansRay.o.z) / tansRay.d.z;
 

@@ -4,6 +4,8 @@
 #include "../core/shape.h"
 //#define BVH_DEBUG_INFO
 
+#define STACKSIZE 20000
+
 namespace raytracer {
 
 	__device__ inline int BoxCompareOnAxisX(const void* a, const void* b);
@@ -42,14 +44,20 @@ namespace raytracer {
 	}
 
 	__device__ inline bool BVHNode::Hit(const Ray& ray, HitRecord& rec) const {
+		//printf("Hit BVHNode!\n");
 		// 栈
-		int stack[10];
+		//thrust::device_vector<int> stack;
+		int stack[20];
 		int sp = 0;
 		stack[sp++] = 0;
+		//stack.push_back(sp);
 		bool isHit = false;
 		rec.t = Infinity;
 		while (sp > 0) {
+			//printf("Hit BVHNode! sp: %d\n", sp);
 			int top = stack[--sp];
+			//int top = stack.back();
+			//stack.pop_back();
 			Shape* node = nodes[top];
 
 			if (node->box.IntersectP(ray)) { // 如果击中了box
@@ -89,33 +97,22 @@ namespace raytracer {
 					}
 				}
 				else {
-					//Float leftT = MinFloat, rightT = MinFloat;
-					bool leftHit = nodes[node->left]->box.IntersectP(ray/*, &leftT*/);
-					bool rightHit = nodes[node->right]->box.IntersectP(ray/*, &rightT*/);
+					bool leftHit = nodes[node->left]->box.IntersectP(ray);
+					bool rightHit = nodes[node->right]->box.IntersectP(ray);
 					if (leftHit && rightHit) {
-						//printf("都击中\n");
-						//if (leftT < rightT) {
-							stack[sp++] = node->right;
-							stack[sp++] = node->left;
-						/*}
-						else {
-							stack[sp++] = node->left;
-							stack[sp++] = node->right;
-						}*/
-
-						//printf("Hited\nleftT:%f and rightT:%f\n", leftT, rightT);
+						stack[sp++] = node->right;
+						stack[sp++] = node->left;
+						//stack.push_back(node->right);
+						//stack.push_back(node->left);
 					}
 					else if (leftHit) {
 						stack[sp++] = node->left;
+						//stack.push_back(node->left);
 					}
 					else if (rightHit) {
 						stack[sp++] = node->right;
+						//stack.push_back(node->right);
 					}
-
-					/*if (abs(leftT) > ShadowEpsilon || abs(rightT) > ShadowEpsilon) {
-
-						printf("leftT:%f and rightT:%f\n", leftT, rightT);
-					}*/
 				}
 			}
 			
@@ -126,11 +123,11 @@ namespace raytracer {
 
 	__device__ inline bool BVHNode::BoundingBox(Bounds3f& box) const {
 		box = this->box;
-		//printf("The BVHNODE Bounding Box is:[%f, %f, %f]\n", this->box.pMin.x, this->box.pMin.y, this->box.pMin.z);
 		return true;
 	}
 
 	__device__ inline int BoxCompareOnAxisX(const void* a, const void* b) {
+		//printf("Stacking BoxCompareOnAxisX...\n");
 		Bounds3f boxLeft, boxRight;
 		Shape* aShapes = *(Shape**)a;
 		Shape* bShapes = *(Shape**)b;
@@ -147,6 +144,7 @@ namespace raytracer {
 	}
 
 	__device__ inline int BoxCompareOnAxisY(const void* a, const void* b) {
+		//printf("Stacking BoxCompareOnAxisY...\n");
 		Bounds3f boxLeft, boxRight;
 		Shape* aShapes = *(Shape**)a;
 		Shape* bShapes = *(Shape**)b;
@@ -163,6 +161,7 @@ namespace raytracer {
 	}
 
 	__device__ inline int BoxCompareOnAxisZ(const void* a, const void* b) {
+		//printf("Stacking BoxCompareOnAxisZ...\n");
 		Bounds3f boxLeft, boxRight;
 		Shape* aShapes = *(Shape**)a;
 		Shape* bShapes = *(Shape**)b;
@@ -214,7 +213,26 @@ namespace raytracer {
 #ifdef BVH_DEBUG_INFO
 		printf("Stacking...\n");
 #endif // BVH_DEBUG_INFO
+		int progress = 0; // 记录进度
+		int percentPg = 10; // 间隔时间
+		int status = 1;
 		while (top != -1) {
+			progress++;
+			if (progress % percentPg == 0) {
+				if (status == 1) {
+					printf("\rBuilding BVH.");
+					status = 2;
+				}
+				else if (status == 2) {
+					printf("\rBuilding BVH..");
+					status = 3;
+				}
+				else {
+					printf("\rBuilding BVH..."); 
+					status = 1;
+				}
+			}
+			
 #ifdef BVH_DEBUG_INFO
 			printf("Top:%d, ", top);
 #endif // BVH_DEBUG_INFO
@@ -369,6 +387,7 @@ namespace raytracer {
 		delete[]numShapesBeginStack;
 		delete[]numShapesEndStack;
 
+		printf("\rBuilt BVH    :)\n");
 		return root;
 	}
 

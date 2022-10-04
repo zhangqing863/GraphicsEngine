@@ -42,12 +42,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -66,6 +71,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,6 +110,7 @@
     <ClCompile Include="src\shape\flip_normals.cpp" />
     <ClCompile Include="src\shape\shapeList.cpp" />
     <ClCompile Include="src\shape\sphere.cpp" />
+    <ClCompile Include="src\shape\triangle.cpp" />
     <ClCompile Include="src\shape\xy_rect.cpp" />
     <ClCompile Include="src\shape\xz_rect.cpp" />
     <ClCompile Include="src\shape\yz_rect.cpp" />
@@ -126,12 +133,14 @@
     <ClInclude Include="src\core\texture.h" />
     <ClInclude Include="src\core\transform.h" />
     <ClInclude Include="src\ext\logging.h" />
+    <ClInclude Include="src\ext\load_obj.h" />
     <ClInclude Include="src\material\dielectric.h" />
     <ClInclude Include="src\material\diffuse_light.h" />
     <ClInclude Include="src\material\isotropic.h" />
     <ClInclude Include="src\material\lambertian.h" />
     <ClInclude Include="src\material\metal.h" />
     <ClInclude Include="src\scene\example.h" />
+    <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\shape\box.h" />
     <ClInclude Include="src\shape\bvh.h" />
     <ClInclude Include="src\shape\constant_medium.h" />
@@ -140,6 +149,7 @@
     <ClInclude Include="src\shape\flip_normals.h" />
     <ClInclude Include="src\shape\shapeList.h" />
     <ClInclude Include="src\shape\sphere.h" />
+    <ClInclude Include="src\shape\triangle.h" />
     <ClInclude Include="src\shape\xy_rect.h" />
     <ClInclude Include="src\shape\xz_rect.h" />
     <ClInclude Include="src\shape\yz_rect.h" />

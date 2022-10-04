@@ -40,7 +40,7 @@ namespace raytracer {
 	__device__ inline bool Box::Hit(const Ray& ray, HitRecord& rec) const {
 		//printf("Hiting Box......................\n");
 		Transform invTransform = Inverse(transform);
-		Ray tansRay = Ray(invTransform(ray.o), Normalize(invTransform(ray.d)));
+		Ray tansRay = Ray(invTransform(ray.o), invTransform(Normalize(ray.d)));
 
 
 

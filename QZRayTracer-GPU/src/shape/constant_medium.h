@@ -24,7 +24,7 @@ namespace raytracer {
 	};
 	__device__ inline bool ConstantMedium::Hit(const Ray& ray, HitRecord& rec) const {
 		Transform invTrans = Inverse(transform);
-		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)), ray.tMax, ray.tMin);
+		Ray tansRay = Ray(invTrans(ray.o), invTrans(Normalize(ray.d)), ray.tMax, ray.tMin);
 
 		HitRecord rec1, rec2;
 		if (boundary->Hit(tansRay, rec)) {

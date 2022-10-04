@@ -993,7 +993,7 @@ namespace raytracer {
 		cudaPitchedPtr image/*, cudaPitchedPtr image2*/) {
 		if (threadIdx.x == 0 && blockIdx.x == 0) {
 			curandState local_rand_state = *rand_state;
-			Point3f lookFrom = Point3f(478.0, 278.0, -600.0);
+			Point3f lookFrom = Point3f(278, 278, 800);
 			Point3f lookAt = Point3f(278, 278, 0);
 			Vector3f lookUp = Vector3f(0, 1, 0);
 			Float aperture = 0.0f;
@@ -1002,24 +1002,37 @@ namespace raytracer {
 			Float screenWidth = width;
 			Float screenHeight = height;
 			Float aspect = screenWidth / screenHeight;
-			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 5.0f);
 
 			int curNum = 0; // 记录创建的Shape数量
-			int nb = 20;
-			int ns = 10000;
-			Material* ground = new Lambertian(new ConstantTexture(Point3f(0.48, 0.83, 0.53)));
+
+			Material* red = new Lambertian(new ConstantTexture(Point3f(0.65f, 0.05f, 0.05f)));
+			Material* redlight = new DiffuseLight(new ConstantTexture(Point3f(0.65f, 0.05f, 0.05f)));
+			Material* white = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* white2 = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* white3 = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* green = new Lambertian(new ConstantTexture(Point3f(0.12f, 0.45f, 0.15f)));
+			Material* light = new DiffuseLight(new ConstantTexture(Point3f(15.0f, 15.0f, 15.0f)));
+			Texture* imgtext = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
+			Texture* imgtext2 = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
 			Perlin* noise = new Perlin(&local_rand_state);
-			Texture* pertext = new NoiseTexture(noise, 10.f);
+			Texture* pertext = new NoiseTexture(noise, 10.0f);
+			shapes[curNum++] = new YZRect(0.f, 555.f, 0.f, -555.f, 555.f, red);
+			shapes[curNum++] = new YZRect(0.f, 555.f, 0.f, -555.f, 0.f, green);
+			shapes[curNum++] = new XZRect(213.f, 343.f, -127.f, -232.f, 554.f, light);
+			shapes[curNum++] = new XZRect(0.f, 555.f, 0.f, -555.f, 555.f, white);
+			shapes[curNum++] = new XZRect(0.f, 555.f, 0.f, -555.f, 0.f, white2);
+			shapes[curNum++] = new XYRect(0.f, 555.f, 0.f, 555.f, -555.f, white3);
+			shapes[curNum++] = new XYRect(37.5f, 517.5f, 142.5f, 412.5f, -400.f, new Lambertian(imgtext));
 
-
-			shapes[curNum++] = new XZRect(123, 423, 147, 412, 554, new DiffuseLight(new ConstantTexture(Point3f(7.f, 7.f, 7.f))));
-			shapes[curNum++] = new XZRect(0, 800, 0, 800, 0, ground);
-			shapes[curNum++] = new DSphere(Point3f(300, 400, 200), Point3f(330, 400, 200), 0.f, 1.f, 50.f, new Lambertian(new ConstantTexture(Point3f(0.5, 0.5, 0.5))));
+			// shapes[curNum++] = new XZRect(123, 423, 147, 412, 554, new DiffuseLight(new ConstantTexture(Point3f(7.f, 7.f, 7.f))));
+			// shapes[curNum++] = new XZRect(0, 800, 0, 800, 0, ground);
+			// shapes[curNum++] = new DSphere(Point3f(300, 400, 200), Point3f(330, 400, 200), 0.f, 1.f, 50.f, new Lambertian(new ConstantTexture(Point3f(0.5, 0.5, 0.5))));
 			/*shapes[curNum++] = new DSphere(Point3f(300, 200, 200), Point3f(300, 230, 200), 0.f, 1.f, 50.f, new Lambertian(new ConstantTexture(Point3f(0.7, 0.3, 0.1))));
 			shapes[curNum++] = new DSphere(Point3f(200, 200, 200), Point3f(200, 200, 220), 0.f, 1.f, 50.f, new Lambertian(new ConstantTexture(Point3f(0.7, 0.3, 0.1))));*/
 
 
-			shapes[curNum++] = new Sphere(Point3f(220, 280, 300), 80, new Lambertian(pertext));
+			 //shapes[curNum++] = new Sphere(Point3f(250, 200, 400), 50, new Lambertian(imgtext));
 			*rand_state = local_rand_state;
 			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f);
 			printf("Create World Successful!\n");
@@ -1170,10 +1183,146 @@ namespace raytracer {
 			}
 
 			*rand_state = local_rand_state;
+			//*world = new ShapeList(shapes, curNum);
 			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f);
 			printf("Create World Successful!\n");
 		}
 	}
+
+
+
+	__global__ void SkyBoxScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state,
+		cudaPitchedPtr image/*, cudaPitchedPtr image2*/) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(478.0, 278.0, -600.0);
+			Point3f lookAt = Point3f(278, 278, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0f;
+			Float fov = 40.0f;
+			Float focusDis = 10.0f;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+
+			//for (int i = 0; i < image.ysize; i++) {
+			//	for (int j = 0; j < image.xsize; j++) {
+			//		((unsigned char*)image.ptr)[(i * image.xsize + j) * 3 + 0]= pow(f((unsigned char*)image.ptr)[(i * image.xsize + j) * 3 + 0], Gamma)
+			//		printf("%d,%d,%d\n", ((unsigned char*)image.ptr)[(i * image.xsize + j) * 3 + 0],
+			//			((unsigned char*)image.ptr)[(i * image.xsize + j) * 3 + 1],
+			//			((unsigned char*)image.ptr)[(i * image.xsize + j) * 3 + 2]);
+			//	}
+			//}
+
+			int curNum = 0; // 记录创建的Shape数量
+			int nb = 20;
+			int ns = 1000;
+			Material* white = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* black = new Lambertian(new ConstantTexture(Point3f(0.9f, 0.1f, 0.1f)));
+			Material* green = new Lambertian(new ConstantTexture(Point3f(0.12f, 0.45f, 0.15f)));
+			Material* light = new DiffuseLight(new ConstantTexture(Point3f(15.0f, 15.0f, 15.0f)));
+			Texture* imgtext = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
+			Perlin* noise = new Perlin(&local_rand_state);
+			Texture* pertext = new NoiseTexture(noise, 0.1f);
+
+			Transform ts = Scale(500, 1, 500);
+			//shapes[curNum++] = new XZRect(123, 423, 147, 412, 554, new DiffuseLight(new ConstantTexture(Point3f(1.f, 1.f, 1.f))));
+			shapes[curNum++] = new Sphere(new Metal(new ConstantTexture(Point3f(1.f, 1.f, 1.f))), Translate(Vector3f(0, 50, 0)) * Scale(50, 50, 50));
+
+			shapes[curNum++] = new XZRect(new Lambertian(new CheckerTexture(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)), new ConstantTexture(Point3f(0.1f, 0.1f, 0.1f)), 500)), ts);
+			//shapes[curNum++] = new Sphere(Point3f(0,0,0), 2000, new DiffuseLight(imgtext)/*, Translate(Vector3f(0, -20000, 0)) * Scale(20000, 20000, 20000)*/);
+			shapes[curNum++] = new Sphere(new DiffuseLight(imgtext), Translate(Vector3f(0, -1500, 0)) * RotateY(180) * Scale(1500, 1500, 1500));
+			*rand_state = local_rand_state;
+			*world = new ShapeList(shapes, curNum);
+			printf("Create World Successful!\n");
+		}
+	}
+
+
+
+	__global__ void ModelScene(Shape** shapes, Shape** nodes, Shape** world, Camera** camera, int width, int height, curandState* rand_state,
+		cudaPitchedPtr image, TriangleMesh** meshs, int numModels) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			curandState local_rand_state = *rand_state;
+			Point3f lookFrom = Point3f(284, 150.0, -400.0);
+			Point3f lookAt = Point3f(0, 10, 0);
+			Vector3f lookUp = Vector3f(0, 1, 0);
+			Float aperture = 0.0f;
+			Float fov = 40.0f;
+			Float focusDis = 10.0f;
+			Float screenWidth = width;
+			Float screenHeight = height;
+			Float aspect = screenWidth / screenHeight;
+			*camera = new Camera(lookFrom, lookAt, lookUp, fov, aspect, aperture, focusDis, 0.0f, 1.0f);
+
+			int curNum = 0; // 记录创建的Shape数量
+			int nb = 20;
+			int ns = 1000;
+			Material* white = new Lambertian(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)));
+			Material* black = new Lambertian(new ConstantTexture(Point3f(0.9f, 0.1f, 0.1f)));
+			Material* green = new Lambertian(new ConstantTexture(Point3f(0.12f, 0.45f, 0.15f)));
+			Material* light = new DiffuseLight(new ConstantTexture(Point3f(15.0f, 15.0f, 15.0f)));
+			Texture* imgtext = new ImageTexture((unsigned char*)image.ptr, image.xsize, image.ysize);
+			Perlin* noise = new Perlin(&local_rand_state);
+			Texture* pertext = new NoiseTexture(noise, 0.1f);
+
+			Material* lamber = new Lambertian(new ConstantTexture(Point3f(0.8f, 0.8f, 0.8f)));
+			Material* metal = new Metal(new ConstantTexture(Point3f(1.f, 1.f, 1.f)), 0.2f);
+			Material* dielectric = new Dielectric(1.5);
+
+			Transform ts = Scale(500, 1, 500);
+			//shapes[curNum++] = new XZRect(123, 423, 147, 412, 554, new DiffuseLight(new ConstantTexture(Point3f(1.f, 1.f, 1.f))));
+			//shapes[curNum++] = new Sphere(new Metal(new ConstantTexture(Point3f(1.f, 1.f, 1.f))), Translate(Vector3f(0, 50, 0)) * Scale(50, 50, 50));
+
+			shapes[curNum++] = new XZRect(new Lambertian(new CheckerTexture(new ConstantTexture(Point3f(0.73f, 0.73f, 0.73f)), new ConstantTexture(Point3f(0.1f, 0.1f, 0.1f)), 500)), ts);
+			//shapes[curNum++] = new Sphere(Point3f(0,0,0), 2000, new DiffuseLight(imgtext)/*, Translate(Vector3f(0, -20000, 0)) * Scale(20000, 20000, 20000)*/);
+			shapes[curNum++] = new Sphere(new DiffuseLight(imgtext), Translate(Vector3f(0, -1500, 0)) * RotateY(180) * Scale(1500, 1500, 1500));
+			Float size = 65;
+			Float Rotate = 180;
+			CreateModel(shapes, meshs[0], curNum, metal, Translate(Vector3f(0, 65, 0)) * RotateY(Rotate) * Scale(size, size, size));
+			printf("Shape Num: %d!\n", curNum);
+			*rand_state = local_rand_state;
+			*world = CreateBVHNode(shapes, curNum, nodes, &local_rand_state, 0.f, 0.f);
+			printf("Create World Successful!\n");
+		}
+	}
+
+
+
+
+
+	__global__ void LoadOBJ(TriangleMesh** meshs, int numModels, float* vertex, Float* normals, Float* uvws, int* faces, int numVertices,
+		int numNormals, int numUVWs, int numFaces, int faceOffset) {
+		if (threadIdx.x == 0 && blockIdx.x == 0) {
+			
+			Point3f* curVertices = new Point3f[numVertices];
+			Normal3f* curNormals = new Normal3f[numNormals];
+			Point3f* curUVWs = new Point3f[numUVWs];
+			int* curFaces = new int[numFaces * faceOffset];
+
+			for (int i = 0; i < numVertices; i++) {
+				curVertices[i] = Point3f(vertex[i * 3], vertex[i * 3 + 1], vertex[i * 3 + 2]);
+				if (numNormals > 0 && numNormals > i )
+					curNormals[i] = Normal3f(normals[i * 3], normals[i * 3 + 1], normals[i * 3 + 2]);
+				if (numUVWs > 0 && numUVWs > i)
+					curUVWs[i] = Point3f(uvws[i * 3], uvws[i * 3 + 1], uvws[i * 3 + 2]);
+			}
+			for (int i = 0; i < numFaces; i++) {
+				for (int j = 0; j < faceOffset; j++) {
+					curFaces[i * faceOffset + j] = faces[i * faceOffset + j];
+				}
+			}
+
+			/*for (int i = 0; i < numUVWs; i++) {
+				printf("uvw:%f, %f, %f\n", curUVWs[i].x, curUVWs[i].y, curUVWs[i].z);
+			}*/
+
+			meshs[numModels] = new TriangleMesh(numFaces, faceOffset, numVertices, curVertices, numNormals, curNormals, numUVWs, curUVWs, curFaces);
+			printf("Create The %dth Model  Successful!\n", numModels + 1);
+		}
+	}
+
 }
 
 

@@ -111,6 +111,9 @@
     <ClCompile Include="src\material\isotropic.cpp">
       <Filter>material</Filter>
     </ClCompile>
+    <ClCompile Include="src\shape\triangle.cpp">
+      <Filter>shape</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\api.h">
@@ -214,6 +217,15 @@
     </ClInclude>
     <ClInclude Include="src\material\isotropic.h">
       <Filter>material</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\triangle.h">
+      <Filter>shape</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ext\load_obj.h">
+      <Filter>ext</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\scene.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

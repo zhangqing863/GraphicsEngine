@@ -456,6 +456,11 @@ namespace raytracer {
             return Point3<T>(inv * x, inv * y, inv * z);
         }
         template <typename U>
+        __host__ __device__ Point3<T> operator/(Point3<U> f) const {
+            //CHECK_NE(f, 0);
+            return Point3<T>(x / f.x, y / f.y, z / f.z);
+        }
+        template <typename U>
         __host__ __device__ Point3<T>& operator/=(U f) {
             //CHECK_NE(f, 0);
             Float inv = (Float)1 / f;
@@ -1434,37 +1439,50 @@ namespace raytracer {
 
     __device__ inline void Qsort(void* base, int num, int size, int(*comparator)(const void*, const void*)) {
 
-        /*printf("numShapes:%d \n", num);
-
-        if (num > 0) {
-
-            printf("Sort\n");
-            int pivot = Partition(base, num, size, comparator);
-            printf("pivot:%d \n", pivot);
-
-            printf("AfterPartition\n");
-            Qsort((char*)base, pivot, size, comparator);
-
-            if (pivot + 1 > num) {
-                printf("NULL!!!\n");
+        int* stack = new int[num];
+        int top = -1;
+        stack[++top] = num - 1;
+        stack[++top] = 0;
+        while (top != -1) {
+            
+            int left = stack[top--];
+            int right = stack[top--];
+            int i = left, j = right;
+            // 循环找比隔板小的在右边的数，比隔板大但在左边的数，交换位置，这样比隔板小的就到了隔板左边，比隔板大的就都到了隔板右边
+            while (i < j) {
+                while (i < j && comparator((char*)base + j * size, (char*)base + left * size)) --j; // 这一句一定要在前面！！！先找到第一个比pivot小的再说，因为可能pivot刚好是最小的，如果先移动了i，会造成pivot位置被错换到第二位
+                while (i < j && comparator((char*)base + i * size, (char*)base + left * size) < 0) ++i;
+                QSwap((char*)base + left * size, (char*)base + j * size, size);
             }
+            QSwap((char*)base + i * size, (char*)base + left * size, size);
+            // 因为隔板还在数组最左边，所以要把隔板给换到正确的位置上
+            int mid = i;
 
-            Qsort((char*)base + (pivot + 1) * size, num - pivot - 1, size, comparator);
-
-        }*/
-
-        int i = 0;
-        for (i = 0; i < num - 1; i++) {
-            int j = 0;
-            for (j = 0; j < num - 1 - i; j++) {
-                //两个元素比较
-                //base强制类型转换成char*，
-                if (comparator((char*)base + j * size, (char*)base + (j + 1) * size) > 0) {
-                    //交换函数
-                    QSwap((char*)base + j * size, (char*)base + (j + 1) * size, size);
-                }
+            if (right > mid + 1) {
+                stack[++top] = right;
+                stack[++top] = mid + 1;
+            }
+            if (left < mid - 1) {
+                stack[++top] = mid - 1;
+                stack[++top] = left;
             }
         }
+
+        //for (int i = 0; i < num - 1; i++) {
+
+        //    printf("\rAll round time:%d, current round:%d", num - 1, i + 1);
+        //    int j = 0;
+        //    for (j = 0; j < num - 1 - i; j++) {
+        //        //两个元素比较
+        //        //base强制类型转换成char*，
+        //        if (comparator((char*)base + j * size, (char*)base + (j + 1) * size) > 0) {
+        //            //交换函数
+        //            QSwap((char*)base + j * size, (char*)base + (j + 1) * size, size);
+        //        }
+        //    }
+        //}
+        delete[] stack;
+        //printf("Stacking QSort End...\n");
     }
 #pragma endregion
     
@@ -1567,7 +1585,45 @@ namespace raytracer {
 
 #pragma endregion
 
-    
+
+
+    __host__ __device__ inline bool OutPut(Bounds3f box) {
+        printf("Bound3f box : pMin[%f, %f, %f], pMax[%f, %f, %f]\n", box.pMin.x, box.pMin.y, box.pMin.z, box.pMax.x, box.pMax.y, box.pMax.z);
+        return true;
+    }
+
+    __host__ __device__ inline bool OutPut(Point3f p) {
+        printf("Point3f : (%f, %f, %f) \n", p.x, p.y, p.z);
+        return true;
+    }
+    __host__ __device__ inline bool OutPut(Vector3f p) {
+        printf("Vector3f : (%f, %f, %f) \n", p.x, p.y, p.z);
+        return true;
+    }
+    __host__ __device__ inline bool OutPut(Normal3f p) {
+        printf("Normal3f : (%f, %f, %f) \n", p.x, p.y, p.z);
+        return true;
+    }
+    class TriangleMesh {
+    public:
+        // TriangleMesh Public Methods
+        __host__ __device__ TriangleMesh(int nTriangles, int faceOffset, int nVertices, 
+            const Point3f* V, int nNormals, const Normal3f* N, int nUVWs, const Point3f* uvw, const int* faceIndices)
+            : nTriangles(nTriangles), nVertices(nVertices), faceOffset(faceOffset), nNormals(nNormals), nUVWs(nUVWs) {
+            v = V;
+            n = N;
+            this->uvw = uvw;
+            this->faceIndices = faceIndices;
+        }
+
+        // TriangleMesh Data
+        const int nTriangles, nVertices, nNormals, nUVWs, faceOffset;
+        
+        const Point3f* v;
+        const Normal3f* n;
+        const Point3f* uvw;
+        const int* faceIndices;
+    };
     
 }
 

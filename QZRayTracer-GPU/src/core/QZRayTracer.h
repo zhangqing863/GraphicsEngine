@@ -13,10 +13,15 @@
 #include <stdexcept>
 #include "cuda_runtime.h"
 #include <curand_kernel.h>
+#include <thrust/reduce.h>
+#include <thrust/sequence.h>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
 #include "../ext/logging.h"
 
 #define QZRT_CONSTEXPR constexpr
 #define GPUMODE
+#define SRGB2LINEAR
 // #define PBRT_FLOAT_AS_DOUBLE
 namespace raytracer {
 
@@ -67,7 +72,7 @@ namespace raytracer {
 	static QZRT_CONSTEXPR Float MachineEpsilon =
 		std::numeric_limits<Float>::epsilon() * 0.5;
 #endif
-	__device__ static constexpr Float ShadowEpsilon = 0.001f;
+	__device__ static constexpr Float ShadowEpsilon = 0.0001f;
 	__device__ static QZRT_CONSTEXPR Float Pi = 3.14159265358979323846;
 	__device__ static QZRT_CONSTEXPR Float InvPi = 0.31830988618379067154;
 	__device__ static QZRT_CONSTEXPR Float Inv2Pi = 0.15915494309189533577;
@@ -78,6 +83,7 @@ namespace raytracer {
 	__device__ static QZRT_CONSTEXPR Float Rad2Degree = 57.29577951308232087680;
 	__device__ static QZRT_CONSTEXPR Float Degree2Rad = 0.01745329251994329577;
 	__device__ static QZRT_CONSTEXPR Float Gamma = 1.0 / 2.2;
+	__device__ static QZRT_CONSTEXPR Float invGamma = 2.2;
 #ifdef GPUMODE
 #else
 	
@@ -109,12 +115,12 @@ namespace raytracer {
 	}
 
 	template <typename T>
-	__device__ inline T Min(T a, T b) {
+	__host__ __device__ inline T Min(T a, T b) {
 		return a < b ? a : b;
 	}
 
 	template <typename T>
-	__device__ inline T Max(T a, T b) {
+	__host__ __device__ inline T Max(T a, T b) {
 		return a < b ? b : a;
 	}
 	

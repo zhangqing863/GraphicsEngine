@@ -31,7 +31,7 @@ namespace raytracer {
 	__device__ inline bool Cylinder::Hit(const Ray& ray, HitRecord& rec) const {
 		Transform invTrans = Inverse(transform);
 
-		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)));
+		Ray tansRay = Ray(invTrans(ray.o), invTrans(Normalize(ray.d)));
 		Float dx = tansRay.d.x;
 		Float dz = tansRay.d.z;
 		Float cox = tansRay.o.x - center.x;

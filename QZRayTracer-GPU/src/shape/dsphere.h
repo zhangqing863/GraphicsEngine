@@ -42,7 +42,7 @@ namespace raytracer {
 	__device__ inline bool DSphere::Hit(const Ray& ray, HitRecord& rec) const {
 		Transform invTrans = Inverse(transform);
 
-		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)), ray.time);
+		Ray tansRay = Ray(invTrans(ray.o), invTrans(Normalize(ray.d)), ray.time);
 		//Point3f transCenter = 
 
 		Vector3f oc = tansRay.o - Center(tansRay.time);

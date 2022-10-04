@@ -114,6 +114,7 @@ D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\cwchar
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\eh.h
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\emmintrin.h
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\exception
+D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\fstream
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\immintrin.h
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\initializer_list
 D:\Microsoft Visual Studio\Community\VC\Tools\MSVC\14.32.31326\include\intrin.h
@@ -187,16 +188,33 @@ E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\geometry.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\material.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\paramset.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\QZRayTracer.h
-E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\scene.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\shape.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\stb_image_write.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\core\transform.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\ext\load_obj.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\ext\logging.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\dielectric.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\diffuse_light.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\isotropic.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\lambertian.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\material\metal.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\example.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\scene\scene.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\box.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\bvh.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\constant_medium.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\cylinder.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\dsphere.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\flip_normals.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\shapeList.h
 E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\sphere.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\triangle.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\xy_rect.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\xz_rect.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\shape\yz_rect.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\checker_texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\constant_texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\image_texture.h
+E:\Study\CG\Works\GraphicsEngine\QZRayTracer-GPU\src\texture\noise_texture.h

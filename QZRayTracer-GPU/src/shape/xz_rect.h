@@ -27,6 +27,15 @@ namespace raytracer {
 			}
 			material = mat;
 		}
+		__device__ XZRect(Material* mat, const  Transform& _trans = Transform()) {
+			transform = _trans;
+			x0 = -1.f;
+			x1 = 1.f;
+			z0 = -1.f;
+			z1 = 1.f;
+			k = 0;
+			material = mat;
+		}
 		// Í¨¹ý Shape ¼Ì³Ð
 		__device__ virtual bool Hit(const Ray& ray, HitRecord& rec) const override;
 
@@ -36,7 +45,7 @@ namespace raytracer {
 	__device__ inline bool XZRect::Hit(const Ray& ray, HitRecord& rec) const {
 		Transform invTrans = Inverse(transform);
 
-		Ray tansRay = Ray(invTrans(ray.o), Normalize(invTrans(ray.d)));
+		Ray tansRay = Ray(invTrans(ray.o), invTrans(Normalize(ray.d)));
 		Float t = (k - tansRay.o.y) / tansRay.d.y;
 
 		if (t > tansRay.tMax || t <= ShadowEpsilon) {

@@ -37,9 +37,15 @@ namespace raytracer {
 		else if (j < 0) {
 			j = 0;
 		}
-		Float r = int(data[3 * i + 3 * width * j]) / 255.0f;
+		Float r =     int(data[3 * i + 3 * width * j]) / 255.0f;
 		Float g = int(data[3 * i + 3 * width * j + 1]) / 255.0f;
 		Float b = int(data[3 * i + 3 * width * j + 2]) / 255.0f;
+#ifdef SRGB2LINEAR
+		r = powf(r, invGamma);
+		g = powf(g, invGamma);
+		b = powf(b, invGamma);
+#endif // SRGB2LINEAR
+
 		//Float r = tex2DLayered<Float>(texs, u, 1 - v, 0), //R
 		//	Float g = tex2DLayered<float>(texs, rec.u, 1 - rec.v, 1),//G
 		//	Float b = tex2DLayered<float>(texs, rec.u, 1 - rec.v, 2));//B

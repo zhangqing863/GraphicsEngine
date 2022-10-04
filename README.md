@@ -828,6 +828,51 @@ $$\mathbf{n} = Normalize((0, 0, \mathrm{p}_z - \mathrm{o}_z))$$
 
 ![GPU-mode pic](./QZRayTracer-GPU/output/GPU/SampleScene.png)
 
+
+### Add Mesh
+
+通过将 **Ray Tracing The Next Week** 实现后，我又添加 **Mesh** 到代码中，主要原理还是参考的**pbrt**，主要谈谈需要实现的一些核心要素。
+
+- 需要读取模型文件到内存中，由于模型的格式有很多种，比如 **obj, fbx** 等等，如何对不同的格式做适配是比较麻烦的事。
+- 读取进来后怎么将其传入到GPU的内存中，因为GPU传入的东西应该是要求内存连续的，因此这里也得有所考虑。
+- 求交测试，需要考虑浮点误差的影响，不然会导致很多**artifact**。
+
+解决了这些点之后其实差不多就ok了，但是模型的Mesh很多，在构建**bvh**的时候非常耗费时间，有时间还是去看看有什么快速的方法导入模型并构建加速结构。
+
+那么接下来就可以看看效果图：
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/bunny.png)
+
+下图就是有一定的问题，主要就是因为浮点误差引起，导致光线一直没跑出去，不断迭代后，颜色不断的减小，最终缩减成黑色。
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/bunny2.png)
+
+下图也是这样，边界部分还是有一定的问题，也是因为浮点误差引起。
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/bunny4.png)
+
+最终还是将正确的小兔子实现出来了。
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/bunny5.png)
+
+后面就是导入的一些其它模型效果，把图像学的一些经典模型都拿来试了一下，当然有些模型我是去3dmax里减了面的，不然构建bvh都不知道要花多久时间。
+
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/happy-buddha.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/dragon.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/teapot.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/teapot2.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/suzanne.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/teddy.png)
+
+![Mesh pic](./QZRayTracer-GPU/output/CustomAdd/teddy2.png)
+
+
 ## Implementation of 《Ray Tracing The Next Week》
 
 本章在 [Ray Tracing In One Weekend](#implementation-of-ray-tracing-in-one-weekend) 的基础上添加更多高级的功能，并不断完善以获得一个正儿八经的光线追踪器。
